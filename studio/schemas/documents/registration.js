@@ -119,63 +119,63 @@ export default {
       ],
       fieldset: 'details'
     },
-    // {
-    //   name: 'classType',
-    //   title: 'Class type',
-    //   type: 'reference',
-    //   to: [
-    //     { type: 'classType' }
-    //   ],
-    //   fieldset: 'details',
-    //   options: {
-    //     filter: ({document}) => {
-    //       // Always make sure to check for document properties
-    //       // before attempting to use them
-    //       if (!document.language) {
-    //         return;
+    {
+      name: 'classType',
+      title: 'Class type',
+      type: 'reference',
+      to: [
+        { type: 'classType' }
+      ],
+      fieldset: 'details',
+      options: {
+        filter: ({document}) => {
+          // Always make sure to check for document properties
+          // before attempting to use them
+          if (!document.language) {
+            return;
 
-    //       }
-    //       return {
-    //         filter: '_type == "classType" && references($language->_id)',
-    //         params: {
-    //           language: document.language
-    //         }
-    //       }
-    //     }
-    //   },
-    // },
-    // {
-    //   name: 'level',
-    //   title: 'Level',
-    //   type: 'reference',
-    //   to: [
-    //     { type: 'level' }
-    //   ],
-    //   fieldset: 'details'
-    // },
+          }
+          return {
+            filter: '_type == "classType" && references($language->_id)',
+            params: {
+              language: document.language
+            }
+          }
+        }
+      },
+    },
+    {
+      name: 'level',
+      title: 'Level',
+      type: 'reference',
+      to: [
+        { type: 'level' }
+      ],
+      fieldset: 'details'
+    },
     {
       name: "classSize",
       title: "Class Size",
       type: "string",
       fieldset: 'details',
     },
-    // {
-    //   name: "schedule",
-    //   title: "Schedule",
-    //   type: "array",
-    //   of: [
-    //     { type: 'classDayTime' }
-    //   ],
-    //   fieldset: "details",
-    // },
-    // {
-    //   name: 'packages',
-    //   title: 'Packages',
-    //   type: 'array',
-    //   of: [
-    //     { type: 'registrationPackage' }
-    //   ]
-    // },
+    {
+      name: "schedule",
+      title: "Schedule",
+      type: "array",
+      of: [
+        { type: 'classDayTime' }
+      ],
+      fieldset: "details",
+    },
+    {
+      name: 'packages',
+      title: 'Packages',
+      type: 'array',
+      of: [
+        { type: 'registrationPackage' }
+      ]
+    },
   ],
   // preview: {
   //   select: {

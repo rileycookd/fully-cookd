@@ -12,9 +12,24 @@ import comment from './comment'
 import registration from './documents/registration'
 import teacher from './documents/teacher'
 import student from './documents/student'
+import classType from './documents/classType'
+import faq from './documents/faq'
+import level from './documents/level'
+import language from './documents/language'
+import company from './documents/company'
 
 // Object types
 import mainImage from './objects/mainImage'
+import classPricing from './objects/classPricing'
+import classPackage from './documents/classPackage'
+import classSizeDiscount from './objects/classSizeDiscount'
+import frequentlyAskedQuestion from './objects/frequentlyAskedQuestion'
+import testimonial from './documents/testimonial'
+import classDayTime from './objects/classDayTime'
+import registrationPackage from './objects/registrationPackage'
+import classSchema from './objects/class'
+import timeRange from './objects/timeRange'
+import languageLevelGroup from './objects/languageLevelGroup'
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -28,14 +43,29 @@ export default createSchema({
     post,
     author,
     category,
+    registration,
+    teacher,
+    classType,
+    student,
+    testimonial,
+    faq,
+    level,
+    language,
+    company,
+
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
     comment,
-
-    registration,
-    teacher,
     mainImage,
-    student
+    classPricing,
+    classSizeDiscount,
+    frequentlyAskedQuestion,
+    classDayTime,
+    registrationPackage,
+    classSchema,
+    classPackage,
+    timeRange,
+    languageLevelGroup
   ])
 })
