@@ -17,6 +17,20 @@ import faq from './documents/faq'
 import level from './documents/level'
 import language from './documents/language'
 import company from './documents/company'
+import page from './documents/page'
+import route from './documents/route'
+import resource from './documents/resource'
+import navigationMenu from './documents/navigationMenu'
+import siteSettings from './documents/siteSettings'
+import footer from './documents/footer'
+import homepage from './documents/homepage'
+import testimonial from './documents/testimonial'
+
+
+
+
+// Block types
+import * as blocks from './blocks'
 
 // Object types
 import mainImage from './objects/mainImage'
@@ -24,12 +38,23 @@ import classPricing from './objects/classPricing'
 import classPackage from './documents/classPackage'
 import classSizeDiscount from './objects/classSizeDiscount'
 import frequentlyAskedQuestion from './objects/frequentlyAskedQuestion'
-import testimonial from './documents/testimonial'
 import classDayTime from './objects/classDayTime'
 import registrationPackage from './objects/registrationPackage'
 import classSchema from './objects/class'
 import timeRange from './objects/timeRange'
 import languageLevelGroup from './objects/languageLevelGroup'
+import cta from './objects/cta'
+import ctaLabel from './objects/ctaLabel'
+import openGraph from './objects/openGraph'
+import ctaGroup from './objects/ctaGroup'
+import blockText from './objects/blockText'
+
+
+
+
+const allBlocks = Object.values(blocks).map((block) => {
+  return { ...block, fields: block.fields }
+})
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -52,10 +77,18 @@ export default createSchema({
     level,
     language,
     company,
+    page,
+    route,
+    resource,
+    navigationMenu,
+    siteSettings,
+    footer,
+    homepage,
 
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
+    blockText,
     comment,
     mainImage,
     classPricing,
@@ -66,6 +99,11 @@ export default createSchema({
     classSchema,
     classPackage,
     timeRange,
-    languageLevelGroup
+    languageLevelGroup,
+    ctaLabel,
+    cta,
+    openGraph,
+    ctaGroup,
   ])
+  .concat(allBlocks),
 })

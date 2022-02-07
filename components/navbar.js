@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import { useUser } from "@auth0/nextjs-auth0"
+import { signOut, useSession } from 'next-auth/react';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
 import Image from 'next/image'
 
-export default function Navbar() {
-  const { user, error, isLoading } = useUser();
-  console.log(user)
+export default function Navbar() { 
+  const { data: session, status } = useSession()
+  console.log("SESSION: ", session)
 
   return (
     <nav className="border-b border-primary-500/50">
@@ -22,18 +22,21 @@ export default function Navbar() {
           </a>
         </Link>
         <ul className="flex">
-          {!user && (
+          {!session?.user && (
             <li className='flex items-center'>
-              <Link href="/api/auth/login">
+              <Link href="/api/auth/signin">
                 <a className="bg-secondary hover:bg-secondary-300 text-white py-2 px-6 rounded">Login</a>
               </Link>
             </li>
           )}
-          {user && (
+          {session?.user && (
             <li>
-              <Link href="/api/auth/logout">
-                <a className="bg-secondary hover:bg-secondary-300 text-white py-2 px-4 rounded">Logout</a>
-              </Link>
+              <button 
+                className="bg-secondary hover:bg-secondary-300 text-white py-2 px-4 rounded" 
+                onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })}
+              >
+                Logout
+              </button>
             </li>
           )}
         </ul>

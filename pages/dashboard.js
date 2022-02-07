@@ -1,6 +1,7 @@
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
-import useSWR from "swr";
 import Navbar from "../components/navbar";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const fetcher = async (uri) => {
   const response = await fetch(uri);
@@ -8,20 +9,21 @@ const fetcher = async (uri) => {
 };
 
 export default function Dashboard({ user }) {
-  const { data, error } = useSWR('/api/user/get', fetcher)
+  const router = useRouter();
+  const { data: session, status } = useSession()
+
   return (
     <>
       <Navbar />
       <h1>DASHBOARD!</h1>
-      {error ? (
+      {/* {error ? (
         <div>oops... {error.message}</div>
       ) : data === undefined ? (
         <div>Loading... </div>
       ) : (
         <div>{JSON.stringify(data)}</div>
-      )}
+      )} */}
     </>
   )
 }
 
-export const getServerSideProps = withPageAuthRequired();

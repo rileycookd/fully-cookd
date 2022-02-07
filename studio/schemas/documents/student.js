@@ -14,16 +14,16 @@ export default {
   },
   fields: [
     {
-      name: 'netlifyId',
-      title: 'Netlify ID',
+      name: 'publicAddress',
+      title: 'Magic Link Public Address',
       type: 'string',
-      hidden: true,
+      // hidden: true,
     },
-    {
-      name: 'status',
-      title: 'Currently enrolled?',
-      type: 'boolean',
-    },
+    // {
+    //   name: 'status',
+    //   title: 'Currently enrolled?',
+    //   type: 'boolean',
+    // },
     {
       name: 'name',
       type: 'string',
@@ -60,23 +60,23 @@ export default {
       type: "string",
       fieldset: 'schedule'
     },
-    { 
-      name: 'schedule',
-      title: 'Class schedule',
-      type: 'array',
-      of: [
-        { type: 'classDayTime' }
-      ],
-      fieldset: 'schedule'
-    },
-    {
-      name: 'classes',
-      title: 'Classes',
-      type: 'array',
-      of: [
-        { type: 'class' }
-      ]
-    },
+    // { 
+    //   name: 'schedule',
+    //   title: 'Class schedule',
+    //   type: 'array',
+    //   of: [
+    //     { type: 'classDayTime' }
+    //   ],
+    //   fieldset: 'schedule'
+    // },
+    // {
+    //   name: 'classes',
+    //   title: 'Classes',
+    //   type: 'array',
+    //   of: [
+    //     { type: 'class' }
+    //   ]
+    // },
     {
       name: "level",
       title: "Spanish level",

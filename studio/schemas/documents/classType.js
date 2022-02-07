@@ -1,4 +1,4 @@
-// import SlugInput from 'sanity-plugin-better-slug'
+import SlugInput from 'sanity-plugin-better-slug'
 import { FaChalkboardTeacher } from 'react-icons/fa'
 
 export default {
@@ -23,26 +23,26 @@ export default {
       type: 'string',
       validation: Rule => Rule.required()
     },
-    // {
-    //   name: 'slug',
-    //   title: 'Slug',
-    //   type: 'slug',
-    //   description: 'The relative route name (i.e. "my-resource-name")',
-    //   inputComponent: SlugInput,
-    //   options: {
-    //     source: 'title',
-    //     basePath: (document) => `${document.pathPrefix || 'classes'}`,
-    //     maxLength: 100,
-    //   },
-    //   validation: Rule => Rule.required()
-    // },
-    // {
-    //   name: 'pathPrefix',
-    //   title: 'pathPrefix',
-    //   hidden: true,
-    //   type: 'string',
-    //   initialValue: 'classes'
-    // },
+    {
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      description: 'The relative route name (i.e. "my-resource-name")',
+      inputComponent: SlugInput,
+      options: {
+        source: 'title',
+        basePath: (document) => `${document.pathPrefix || 'classes'}`,
+        maxLength: 100,
+      },
+      validation: Rule => Rule.required()
+    },
+    {
+      name: 'pathPrefix',
+      title: 'pathPrefix',
+      hidden: true,
+      type: 'string',
+      initialValue: 'classes'
+    },
     {
       name: 'languages',
       title: 'Languages',
@@ -65,12 +65,12 @@ export default {
       description: 'Used for previews',
       validation: Rule => Rule.required()
     },
-    // {
-    //   name: 'description',
-    //   title: 'Description',
-    //   type: 'blockText',
-    //   validation: Rule => Rule.required()
-    // },
+    {
+      name: 'description',
+      title: 'Description',
+      type: 'blockText',
+      validation: Rule => Rule.required()
+    },
     {
       name: 'image',
       title: 'Main image',
