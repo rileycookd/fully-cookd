@@ -11,7 +11,7 @@ import { IoHome } from 'react-icons/io5'
 import { BsGiftFill } from 'react-icons/bs'
 
 import pageBuilder from './src/structure/page-builder'
-// import forms from './src/structure/forms'
+import forms from './src/structure/forms'
 // import staff from './src/structure/staff'
 import clients from './src/structure/clients'
 import marketing from './src/structure/marketing'
@@ -141,7 +141,7 @@ export default () =>
   S.list()
     .title('Content')
     .items([
-      // forms,
+      forms,
       admin,  
       clients,
       // staff,

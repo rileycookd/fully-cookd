@@ -32,7 +32,7 @@ export default function HeroPage({
         </div>
         <div className='absolute w-1/2 h-full top-0 right-0 bottom-0 bg-gradient-to-r from-primary'></div>
       </div>
-      <div className='relative bg-grey-300 h-52 w-full'>
+      <div className='relative bg-grey-200 h-52 w-full'>
       {navigation?.length && <NavFeaturedLinks links={navigation} />}
       </div>
     </section>

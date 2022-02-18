@@ -6,6 +6,7 @@ import { getClassSizeString } from '../lib/helpers'
 
 function PostPreview (props) {
   const {
+    _id,
     title,
     excerpt,
     description,
@@ -17,10 +18,11 @@ function PostPreview (props) {
     children,
     min,
     max,
-    pricing
+    pricing,
+    index
   } = props
 
-  console.log("POST PROPS:", props)
+  console.log("Animation Delay:", `animation-delay-${index * 100}`)
 
   const renderMeta = () => {
     if(_type === 'resource') {
@@ -42,14 +44,18 @@ function PostPreview (props) {
     }
   }
 
-  // const fullPath = pathPrefix
-  //   ? `/${pathPrefix}/${slug.current}`
-  //   : `/${slug.current}`
-  const fullPath = '/classes/general-english'
+  const fullPath = pathPrefix
+    ? `/${pathPrefix}/${slug.current}`
+    : `/${slug.current}`
 
+  let animationDelay = ''
+  if(index > 0 ) {
+    animationDelay = `animation-delay-${index * 200}`
+  }
+    
   return (
     <Link href={fullPath}>
-      <a className='flex rounded-lg border border-grey-300 shadow-md overflow-hidden'>
+      <a key={_id} className={`flex animate-slide-up ${animationDelay} opacity-0 rounded-lg bg-white transition-all duration-100 border border-grey-400 hover:shadow-md overflow-hidden`}>
         <div className='w-5/12 p-4'>
           {image && (
             <img

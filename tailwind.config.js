@@ -1,4 +1,8 @@
  module.exports = {
+  content: [
+    './pages/**/*.{js,ts,jsx,tsx}',
+    './components/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       colors: {
@@ -7,11 +11,15 @@
         'accent-7': '#333',
         primary: {
           DEFAULT: '#082735',
-          '100': '#1B82B1',
-          '200': '#114E6A',
-          '300': '#0D4159',
-          '400': '#0B3447',
-          '500': '#082735'
+          '100': '#DCF0FA',
+          '200': '#97CFED',
+          '300': '#59A9CF',
+          '400': '#1B82B1',
+          '500': '#16688E',
+          '600': '#114E6A',
+          '700': '#0D4159',
+          '800': '#0B3447',
+          '900': '#082735',
         },
         secondary: {
           DEFAULT: '#00BFB2',
@@ -30,13 +38,19 @@
           '100': '#F9FAFB',
           '200': '#F3F5F6',
           '300': '#E8ECED',
-          '400': '#C8D2D6',
-          '400': '#A8B7BE',
-          '500': '#7E95A0',
-          '600': '#5F7681',
-          '700': '#4E616A',
+          '400': '#D8DFE2',
+          '500': '#C8D2D6',
+          '600': '#A8B7BE',
+          '700': '#7E95A0',
+          '800': '#5F7681',
+          '900': '#4E616A',
+          '1000': '#344147',
+          '1100': '#1A2023'
         },
-        success: '#0070f3',
+        success: {
+          DEFAULT: '#64B990',
+          '100': '#64B990',
+        },
         error: {
           DEFAULT: '#D44D5C',
           '100': '#F7DEE1',
@@ -66,10 +80,11 @@
         tight: 1.2,
       },
       fontSize: {
-        'xs': '.75rem',
-        'sm': '.875rem',
-        'tiny': '.875rem',
+        '2xs': '.75rem',
+        'xs': '.875rem',
+        'sm': '.925rem',
         'base': '1rem',
+        'md': '1.075rem',
         'lg': '1.125rem',
         'xl': '1.25rem',
         '2xl': '1.5rem',
@@ -83,6 +98,25 @@
         small: '0 5px 10px rgba(0, 0, 0, 0.12)',
         medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
       },
+      transitionProperty: {
+        'height': 'height',
+        'max-height': 'max-height'
+      },
+      animation: {
+        'slide-up': 'slide-up 1s 1 ease-in-out forwards',
+      },
+      keyframes: {
+        'slide-up': {
+          '0%': {
+            transform: 'translateY(2rem)',
+            opacity: '0'
+          },
+          '100%': {
+            transform: 'translateY(0)',
+            opacity: '1'
+          },
+        }
+      }
     },
   }
 }

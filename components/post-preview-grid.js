@@ -15,7 +15,7 @@ function PostPreviewGrid (props) {
         {props.nodes && (
           props.nodes.map((node, i) => (
             <li key={node.id}>
-              <PostPreview {...node} />
+              <PostPreview {...node} index={i} />
             </li>
           ))
         )}

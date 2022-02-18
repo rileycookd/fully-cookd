@@ -5,57 +5,27 @@ export default {
   title: 'Class types list',
   type: 'object',
   icon: BsListUl,
-  fieldsets: [
-    { name: 'cta', title: 'Call-to-action' }
-  ],
   fields: [
     {
       name: 'title',
       title: 'Title',
       type: 'string',
-      fieldset: 'cta'
     },
     {
       name: 'subtitle',
       title: 'Subtitle',
       type: 'string',
-      fieldset: 'cta'
     },
-    {
-      name: 'cta',
-      title: 'Link',
-      type: 'cta',
-      fieldset: 'cta'
-    },
-    {
-      name: 'classTypes',
-      title: 'Class types',
-      type: 'array',
-      of: [
-        { 
-          type: 'reference',
-          to: [
-            { type: 'classType' }
-          ]
-        }
-      ],
-      validation: Rule => Rule.unique()
-    }
   ],
   preview: {
     select: {
-      classType1: 'classTypes.0.title',
-      classType2: 'classTypes.1.title',
-      classType3: 'classTypes.2.title',
-      classType4: 'classTypes.3.title'
+      title: 'title',
+      subtitle: 'subtitle',
     },
-    prepare ({ classType1, classType2, classType3, classType4 }) {
-      const classTypes = [classType1, classType2, classType3].filter(Boolean)
-      const subtitle = classTypes.length > 0 ? `${classTypes.join(', ')}` : ''
-      const hasMoreClassTypes = Boolean(classType4)
+    prepare ({ title, subtitle }) {
       return {
         title: 'Class types list',
-        subtitle: hasMoreClassTypes ? `${subtitle}…` : subtitle
+        subtitle: subtitle
       }
     }
   }

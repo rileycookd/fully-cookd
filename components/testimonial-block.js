@@ -49,7 +49,7 @@ function TestimonialBlock ({testimonials, title}) {
 
   return (
     <div className='w-full container mx-auto px-5 py-24'>
-      <div className='flex flex-col items-center px-4 py-12 bg-grey-300 '>
+      <div className='flex flex-col items-center px-4 py-12 bg-grey-200 '>
         <h2 className='text-primary text-2xl pb-2 font-bold font-heading mb-12'>{title}</h2>
         <div className='w-1/2'>
           {slides && slides.length && slides[currentSlide].map((t) => (

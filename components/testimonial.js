@@ -7,9 +7,9 @@ function Testimonial ({ student, quote }) {
 
   return (
     <div className='flex items-start'>
-      <QuoteIcon className='mr-3 text-accent w-6 h-6'/>
+      <QuoteIcon className='mr-3 text-accent w-8 h-8'/>
       <div className='flex flex-col gap-y-4'>
-        <p className='font-body text-primary text-base italic'>{quote}</p>
+        <p className='font-heading text-primary text-md'>{quote}</p>
         <div className='flex items-center'>
           {student?.image && (
             <div className='rounded-full overflow-hidden w-20 h-20 mr-2'>
@@ -24,11 +24,13 @@ function Testimonial ({ student, quote }) {
           )}
           <div>
             <h6 className='text-primary text-lg font-bold font-heading'>{student?.name}</h6>
-            {student?.city || student?.country && (
+            {student?.city || student?.country ? (
               <div className='flex items-center text-secondary'>
-                <LocationIcon className='mr-1 text-secondary w-5 h-5'/>
-                <h6 className='text-md font-medium font-heading'>{student?.city}, {student?.country}</h6>
+                <LocationIcon className='mr-1 text-secondary w-4 h-4' />
+                <h6 className='text-sm font-bold font-heading'>{student?.city}, {student?.country}</h6>
               </div>
+            ) : (
+              <div></div>
             )}
           </div>
         </div>

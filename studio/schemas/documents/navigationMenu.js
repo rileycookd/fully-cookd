@@ -14,8 +14,8 @@ export default {
       name: 'items',
       title: 'Navigation items',
       of: [
-        { type: 'cta', title: 'Link' },
-        // { type: 'dropdownMenu', title: 'Dropdown' }
+        { type: 'link', title: 'Link' },
+        { type: 'dropdown', title: 'Dropdown' }
       ]
     },
   ]

@@ -12,10 +12,10 @@ export default async function getUser(req, res) {
   console.log(email)
   let user
   try {
-     const query = '*[_type == "student" && email == $email] {email, did}'
+     const query = '*[_type == "student" && email == $email][0] {email}'
      const params = {email: email}
-     user = await client.fetch(query, params)[0] || {}
- 
+     user = await client.fetch(query, params) || {}
+     if(!user.email) user = undefined
   } catch (err) {
     console.error(err)
     return res.status(500).json({ message: `Something went wrong`, err })

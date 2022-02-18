@@ -1,4 +1,6 @@
 import { SessionProvider, signIn, useSession } from 'next-auth/react'
+import { Provider } from 'react-redux'
+import store from '../redux/store'
 import '../styles/index.css'
 import '@fontsource/montserrat/400.css';
 import "@fontsource/montserrat/500.css";
@@ -12,15 +14,17 @@ import "@fontsource/source-serif-pro/700.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <SessionProvider session={pageProps.session}>
-      {Component.auth ? (
-        <Auth>
+    <Provider store={store}>
+      <SessionProvider session={pageProps.session}>
+        {Component.auth ? (
+          <Auth>
+            <Component {...pageProps} />
+          </Auth>
+        ) : (
           <Component {...pageProps} />
-        </Auth>
-      ) : (
-        <Component {...pageProps} />
-      )}
-    </SessionProvider>
+        )}
+      </SessionProvider>
+    </Provider>
   )
 }
 

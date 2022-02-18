@@ -25,8 +25,7 @@ import siteSettings from './documents/siteSettings'
 import footer from './documents/footer'
 import homepage from './documents/homepage'
 import testimonial from './documents/testimonial'
-
-
+import contactForm from './documents/contactForm'
 
 
 // Block types
@@ -48,6 +47,8 @@ import ctaLabel from './objects/ctaLabel'
 import openGraph from './objects/openGraph'
 import ctaGroup from './objects/ctaGroup'
 import blockText from './objects/blockText'
+import link from './objects/link'
+import dropdown from './objects/dropdown'
 
 
 
@@ -84,6 +85,7 @@ export default createSchema({
     siteSettings,
     footer,
     homepage,
+    contactForm,
 
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
@@ -104,6 +106,8 @@ export default createSchema({
     cta,
     openGraph,
     ctaGroup,
+    link,
+    dropdown
   ])
   .concat(allBlocks),
 })

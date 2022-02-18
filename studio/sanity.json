@@ -15,7 +15,8 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "asset-source-unsplash",
-    "better-slug"
+    "better-slug",
+    "@sanity/orderable-document-list"
   ],
   "env": {
     "development": {

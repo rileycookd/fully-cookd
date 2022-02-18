@@ -1,19 +1,21 @@
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { signOut, useSession } from 'next-auth/react';
-import { withPageAuthRequired } from '@auth0/nextjs-auth0/dist/frontend';
 import Image from 'next/image'
+import { useUser } from '../lib/swr';
+import { imageBuilder } from '../lib/sanity'
+import { IoChevronDown, IoPerson } from 'react-icons/io5'
+import { MdLogout } from 'react-icons/md'
+import UserDropdown from './user-dropdown';
+import NavbarOverlay from './navbar-overlay';
 
 export default function Navbar() { 
-  const { data: session, status } = useSession()
-  console.log("SESSION: ", session)
 
   return (
-    <nav className="border-b border-primary-500/50">
-      <div className="flex justify-between items-center container mx-auto px-5 py-3">
-
-    
+    <nav className="relative border-b border-grey-300">
+      <div className="flex justify-between items-center container mx-auto px-5">
         <Link href="/">
-          <a >
+          <a className='my-2'>
             <Image 
               src="/images/company_logo.svg" 
               width="150" 
@@ -21,24 +23,23 @@ export default function Navbar() {
             />
           </a>
         </Link>
+        <ul className='flex self-stretch'>
+          <li className='group flex-1 self-stretch hover:bg-grey-200 h-full flex items-center font-heading py-2 px-2 cursor-pointer'>
+            Classes <IoChevronDown className='ml-1 w-3 h-3'/>
+            <NavbarOverlay className='group-hover:flex group-hover:opacity-100' />
+          </li>
+          <li className='flex-1 self-stretch hover:bg-grey-200 h-full flex items-center font-heading cursor-pointer'>
+            <Link href="/contact">
+              <a className='flex items-center py-2 px-2 h-full w-full'>
+                Contact
+              </a>
+            </Link>
+          </li>
+        </ul>
         <ul className="flex">
-          {!session?.user && (
-            <li className='flex items-center'>
-              <Link href="/api/auth/signin">
-                <a className="bg-secondary hover:bg-secondary-300 text-white py-2 px-6 rounded">Login</a>
-              </Link>
-            </li>
-          )}
-          {session?.user && (
-            <li>
-              <button 
-                className="bg-secondary hover:bg-secondary-300 text-white py-2 px-4 rounded" 
-                onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })}
-              >
-                Logout
-              </button>
-            </li>
-          )}
+          <li className='my-2'>
+            <UserDropdown />
+          </li>
         </ul>
       </div>
     </nav>

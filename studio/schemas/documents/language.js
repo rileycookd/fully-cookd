@@ -16,13 +16,23 @@ export default {
     {
       name: 'title',
       type: 'string',
-      title: 'Language'
+      title: 'Language',
+      validation: Rule => Rule.required()
     },
     {
       name: 'code',
       type: 'string',
       title: 'Country code',
-      description: 'Enter the two letter, three letter or three digit country code.'
+      description: 'Enter the two letter, three letter or three digit country code.',
+      validation: Rule => Rule.required()
+    },
+    {
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'text',
+      rows: 4,
+      description: 'Short description about courses',
+      validation: Rule => Rule.required()
     },
   ],
   preview: {

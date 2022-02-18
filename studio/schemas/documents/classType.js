@@ -117,11 +117,16 @@ export default {
       validation: Rule => Rule.required()
     },
     {
-      name: 'testimonial',
-      title: 'Featured testimonial',
-      type: 'reference',
-      to: [
-        { type: 'testimonial' }
+      name: 'testimonials',
+      title: 'Featured testimonials',
+      type: 'array',
+      of: [
+        { 
+          type: 'reference',
+          to: [
+            { type: 'testimonial'}
+          ]
+        }
       ]
     },
     {
