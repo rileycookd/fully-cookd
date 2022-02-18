@@ -20,9 +20,8 @@ import FAQ from '../../components/faq'
 import Flag from 'react-world-flags'
 import Footer from '../../components/footer'
 
-export default function Post({ classType, languageData, footerData }) {
+export default function ClassType({ classType = {}, languageData = {}, footerData = {} }) {
   const router = useRouter()
-  console.log("POST: ", classType)
   const {
     title,
     image,
