@@ -34,8 +34,6 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
     faq
   } = classType
 
-  console.log("TESTIMONIALS", testimonials)
-  
   if (!router.isFallback && !classType?.slug) {
     return <ErrorPage statusCode={404} />
   }
@@ -50,23 +48,27 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
                   <Flag code={l.code} width='32' style={{objectFit: 'cover'}} />
               ))}
             </ul>
-            <h1 className='font-heading text-5xl text-white font-bold'>{classType?.title}</h1>
+            <h1 className='font-heading text-5xl text-white font-bold'>{title}</h1>
             <ul className='flex gap-8'>
-              <li className='flex items-center'>
-                <StudentsIcon className='text-secondary w-5 h-5 mr-2'/>
-                <p className='font-heading text-grey-300'>{getClassSizeString(classType?.min, classType.max)} student{max > 1 ? 's' : ''}</p>
-              </li>
-              <li className='flex items-center'>
-                <DurationIcon className='text-secondary w-5 h-5 mr-2'/>
-                <p className='font-heading text-grey-300'>{getClassDurationString(classType?.pricing)}</p>
-              </li>
+              {(min && max) && (
+                <li className='flex items-center'>
+                  <StudentsIcon className='text-secondary w-5 h-5 mr-2'/>
+                  <p className='font-heading text-grey-300'>{getClassSizeString(min, max)} student{max > 1 ? 's' : ''}</p>
+                </li>
+              )}
+              {pricing && (
+                <li className='flex items-center'>
+                  <DurationIcon className='text-secondary w-5 h-5 mr-2'/>
+                  <p className='font-heading text-grey-300'>{getClassDurationString(classType?.pricing)}</p>
+                </li>
+              )}
               <li className='flex items-center'>
                 <MoneyIcon className='text-secondary w-5 h-5 mr-2'/>
                 <p className='font-heading text-grey-300'>$15+</p>
               </li>
             </ul>
           </div>
-          {classType?.image && (
+          {image && (
             <div className='absolute top-0 right-0 bottom-0 w-2/3 h-full'>
               <img
                 width={1280}
@@ -81,10 +83,13 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
         </header>
         <div className='flex container mx-auto px-5 py-12 gap-x-8'>
           <div className='flex-1 flex flex-col gap-y-16'>
-            <div className='flex flex-col p-6 rounded-sm border border-grey-300'>
-              <h2 className='font-heading font-bold text-2xl text-primary'>About this course</h2>
-              <BlockContent blocks={description} projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID} dataset={process.env.NEXT_PUBLIC_SANITY_DATASET} className={markdownStyles.markdown} />
-            </div>
+            {description && (
+              <div className='flex flex-col p-6 rounded-sm border border-grey-300'>
+                <h2 className='font-heading font-bold text-2xl text-primary'>About this course</h2>
+                <BlockContent blocks={description} projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID} dataset={process.env.NEXT_PUBLIC_SANITY_DATASET} className={markdownStyles.markdown} />
+              </div>
+            )}
+
 
             <div className='flex flex-col p-6 rounded-sm border border-grey-300'>
               <h2 className='font-heading font-bold text-2xl text-primary'>Pricing</h2>
@@ -112,12 +117,14 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
               </div>
             )}
           </div>
-          <div className='w-1/3 max-w-sm'>
-            <CTAForm 
-              className='sticky top-10 -mt-40'
-              languageData={languageData} 
-            />
-          </div>
+          {languageData && (
+            <div className='w-1/3 max-w-sm'>
+              <CTAForm 
+                className='sticky top-10 -mt-40'
+                languageData={languageData} 
+              />
+            </div>
+          )}
         </div>
       </div>
     </Layout>
@@ -140,7 +147,6 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
   const allClasses = await getAllClassTypesWithSlug()
-  console.log("ALL CLASSES: ", allClasses)
   return {
     paths:
       allClasses?.map((classType) => ({

@@ -10,16 +10,14 @@ import { DropdownMenu } from '../../components/form'
 
 function Pricing ({ title, pricing, packages, min, max }) {
 
-  console.log("PRICING: ", pricing)
-
   const [ isChecked, setIsChecked ] = useState(false)
   const [ classSize, setClassSize ] = useState(min)
-  const [ classQuantity, setClassQuantity] = useState(packages[0].quantity)
+  const [ classQuantity, setClassQuantity] = useState(packages?.[0].quantity)
 
   const calculatePrice = (duration) => {
-    let option = pricing.find(p => p.duration === duration)
+    let option = pricing?.find(p => p.duration === duration)
     let price = option.price
-    let quanityDiscount = packages.find(p => p.quantity === classQuantity).discount / 100
+    let quanityDiscount = packages?.find(p => p.quantity === classQuantity).discount / 100
     if(classSize > min && option.classSizeDiscounts.length) {
       let discounts = option.classSizeDiscounts.filter(d => d.size <= classSize)
       price = discounts[discounts.length - 1].price
@@ -80,7 +78,7 @@ function Pricing ({ title, pricing, packages, min, max }) {
                 value={classQuantity}
                 label='Quantity'
                 options={
-                  packages.map((p) => (
+                  packages?.map((p) => (
                     {value: p.quantity, label: `${p.quantity} class${p.quantity > 1 ? 'es' : ''} ${p.discount > 0 ? `(${p.discount}% off)` : ''}`}
                   ))
                 }
@@ -91,7 +89,7 @@ function Pricing ({ title, pricing, packages, min, max }) {
           </tr>
         </thead>  
         <tbody className='rounded-lg overflow-hidden'>
-          {pricing.map(p => (
+          {pricing?.map(p => (
             <tr className='bg-white border-grey-300 border'>
               <td className='px-4 py-6 text-left font-heading text-base' data-column="Class">{title}</td>
               <td className='px-4 py-6 text-left font-heading text-base' data-column="Group Size">{`${classSize} student${classSize > 1 ? 's' : ''}`}</td>

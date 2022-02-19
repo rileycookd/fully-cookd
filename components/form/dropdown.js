@@ -106,7 +106,7 @@ export default function DropdownMenu(props) {
   };
 
   let buttonLabel = label || 'Select'
-  let currentOption = options.find(c => c.value === value)
+  let currentOption = options?.find(c => c.value === value)
   if(currentOption) {
     if(selectedLabel) {
       buttonLabel = `${currentOption} ${currentOption}`
@@ -140,7 +140,7 @@ export default function DropdownMenu(props) {
         placeholder="Search..."
         styles={selectStyles}
         tabSelectsValue={false}
-        value={options.find(c => c.value === value)}
+        value={options?.find(c => c.value === value)}
       />
     </Dropdown>
   );
