@@ -12,13 +12,13 @@ export default {
       type: 'string',
       options: {
         list: [
-          {title: 'Sunday', value: "0"},
-          {title: 'Monday', value: "1"},
-          {title: 'Tuesday', value: "2"},
-          {title: 'Wednesday', value: "3"},
-          {title: 'Thursday', value: "4"},
-          {title: 'Friday', value: "5"},
-          {title: 'Saturday', value: "6"},
+          {title: 'Sunday', value: "sunday"},
+          {title: 'Monday', value: "monday"},
+          {title: 'Tuesday', value: "tuesday"},
+          {title: 'Wednesday', value: "wednesday"},
+          {title: 'Thursday', value: "thursday"},
+          {title: 'Friday', value: "friday"},
+          {title: 'Saturday', value: "saturday"},
         ],
       },
       validation: Rule => Rule.required(),
@@ -28,9 +28,6 @@ export default {
       name: 'time',
       title: 'Time',
       type: 'timeRange',
-      of: [
-        { type: 'timeRange' }
-      ],
       description: 'Choose start and end time of class',
       validation: Rule => Rule.required()
     },

@@ -6,7 +6,7 @@ import {
   Select,
   Radio,
   Form,
-  FormProgress,
+  FormPageContainer,
 } from '../../components/form'
 
 import { useForm, useFormState } from 'react-hook-form'
@@ -35,8 +35,6 @@ export default function Step2(props) {
       setIsPageLoaded(true)
     }
   }, [chosenLanguage])
-
-  console.log("CLASS TYPES: ", classTypes)
 
   const schema = yup.object().shape({
     classType: yup.string().required("Please select a course"),
@@ -70,19 +68,18 @@ export default function Step2(props) {
    }
   
   if(!isPageLoaded) {
-    return (<div></div>)
+    return (<div>Loading...</div>)
   }
 
   return (
-    <div className='h-full min-h-screen w-full flex items-center justify-center my-12'>
+    <FormPageContainer step={2} steps={8}>
+
       <Form 
-        className='flex flex-col gap-4'
+        className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
         name="register-classes-step-2"
         register={register}
       >
-        <h1 className='text-primary font-heading font-bold text-4xl'>Register for classes</h1>
-        <FormProgress title="Course selection" step={2} steps={7} />
         <fieldset className='flex flex-col gap-2 my-4'>
           <legend className='font-heading text-base mb-4'>Choose a course:</legend>
           {classTypes && classTypes.map(ct => (
@@ -122,7 +119,7 @@ export default function Step2(props) {
         <div>{JSON.stringify(errors)}</div>
         <div>{isValid.toString()}</div> */}
       </Form>
-    </div>
+    </FormPageContainer>
   )
 }
 

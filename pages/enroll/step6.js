@@ -1,32 +1,28 @@
-import React, {useState, useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router';
 
 import { 
-  Radio,
+  Checkbox,
   Form,
-  FormProgress
+  FormPageContainer,
 } from '../../components/form'
 
-import { useForm, useFormState, useWatch } from 'react-hook-form'
+import { useForm, useFormState } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
 
-import { calculateRegistrationPrice } from '../../lib/helpers';
-
 import { useDispatch, useSelector } from 'react-redux'
-import { changePackage } from '../../redux/features/registerClassesSlice'
+import { changeDays } from '../../redux/features/registerClassesSlice'
 
 
-export default function Step6(props) {
+export default function Step4(props) {
   const router = useRouter();
   const dispatch = useDispatch()
 
-  const [totalPrice, setTotalPrice] = useState(0)
-
-  const { chosenClassType, chosenPackage, size, days} = useSelector(state => state.registerClasses)
+  const { size } = useSelector(state => state.registerClasses)
 
   const schema = yup.object().shape({
-    package: yup.string().required("Please select a package"),
+    days: yup.array().min(1, 'Select at least one day').required("Select at least one day"),
   })
 
   const { 
@@ -42,7 +38,7 @@ export default function Step6(props) {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      package: chosenPackage?._id || "",
+      days: [...useSelector(state => state.registerClasses.days)].map(d => d.day),
     },
     resolver: yupResolver(schema),
   })
@@ -52,62 +48,82 @@ export default function Step6(props) {
   });
 
   const onSubmit = (data) => {
-    dispatch(changePackage(chosenClassType.packages.find( ({ _id }) => _id === data.package)))
+    dispatch(changeDays([...data.days]))  
     router.push("/enroll/step7")
   }
 
   useEffect(() => {
-    if(getValues("package")) {
-      setTotalPrice(calculateRegistrationPrice(chosenClassType, days, size, chosenClassType.packages.find(({ _id }) => _id === getValues("package"))))
+    if(!size) {
+      router.push("/enroll/step1") 
     }
-  }, [watch()])
+  }, [size])
+  
+  if(!size) {
+    return <div>Loading...</div>
+  }
 
   return (
-    <div className='h-full min-h-screen w-full flex items-center justify-center my-12'>
+    <FormPageContainer step={6} steps={8}>
       <Form 
-        className='flex flex-col gap-4'
+        className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-6"
+        name="register-classes-step-2"
         register={register}
       >
-        <h1 className='text-primary font-heading font-bold text-4xl'>Register for classes</h1>
-        <FormProgress title="Package selection" step={6} steps={7} />
         <fieldset className='flex flex-col gap-2 my-4'>
-          <legend className='font-heading text-base mb-4'>Choose a package:</legend>
-          {chosenClassType?.packages?.map(p => (
-            <Radio 
-              key={p._id}
-              id={p.title} 
-              label={`${p.quantity} class${p.quantity > 1 ? 'es' : ''}`}
-              name="package" 
-              value={p._id}
-              error={errors?.package}
-              isDirty={isDirty?.package}
-              register={register}
-            >
-              <div className='flex-1 ml-4 flex flex-col justify-end w-max'>
-                <p className='flex-1 font-heading font-normal text-right text-base text-grey-600'>${calculateRegistrationPrice(chosenClassType, days, size, chosenClassType.packages.find(({ _id }) => _id === p._id))}</p>
-                {p.discount > 0 && (
-                  <p className='flex-1 font-heading font-normal text-right text-base text-grey-600'>
-                    (save {p.discount}%)
-                  </p>
-                )}
-              </div>
-
-            </Radio>
-          ))}
-          {errors?.package && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.package.message}</p>}
+          <legend className='font-heading text-base mb-4'>Choose a schedule that works for you:</legend>
+          <Checkbox
+            id="monday" 
+            label="Monday"
+            name="days" 
+            value="Monday"
+            error={errors?.days}
+            isDirty={isDirty?.days}
+            register={register}
+          />
+          <Checkbox
+            id="tuesday" 
+            name="days" 
+            label="Tuesday"
+            value="Tuesday"
+            error={errors?.days}
+            isDirty={isDirty?.days}
+            register={register}
+          />
+          <Checkbox
+            id="wednesday" 
+            name="days" 
+            label="Wednesday"
+            value="Wednesday"
+            error={errors?.days}
+            isDirty={isDirty?.days}
+            register={register}
+          />
+          <Checkbox
+            id="thursday" 
+            name="days" 
+            label="Thursday"
+            value="Thursday"
+            error={errors?.days}
+            isDirty={isDirty?.days}
+            register={register}
+          />
+          <Checkbox
+            id="friday" 
+            name="days" 
+            label="Friday"
+            value="Friday"
+            error={errors?.days}
+            isDirty={isDirty?.days}
+            register={register}
+          />
+          {errors?.days && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.days.message}</p>}
         </fieldset>
-        {totalPrice > 0 && (
-          <h2 className='text-right text-primary font-heading font-bold text-xl'>
-            Total: ${totalPrice}
-          </h2>
-        )}
         <div className='flex gap-4'>
           <button
             onClick={(e) => {
               e.preventDefault()
-              dispatch(changePackage(chosenClassType.packages.find( ({ _id }) => _id === getValues('package'))))
+              dispatch(changeDays([...getValues("days")]))  
               router.push('/enroll/step5')
             }}
             className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
@@ -121,12 +137,10 @@ export default function Step6(props) {
               Next
             </button>
         </div>
-       
         {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
         <div>{JSON.stringify(errors)}</div>
         <div>{isValid.toString()}</div> */}
       </Form>
-    </div>
+    </FormPageContainer>
   )
 }
-

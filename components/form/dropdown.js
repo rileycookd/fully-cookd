@@ -109,7 +109,12 @@ export default function DropdownMenu(props) {
   let currentOption = options?.find(c => c.value === value)
   if(currentOption) {
     if(selectedLabel) {
-      buttonLabel = `${currentOption} ${currentOption}`
+      buttonLabel = (
+        <div className='flex flex-col items-start mr-2'>
+          <span>{selectedLabel}</span>
+          <span className='font-normal text-xs'>{currentOption?.label}</span>
+        </div>
+      )
     }
   }
 

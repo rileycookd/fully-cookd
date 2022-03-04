@@ -7,6 +7,9 @@ export default {
   type: 'document',
   title: 'Teacher',
   icon: IoMdPerson,
+  fieldsets: [
+    { name: 'info', title: 'Details' }
+  ],
   fields: [
     {
       name: 'name',
@@ -25,12 +28,42 @@ export default {
       ],
       validation: Rule => Rule.unique()
     },
-    // {
-    //   name: 'availability',
-    //   title: 'Availability',
-    //   type: 'availability',
-    //   description: 'Add time slots to open teacher availability',
-    // },
+    {
+      name: "email",
+      title: "Email",
+      type: "string",
+      fieldset: 'info'
+    },
+    {
+      name: 'phone',
+      title: 'Phone',
+      type: 'string',
+      fieldset: 'info'
+    },
+    {
+      name: "city",
+      title: "City",
+      type: "string",
+      fieldset: 'info'
+    },
+    {
+      name: "country",
+      title: "Country",
+      type: "string",
+      fieldset: 'info'
+    },
+    {
+      name: "timezone",
+      title: "Timezone",
+      type: "string",
+      fieldset: 'info'
+    },
+    {
+      name: 'availability',
+      title: 'Availability',
+      type: 'availability',
+      description: 'Add time slots to open teacher availability',
+    },
     // {
     //   name: 'monday', 
     //   title: 'Monday',
@@ -56,11 +89,11 @@ export default {
     //     }
     //   },
     // },
-    // {
-    //   name: 'image',
-    //   title: 'Teacher photo',
-    //   type: 'mainImage'
-    // }
+    {
+      name: 'image',
+      title: 'Teacher photo',
+      type: 'mainImage'
+    }
   ],
   preview: {
     select: {

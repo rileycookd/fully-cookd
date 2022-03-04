@@ -12,6 +12,7 @@ import Layout from '../components/layout';
 import Image from 'next/image'
 import { BsExclamationCircle as WarningIcon } from 'react-icons/bs'
 import { RiMapPinTimeLine as TimezoneIcon } from 'react-icons/ri'
+import Head from 'next/head'
 
 import { IoMdArrowBack as BackArrow } from 'react-icons/io'
 
@@ -148,6 +149,9 @@ export default function RegisterUser() {
   return (
     <>
       <Layout hideNav={true}>
+        <Head>
+          <title>Register for Amelio Language Institute</title>
+        </Head>
         <div className='container mx-auto px-5 flex justify-between items-center py-8'>
           <Link href={router.query?.source || '/'}>
             <a className='flex-1 flex items-center text-grey-600 underline hover:text-grey-700 transition-all duration-100 w-6 h-6 mr-2 font-heading font-bold'><BackArrow className='fill-current w-6 h-6 mr-1'/> Back</a>

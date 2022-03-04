@@ -34,31 +34,24 @@ export default {
       title: 'End date',
       type: 'date',
     },
-    {
-      name: 'classes',
-			title: 'Classes',
-			type: 'array',
-			of: [
-					{ type: 'class' },
-			],
-    },
   ],
   preview: {
     select: {
-      classes: 'classes',
+      quantity: 'quantity',
       start: 'start',
       end: 'end',
+      price: 'price'
     },
 
-    prepare ({ classes, start, end }) {
+    prepare ({ price, quantity, start, end }) {
       let parsedStart = start ? parseISO(start) : ''
       let formattedStart = start ? format(parsedStart, "dd/MM/yy") : ''
       let parsedEnd = end ? parseISO(end) : ''
       let formattedEnd = end ? format(parsedEnd, "dd/MM/yy") : ''
-      let dates = (start && end) ?`${formattedStart}-${formattedEnd}: ` : ''
+      let dates = (start && end) ?`${formattedStart}-${formattedEnd}` : ''
 
       return {
-        title: `${classes.length} class${classes.length === 1 ? '' : 'es'}`,
+        title: `${quantity} class${quantity === 1 ? '' : 'es'} ${price ? ` - $${price}` : ''}`,
         subtitle: `${dates}`,
       }
     }

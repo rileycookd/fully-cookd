@@ -2,7 +2,7 @@ import React from 'react'
 import { HiMail, HiOutlineMailOpen } from 'react-icons/hi'
 import { GiCheckMark } from 'react-icons/gi'
 // import ComputedField from 'sanity-plugin-computed-field'
-import { FaChalkboardTeacher, FaRubleSign } from 'react-icons/fa'
+import { FaChalkboardTeacher, FaRubleSign, FaRegCalendarTimes } from 'react-icons/fa'
 import { parseISO, format } from 'date-fns'
 
 
@@ -12,7 +12,7 @@ export default {
   icon: FaChalkboardTeacher,
   type: "document",
   initialValue: () => ({
-    submitDate: new Date().toISOString()
+    submittedDate: new Date().toISOString()
   }),
   fieldsets: [
     {name: 'admin', title: 'Admin'},
@@ -21,7 +21,7 @@ export default {
   fields: [
     {
       title: 'Submitted date',
-      name: 'submitDate',
+      name: 'submittedDate',
       type: 'datetime',
       readOnly: true,
       options: {
@@ -32,6 +32,23 @@ export default {
       },
       fieldset: 'admin',
     },
+    // {
+    //   title: 'Slug',
+    //   name: 'slug',
+    //   type: 'slug',
+    //   options: {
+    //     source: (doc, options) => {
+    //       console.log("DOC: ", doc)
+    //       console.log("OPTIONS: ", options)
+    //       return options.docs.classType->.
+    //     },
+    //     maxLength: 200, // will be ignored if slugify is set
+    //     slugify: input => input
+    //       .toLowerCase()
+    //       .replace(/\s+/g, '-')
+    //       .slice(0, 200)
+    //   }
+    // },
     {
       name: 'state',
       title: 'Status',
@@ -41,7 +58,7 @@ export default {
         list: [
           {title: 'Pending', value: 'pending'},
           {title: 'Active', value: 'active'},
-          {title: 'Paused', value: 'paused'},
+          {title: 'Inactive', value: 'inactive'},
         ], // <-- predefined values
         layout: 'radio' // <-- defaults to 'dropdown'
       },
@@ -156,7 +173,7 @@ export default {
     {
       name: "classSize",
       title: "Class Size",
-      type: "string",
+      type: "number",
       fieldset: 'details',
     },
     {
@@ -176,34 +193,41 @@ export default {
         { type: 'registrationPackage' }
       ]
     },
+    {
+      name: 'calendarId',
+      title: 'Google Calendar ID',
+      type: 'string',
+    },
   ],
-  // preview: {
-  //   select: {
-  //     name: 'name',
-  //     classType: 'classType.title',
-  //     classSize: 'classSize',
-  //     date: 'submitDate',
-  //     accepted: 'accepted',
-  //     student1: 'students.0.name'
-  //   },
-  //   prepare ({ name, student1, accepted, date, classType, quantity, classSize }) {
-  //     let classSizeString = ''
-  //     let parsedDate = parseISO(date)
-  //     let formattedDate = format(parsedDate, "dd/MM/yy")
-  //     if(classSize) {
-  //       classSizeString = `${classSize} student${Number(classSize) > 1 ? 's' : ''}`
-  //     }
+  preview: {
+    select: {
+      classType: 'classType.title',
+      classSize: 'students',
+      date: 'submittedDate',
+      state: 'state',
+      student1: 'students.0.name'
+    },
+    prepare ({ student1, accepted, date, state, classType, classSize }) {
+      let classSizeString = ''
+      let parsedDate = parseISO(date)
+      let formattedDate = format(parsedDate, "dd/MM/yy")
+      if(classSize?.length) {
+        classSizeString = `${classSize.length} student${classSize.length > 1 ? 's' : ''}`
+      }
 
-  //     let media = <HiMail />
-  //     if(accepted) {
-  //       media = <GiCheckMark />
-  //     }
+      let media = <HiMail />
+      if(state === 'active') {
+        media = <GiCheckMark />
+      }
+      if(state === 'inactive') {
+        media = <FaRegCalendarTimes />
+      }
 
-  //     return {
-  //       title: `${student1}${classSize > 1 ? ` + ${classSize}` : ''}`,
-  //       subtitle: `${formattedDate}: ${classType}`,
-  //       media
-  //     }
-  //   }
-  // }
+      return {
+        title: `${student1}${classSize > 1 ? ` + ${classSize}` : ''}`,
+        subtitle: `${formattedDate}: ${classType}`,
+        media
+      }
+    }
+  }
 }

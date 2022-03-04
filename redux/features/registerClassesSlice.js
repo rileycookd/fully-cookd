@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialStateValue = {
   size: "",
   days: [],
+  duration: "",
   chosenLanguage: {},
   chosenClassType: {},
   chosenPackage: {}
@@ -22,6 +23,9 @@ export const registerClassesSlice = createSlice({
     },
     changeQuantity: (state, action) => {
       state.quantity = action.payload;
+    },
+    changeDuration: (state, action) => {
+      state.duration = action.payload
     },
     changeClassType: (state, action) => {
       if(state.chosenClassType._id !== action.payload._id) state.size = "";
@@ -48,14 +52,14 @@ export const registerClassesSlice = createSlice({
             if(filteredStateDays.includes(d)) {
               return filteredState[filteredStateDays.indexOf(d)]
             } else {
-              return {day: d, time: '', duration: ''}
+              return {day: d, time: '', duration: state.duration}
             }
           })
           newState = newArray
       } else {
         newState = action.payload
           .map(d => {
-            return {day: d, time: '', duration: ''}
+            return {day: d, time: '', duration: state.duration}
           })
       }  
       state.days = [...newState]
@@ -80,6 +84,7 @@ export const {
   changeTimes,
   changeLanguage,
   changePackage,
+  changeDuration,
 } = registerClassesSlice.actions; 
 
 export default registerClassesSlice.reducer; 

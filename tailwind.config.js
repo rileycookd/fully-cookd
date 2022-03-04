@@ -24,8 +24,10 @@
         secondary: {
           DEFAULT: '#00BFB2',
           '100': '#DEF7F5',
+          '200': '#BDEFEB',
           '300': '#00E0D1',
-          '400': '#00BFB2'
+          '400': '#00BFB2',
+          '500': '#00A398',
         },
         accent: {
           DEFAULT: '#F2BB05',

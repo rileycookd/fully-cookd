@@ -6,7 +6,7 @@ import {
   Select,
   Radio,
   Form,
-  FormProgress
+  FormPageContainer
 } from '../../components/form'
 
 import { IoIosPeople as SizeIcon } from 'react-icons/io'
@@ -26,8 +26,7 @@ export default function Step3(props) {
   const dispatch = useDispatch()
 
 
-  const chosenClassType = useSelector(state => state.registerClasses.chosenClassType)
-  console.log("CHOSEN CLASS TYPE:", chosenClassType)
+  const { chosenLanguage, chosenClassType} = useSelector(state => state.registerClasses)
 
   const schema = yup.object().shape({
     classSize: yup.string().required("Please select a group size"),
@@ -55,27 +54,39 @@ export default function Step3(props) {
     control
   });
 
-   const onSubmit = (data) => {
-      dispatch(changeSize(data.classSize))
-      router.push("/enroll/step4")
-   }
+  const onSubmit = (data) => {
+    dispatch(changeSize(data.classSize))
+    router.push("/enroll/step4")
+  }
+
+  
+
+  useEffect(() => {
+    if(!chosenLanguage.title && !chosenClassType._id) {
+      router.push("/enroll/step1") 
+    }
+  }, [chosenLanguage, chosenClassType])
+
+  if(!chosenLanguage._id || !chosenClassType._id) {
+    return <div>Loading...</div>
+  }
 
   return (
-    <div className='h-full min-h-screen w-full flex items-center justify-center my-12'>
+    <FormPageContainer step={3} steps={8}>
       <Form 
-        className='flex flex-col gap-4'
+        className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
         name="register-classes-step-3"
         register={register}
       >
-        <h1 className='text-primary font-heading font-bold text-4xl'>Register for classes</h1>
-        <FormProgress title="Group size" step={3} steps={7} />
+        <h3 className='font-heading text-base'>How many students?</h3>
+
         <Select
           label="Group size"
           id="classSize"
           name="classSize"
           control={control}
-          placeholder="How many students?"
+          placeholder="Select size"
           options={
             chosenClassType 
             ? range(chosenClassType.min, chosenClassType.max, 1).map(o => (
@@ -111,6 +122,6 @@ export default function Step3(props) {
         <div>{JSON.stringify(errors)}</div>
         <div>{isValid.toString()}</div> */}
       </Form>
-    </div>
+    </FormPageContainer>
   )
 }

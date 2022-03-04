@@ -28,12 +28,27 @@ article a {
   display: block !important;
 }
 
+input[type="radio"]:checked ~ label > div.relative > div.absolute,
+input[type="checkbox"]:checked ~ label > div.relative > div.absolute {
+  background-color: #00BFB2;
+}
+
+input[type="radio"]:checked ~ label > div.relative,
+input[type="checkbox"]:checked ~ label > div.relative {
+  border-color: #00BFB2;
+}
+
+
 @layer utilities {
     .inset-center {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+    }
+
+    .radio-test ~ label > div > div {
+      background-color: 'red'
     }
     .animation-delay-100 {
         animation-delay: 0.1s;

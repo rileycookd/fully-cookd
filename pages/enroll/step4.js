@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 
 import { 
-  Checkbox,
+  Select,
+  Radio,
   Form,
-  FormProgress
+  FormPageContainer,
 } from '../../components/form'
 
 import { useForm, useFormState } from 'react-hook-form'
@@ -12,15 +13,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { changeDays } from '../../redux/features/registerClassesSlice'
+import { changeDuration } from '../../redux/features/registerClassesSlice'
 
 
-export default function Step4(props) {
+export default function Step2(props) {
   const router = useRouter();
   const dispatch = useDispatch()
 
+  const { chosenClassType, size } = useSelector(state => state.registerClasses)
+
   const schema = yup.object().shape({
-    days: yup.array().min(1, 'Select at least one day').required("Select at least one day"),
+    duration: yup.string().required("Please select a duration"),
   })
 
   const { 
@@ -36,7 +39,7 @@ export default function Step4(props) {
   } = useForm({
     mode: 'onChange',
     defaultValues: {
-      days: [...useSelector(state => state.registerClasses.days)].map(d => d.day),
+      duration: useSelector(state => state.registerClasses.duration) || '',
     },
     resolver: yupResolver(schema),
   })
@@ -46,74 +49,59 @@ export default function Step4(props) {
   });
 
    const onSubmit = (data) => {
-      dispatch(changeDays([...data.days]))  
+      dispatch(changeDuration(data.duration))
       router.push("/enroll/step5")
    }
 
+  useEffect(() => {
+    if(!size) {
+      router.push("/enroll/step1") 
+    }
+  }, [size])
+  
+  if(!size) {
+    return <div>Loading...</div>
+  }
+
+
   return (
-    <div className='h-full min-h-screen w-full flex items-center justify-center my-12'>
+    <FormPageContainer step={4} steps={8}>
+
       <Form 
-        className='flex flex-col gap-4'
+        className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
         name="register-classes-step-2"
         register={register}
       >
-        <h1 className='text-primary font-heading font-bold text-4xl'>Register for classes</h1>
-        <FormProgress title="Weekly schedule" step={4} steps={7} />
         <fieldset className='flex flex-col gap-2 my-4'>
-          <legend className='font-heading text-base mb-4'>Choose a schedule that works for you:</legend>
-          <Checkbox
-            id="monday" 
-            label="Monday"
-            name="days" 
-            value="Monday"
-            error={errors?.days}
-            isDirty={isDirty?.days}
-            register={register}
-          />
-          <Checkbox
-            id="tuesday" 
-            name="days" 
-            label="Tuesday"
-            value="Tuesday"
-            error={errors?.days}
-            isDirty={isDirty?.days}
-            register={register}
-          />
-          <Checkbox
-            id="wednesday" 
-            name="days" 
-            label="Wednesday"
-            value="Wednesday"
-            error={errors?.days}
-            isDirty={isDirty?.days}
-            register={register}
-          />
-          <Checkbox
-            id="thursday" 
-            name="days" 
-            label="Thursday"
-            value="Thursday"
-            error={errors?.days}
-            isDirty={isDirty?.days}
-            register={register}
-          />
-          <Checkbox
-            id="friday" 
-            name="days" 
-            label="Friday"
-            value="Friday"
-            error={errors?.days}
-            isDirty={isDirty?.days}
-            register={register}
-          />
-          {errors?.days && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.days.message}</p>}
+          <legend className='font-heading text-base mb-4'>Class duration:</legend>
+          {chosenClassType?.pricing?.map(p => (
+            <Radio 
+              key={p._key}
+              id={p._key} 
+              label={(
+                <div className='flex w-full justify-between items-center'>
+                  {`${p.duration} minute${p.duration > 1 ? 's' : ''}`}
+                  {/* <span className='font-normal text-grey-700'>
+                    ${p.price}
+                  </span> */}
+                </div>
+              )}
+              name="duration" 
+              value={p.duration}
+              error={errors?.duration}
+              isDirty={isDirty?.duration}
+              register={register}
+            />
+          ))}
+          {errors?.duration && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.duration.message}</p>}
         </fieldset>
         <div className='flex gap-4'>
           <button
             onClick={(e) => {
               e.preventDefault()
-              dispatch(changeDays([...getValues("days")]))  
+              let duration = getValues("duration")
+              if(duration) dispatch(changeDuration(duration))
               router.push('/enroll/step3')
             }}
             className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
@@ -131,6 +119,8 @@ export default function Step4(props) {
         <div>{JSON.stringify(errors)}</div>
         <div>{isValid.toString()}</div> */}
       </Form>
-    </div>
+    </FormPageContainer>
   )
 }
+
+

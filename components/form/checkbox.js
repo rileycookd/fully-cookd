@@ -16,7 +16,7 @@ const Checkbox = ({children, name, register, id, isDirty, error, label, ...props
         htmlFor={id}
       >
         <div className='relative w-4 h-4 border-2 border-secondary rounded-sm mr-4 '>
-          <div className='absolute w-2 h-2 inset-center rounded-full bg-transparent peer-checked:bg-secondary'></div>
+          <div className='absolute w-2 h-2 inset-center bg-transparent peer-checked:bg-secondary'></div>
         </div>
         {label ? label : ''}
         {children}

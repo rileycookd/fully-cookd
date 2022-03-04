@@ -18,13 +18,35 @@ export default {
       title: 'Start time',
       name: 'start',
       type: 'datetime',
-      validation: Rule => Rule.required(),
+      options: {
+        // dateFormat: 'YYYY-MM-DD',
+        // timeFormat: 'HH:mm',
+        timeStep: 15,
+        // calendarTodayLabel: 'Today'
+      },
+      validation: Rule => Rule.required().custom((startDate, context) => {
+        const expirationDate = context.document.packages.find(p => p._key === context.path[1]._key).end
+        if (new Date(expirationDate) < new Date(startDate.slice(0, -14))) {
+          return 'Start datetime must be before the end date of the package'
+        }
+        
+        return true
+      })
     },
     {
       title: 'End time',
       name: 'end',
       type: 'datetime',
-      validation: Rule => Rule.required().min(Rule.valueOfField('start')),
+      options: {
+        // dateFormat: 'YYYY-MM-DD',
+        // timeFormat: 'HH:mm',
+        timeStep: 15,
+        // calendarTodayLabel: 'Today'
+      },
+      validation: Rule => [
+        Rule.required().min(Rule.valueOfField('start')).error('Must be later that start time'),
+        // Rule.max(Rule.valueOfField('start')).warning('End time is not on the same day')
+      ]
     },
     {
       title: 'Cancelled',
@@ -32,75 +54,69 @@ export default {
       type: 'boolean',
       initialValue: false
     },
-    // {
-    //   name: 'price',
-    //   title: 'Price',
-    //   type: 'number',
-    //   validation: Rule => Rule.precision(2)
-    // },
-    // {
-    //   name: 'content',
-    //   title: 'Content',
-    //   type: 'array',
-    //   of: [
-        // {
-        //   title: 'Homework',
-        //   name: 'homework',
-        //   type: 'homework'
-        // },
-        // {
-        //   title: 'Link',
-        //   name: 'link',
-        //   type: 'cta'
-        // },
-        // {
-        //   title: 'Resource',
-        //   name: 'resource',
-        //   type: 'reference',
-        //   to: [
-        //     { type: 'resource' }
-        //   ]
-        // },
-        // {
-        //   title: 'Image',
-        //   name: 'image',
-        //   type: 'mainImage'
-        // },
-        // {
-        //   title: 'File',
-        //   name: 'file',
-        //   type: 'file',
-        //   icon: AiFillFileAdd,
-        //   fields: [
-        //     {
-        //       name: 'title',
-        //       type: 'string',
-        //       title: 'Title',
-        //       options: {
-        //         isHighlighted: true
-        //       }
-        //     },
-        //   ]
-        // },
-    //   ]
-    // },
-    // {
-    //   title: 'Related registration',
-    //   name: 'registration',
-    //   type: 'reference',
-    //   to: [
-    //     { type: 'addRegistrationForm' }
-    //   ]
-    // },
+    {
+      title: 'Homework',
+      name: 'tasks',
+      type: 'array', 
+      of: [
+        {
+          title: 'Assignments',
+          name: 'homework',
+          type: 'homework',
+        },
+      ]
+    },
+    {
+      name: 'links',
+      title: 'Links',
+      type: 'array',
+      of: [
+        {
+          title: 'Link',
+          name: 'link',
+          type: 'link'
+        },
+      ]
+    },
+    {
+      title: 'Images',
+      name: 'images',
+      type: 'array',
+      of: [
+        { type: 'mainImage' }
+      ]
+    },
+    {
+      title: 'Files',
+      name: 'files',
+      type: 'array',
+      of: [
+        {
+          title: 'File',
+          name: 'file',
+          type: 'file',
+          icon: AiFillFileAdd,
+          fields: [
+            {
+              name: 'title',
+              type: 'string',
+              title: 'Title',
+              options: {
+                isHighlighted: true
+              }
+            },
+          ]
+        },
+      ]
+    },
   ],
   preview: {
     select: {
       start: 'start',
       end: 'end',
       title: 'title',
-      student1: 'registration.students.0.name'
     },
-    prepare ({ start, end, title, student1 }) {
+    prepare ({ start, end, title }) {
       let subtitle = ''
       if(start && end) {
         let parsedStart = parseISO(start)

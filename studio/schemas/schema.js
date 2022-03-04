@@ -40,6 +40,7 @@ import frequentlyAskedQuestion from './objects/frequentlyAskedQuestion'
 import classDayTime from './objects/classDayTime'
 import registrationPackage from './objects/registrationPackage'
 import classSchema from './objects/class'
+import availability from './objects/availability'
 import timeRange from './objects/timeRange'
 import languageLevelGroup from './objects/languageLevelGroup'
 import cta from './objects/cta'
@@ -49,6 +50,7 @@ import ctaGroup from './objects/ctaGroup'
 import blockText from './objects/blockText'
 import link from './objects/link'
 import dropdown from './objects/dropdown'
+import homework from './objects/homework'
 
 
 
@@ -100,6 +102,7 @@ export default createSchema({
     registrationPackage,
     classSchema,
     classPackage,
+    availability,
     timeRange,
     languageLevelGroup,
     ctaLabel,
@@ -107,7 +110,8 @@ export default createSchema({
     openGraph,
     ctaGroup,
     link,
-    dropdown
+    dropdown,
+    homework,
   ])
   .concat(allBlocks),
 })

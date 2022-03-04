@@ -12,13 +12,15 @@ import { BsGiftFill } from 'react-icons/bs'
 
 import pageBuilder from './src/structure/page-builder'
 import forms from './src/structure/forms'
-// import staff from './src/structure/staff'
+import staff from './src/structure/staff'
 import clients from './src/structure/clients'
 import marketing from './src/structure/marketing'
 import services from './src/structure/services'
 import admin from './src/structure/admin'
 // import resources from './src/structure/resources'
 // import SocialPreview from 'part:social-preview/component'
+
+import RelatedRegistrations from './src/views/related-registrations'
 
 
 const hiddenTypes = ['companyInfo', 'homepage', 'testimonial', 'classType', 'faq', 'navigationMenu', 'route', 'page', 'siteSettings', 'contactForm', 'media.tag', 'registrationForm', 'classPackage', 'category', 'footer', 'language', 'level', 'teacher', 'company', 'student', 'resource', 'quiz']
@@ -76,66 +78,41 @@ const hiddenTypes = ['companyInfo', 'homepage', 'testimonial', 'classType', 'faq
 //   </QueryContainer>
 // );
 
-// const RelatedRegistrations = ({ document }) => (
-//   <QueryContainer
-//     query={`*[references($id) && _type == "addRegistrationForm"]`} 
-//     params={{ id: document.displayed._id.replace('drafts.', '') }}
-//   >
-//     {({ result, loading }) =>
-//       loading ? (
-//         <Spinner center message="Loading items…" />
-//       ) : (
-//         result && (
-//           <div>
-//             {result.documents.map(document => (
-//               <Fragment key={document._id}>
-//                 <Preview value={document} type={schema.get(document._type)} />
-//               </Fragment>
-//             ))}
-//           </div>
-//         )
-//       )
-//     }
-//   </QueryContainer>
-// );
+export const getDefaultDocumentNode = ({ documentId, schemaType }) => {
 
-// export const getDefaultDocumentNode = ({documentId, schemaType}) => {
-
-//   if (schemaType === "teacher") {
-//     return S.document().views([
-//       S.view.form(),
-//       S.view.component(RelatedRegistrations).title('Registrations'),
-//       S.view.component(CurrentStudents).title('Current students'),
-//       S.view.component(AllReferences).title('All references'),
-//     ])
-//   }
-//   if (schemaType === "company") {
-//     return S.document().views([
-//       S.view.form(),
-//       S.view.component(CurrentStudents).title('Employees'),
-//       S.view.component(AllReferences).title('All references'),
-//     ])
-//   }
-//   if (schemaType === "student") {
-//     return S.document().views([
-//       S.view.form(),
-//       S.view.component(RelatedRegistrations).title('Registrations'),
-//       S.view.component(AllReferences).title('All references'),
-//     ])
-//   }
-//   if (['resource'].includes(schemaType)) {
-//     return S.document().views([
-//       S.view.form(),
-//       S.view.component(SocialPreview()).title('Social & SEO'),
-//     ])
-//   }
-//   return S.document().views([
-//     S.view.form(),
-//     S.view.component(AllReferences).title('All references'),
-//   ]);
-// }
-
-// export default S.defaults();
+  if (schemaType === "teacher") {
+    return S.document().views([
+      S.view.form(),
+      S.view.component(RelatedRegistrations).title('Registrations'),
+      // S.view.component(CurrentStudents).title('Current students'),
+      // S.view.component(AllReferences).title('All references'),
+    ])
+  }
+  // if (schemaType === "company") {
+  //   return S.document().views([
+  //     S.view.form(),
+  //     S.view.component(CurrentStudents).title('Employees'),
+  //     S.view.component(AllReferences).title('All references'),
+  //   ])
+  // }
+  // if (schemaType === "student") {
+  //   return S.document().views([
+  //     S.view.form(),
+  //     S.view.component(RelatedRegistrations).title('Registrations'),
+  //     S.view.component(AllReferences).title('All references'),
+  //   ])
+  // }
+  // if (['resource'].includes(schemaType)) {
+  //   return S.document().views([
+  //     S.view.form(),
+  //     S.view.component(SocialPreview()).title('Social & SEO'),
+  //   ])
+  // }
+  return S.document().views([
+    S.view.form(),
+    // S.view.component(AllReferences).title('All references'),
+  ]);
+}
 
 export default () =>
   S.list()
@@ -144,7 +121,7 @@ export default () =>
       forms,
       admin,  
       clients,
-      // staff,
+      staff,
       // S.listItem()
       //     .title('Services')
       //     .icon(FaHandHoldingUsd)

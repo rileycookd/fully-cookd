@@ -7,7 +7,10 @@ import {
   Radio,
   Form,
   FormProgress,
+  FormPageContainer
 } from '../../components/form'
+
+import Flag from 'react-world-flags';
 
 import Link from 'next/link';
 
@@ -20,6 +23,7 @@ import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 import { changeLanguage } from '../../redux/features/registerClassesSlice'
 import UserDropdown from '../../components/user-dropdown';
+import Image from 'next/image'
 
 
 export default function Step1({ languageData }) {
@@ -60,46 +64,43 @@ export default function Step1({ languageData }) {
    }
 
   return (
-    <div>
-      <div className='container mx-auto px-5 flex justify between py-8'>
-        <Link href={router.query?.source || '/'}>
-          <a className='flex-1 flex items-center text-grey-600 underline hover:text-grey-700 transition-all duration-100 w-6 h-6 mr-2 font-heading font-bold'><BackArrow className='fill-current w-6 h-6 mr-1'/> Back</a>
-        </Link>
-        <p className='flex-1 text-right'><UserDropdown /></p>
-      </div>
-      <div className='h-full flex items-center justify-center my-24'>
-        <Form 
-          className='flex flex-col gap-4'
-          onSubmit={handleSubmit(onSubmit)}
-          name="register-classes-step-1"
-          register={register}
-        >
-          <h1 className='text-primary font-heading font-bold text-4xl'>Register for classes</h1>
-          <FormProgress title="Language selection" step={1} steps={7} />
-
-          <fieldset className='flex flex-col gap-2 my-4'>
-            <legend className='font-heading text-base mb-4'>Choose a language:</legend>
-            {languageData && languageData.map(l => (
-              <Radio 
-                key={l._id}
-                id={l.title} 
-                label={l.title}
-                name="language" 
-                value={l._id}
-                error={errors?.language}
-                isDirty={isDirty?.language}
-                register={register}
-              />
-            ))}
-            {errors?.language && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.language.message}</p>}
-          </fieldset>
-          <button type="submit" className='bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'>Next</button>
-          {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
-          <div>{JSON.stringify(errors)}</div>
-          <div>{isValid.toString()}</div> */}
-        </Form>
-      </div>
-    </div>
+    <FormPageContainer step={1} steps={8}>
+      <Form 
+        className='flex-1 flex flex-col gap-4 w-96'
+        onSubmit={handleSubmit(onSubmit)}
+        name="register-classes-step-1"
+        register={register}
+      >            
+        <fieldset className='flex-1 flex flex-col gap-2 my-4'>
+          <legend className='font-heading text-base mb-4'>Choose a language:</legend>
+          {languageData && languageData.map(l => (
+            <Radio 
+              key={l._id}
+              id={l._id} 
+              label={(
+                <span className='flex items-center'>
+                  <div className='flex rounded-sm overflow-hidden h-5 w-9 mr-4'>
+                    <Flag code={l.code} width="120" style={{objectFit: 'cover'}} />
+                  </div>
+                  {l.title}
+                </span>
+              )}
+              name="language" 
+              value={l._id}
+              error={errors?.language}
+              isDirty={getValues('language')}
+              register={register}
+            >
+            </Radio>
+          ))}
+          {errors?.language && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.language.message}</p>}
+        </fieldset>
+        <button type="submit" className='bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'>Next</button>
+        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
+        <div>{JSON.stringify(errors)}</div>
+        <div>{isValid.toString()}</div> */}
+      </Form>
+    </FormPageContainer>
   )
 }
 

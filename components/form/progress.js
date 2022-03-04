@@ -9,12 +9,12 @@ function FormProgress(props) {
   } = props
 
   return (
-    <div className='flex flex-col gap-2'>
-      <h3 className='font-heading text-sm font-bold text-secondary'>{`${step}. ${title}`}</h3>
-      <div className='relative w-full h-1 bg-grey-300'>
-        <div className='absolute h-full bg-secondary top-0 left-0 transition-all duration-500 ease-out' style={{width: `${(step - 1) / (steps - 1) * 100}%`}}></div>
+    <div className='w-full flex items-center gap-2'>
+      {/* <h3 className='font-heading text-sm font-bold text-secondary'>{`${step}. ${title}`}</h3> */}
+      <h5 className={`font-heading text-sm font-bold ${step === steps ? 'text-secondary' : 'text-grey-500'}`}>{`${step}/${steps}`}</h5>
+      <div className='relative w-full h-2 bg-grey-300 rounded-full overflow-hidden'>
+        <div className='absolute h-full bg-secondary top-0 left-0 transition-all duration-500 ease-out' style={{width: `${(step - 1) / (steps - 1) * 100}%`, minWidth: '5px'}}></div>
       </div>
-      <h5 className={`font-heading text-sm font-bold ${step === steps ? 'text-secondary' : 'text-grey-400'}`}>{`${step}/${steps}`}</h5>
     </div>
   )
 }

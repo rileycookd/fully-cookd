@@ -5,6 +5,9 @@ node_modules
 /.pnp
 .pnp.js
 
+# Google APIS
+google-calendar.json
+
 # testing
 /coverage
 

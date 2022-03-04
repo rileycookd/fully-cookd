@@ -132,7 +132,7 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
 }
 
 export async function getStaticProps({ params }) {
-  const classData = await getClassTypeBySlug(params.slug)
+  const classData = await getClassTypeBySlug(params?.slug)
   const languageData = await getAllLanguageData()
   const footerData = await getPageFooter()
   return {
@@ -151,7 +151,7 @@ export async function getStaticPaths() {
     paths:
       allClasses?.map((classType) => ({
         params: {
-          slug: classType.slug,
+          slug: classType?.slug,
         },
       })) || [],
     fallback: true,
