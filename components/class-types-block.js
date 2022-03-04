@@ -15,14 +15,14 @@ function ClassTypesBlock(props) {
   console.log("CURRENT LANGUAGE", currentLanguage)
 
   return (
-    <div className='container mx-auto px-5 my-48 flex flex-col gap-12'>
-      <div className='flex flex-col items-center gap-12 bg-grey-200 py-16'>
+    <div className='container mx-auto px-5 flex flex-col gap-12'>
+      <div className='flex flex-col items-center gap-12 bg-grey-100 py-16'>
         <div className='flex flex-col items-start max-w-4xl'>
-          <h2 className='w-full text-center text-primary text-5xl pb-2 font-bold font-heading'>{content?.title}</h2>
-          <p className='w-full text-center font-body text-lg text-primary'>{content?.subtitle}</p>
+          <h2 className='w-full text-center text-primary text-5xl pb-2 font-bold font-heading'>{content?.title || 'Our Courses'}</h2>
+          <p className='w-full text-center font-body text-lg text-grey-900'>{content?.subtitle || 'All our classes are personalized and tailored to your needs'}</p>
         </div>
         <fieldset className='flex justify-center'>
-          <legend className='flex items-center flex-1 text-center mb-4 font-body'><IoLanguage className='h-5 w-5 fill-primary mr-2'/>Choose a language:</legend>
+          <legend className='flex items-center flex-1 text-center text-grey-900 mb-4 font-body'><IoLanguage className='h-5 w-5 fill-grey-800 mr-2'/>Choose a language:</legend>
           <LanguageRadioGroup name='languages' currentLanguage={currentLanguage} handleChange={setCurrentLanguage} languages={languages} />
         </fieldset>
       </div>

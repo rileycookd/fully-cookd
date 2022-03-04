@@ -7,19 +7,19 @@ import {
   FormPageContainer,
   InputRadio,
   RadioOption
-} from '../../components/form'
+} from 'components/form'
 
 import { useForm, useFormState } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
 
-import { getAllTeachersByLanguage } from '../../lib/api';
+import { getAllTeachersByLanguage } from 'lib/api';
 
 import { useDispatch, useSelector } from 'react-redux'
-import { changeTimes } from '../../redux/features/registerClassesSlice'
-import { TIME_OPTIONS } from '../../lib/constants';
-import { convertMinutesToTimeString, convertTimeStringToMinutes } from '../../lib/helpers';
-import { useAllTeachersByLanguage } from '../../lib/swr'
+import { changeTimes } from 'redux/features/registerClassesSlice'
+import { TIME_OPTIONS } from 'lib/constants';
+import { convertMinutesToTimeString, convertTimeStringToMinutes, removeLeadingZeros } from 'lib/helpers';
+import { useAllTeachersByLanguage } from 'lib/swr'
 
 export default function Step7(props) {
   const router = useRouter();
@@ -100,7 +100,7 @@ export default function Step7(props) {
         console.log(i)
         let startString = convertMinutesToTimeString(i)
         let endString = convertMinutesToTimeString(i + dur_num)
-        intervalArray.push({value: startString, label: `${startString.slice(0, 5)}-${endString.slice(0,5)}` })
+        intervalArray.push({value: startString, label: `${removeLeadingZeros(startString.slice(0, 5))}-${removeLeadingZeros(endString.slice(0,5))}` })
       }
       return intervalArray
     })
@@ -109,12 +109,12 @@ export default function Step7(props) {
 
 
   return (
-    <FormPageContainer step={7} steps={8}>
+    <FormPageContainer title="New Registration" step={7} steps={8}>
 
       <Form 
         className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-2"
+        name="register-classes-step-7"
         register={register}
       >
         <p className='w-full text-center'>Timezone: <span>America/Denver</span></p>
@@ -194,9 +194,9 @@ export default function Step7(props) {
               Next
             </button>
         </div>
-        <pre>{JSON.stringify(watch(), null, 2)}</pre>
+        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
         <div>{JSON.stringify(errors)}</div>
-        <div>{isValid.toString()}</div>
+        <div>{isValid.toString()}</div> */}
       </Form>
     </FormPageContainer>
   )

@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { changePackage } from '../../redux/features/registerClassesSlice'
 
 
-export default function Step6(props) {
+export default function Step5(props) {
   const router = useRouter();
   const dispatch = useDispatch()
 
@@ -77,10 +77,10 @@ export default function Step6(props) {
       <Form 
         className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-6"
+        name="register-classes-step-5"
         register={register}
       >
-        <fieldset className='flex flex-col gap-2 my-4'>
+        <fieldset className='flex grid auto-rows-fr gap-2 my-4'>
           <legend className='font-heading text-base mb-4'>Choose a package:</legend>
           {chosenClassType?.packages?.map(p => {
             let priceObject = calculateRegistrationPrice(chosenClassType, duration, size, chosenClassType.packages.find(({ _id }) => _id === p._id))

@@ -72,7 +72,7 @@ export default function Step3(props) {
   }
 
   return (
-    <FormPageContainer step={3} steps={8}>
+    <FormPageContainer title="New Registration" step={3} steps={8}>
       <Form 
         className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}

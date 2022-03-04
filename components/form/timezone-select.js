@@ -4,7 +4,7 @@ import ReactTimezoneSelect, { allTimezones } from 'react-timezone-select'
 import { customStyles } from './lib/parts'
 
 
-const TimezoneSelect = ({children, control, disabled, error, id, label, name, isDirty, placeholder}) => {
+const TimezoneSelect = ({children, control, disabled, hideError, error, id, label, name, isDirty, placeholder}) => {
 
  
   const customStyles = {
@@ -12,7 +12,7 @@ const TimezoneSelect = ({children, control, disabled, error, id, label, name, is
       ...provided,
       border: 'none',
       outline: 'none',
-      padding: `2.25rem 1rem 1rem ${children ? '3.5rem' : '1rem'}`,
+      padding: `${label ? '2.25rem' : '1.5rem'} 1rem ${label ? '1rem' : '1.5rem'} ${children ? '3.5rem' : '1rem'}`,
     }),
     container: (provided, state) => ({
       ...provided,
@@ -21,7 +21,7 @@ const TimezoneSelect = ({children, control, disabled, error, id, label, name, is
     control: (provided, state) => ({
       ...provided,
       backgroundColor: disabled ? 'transparent' : 'white',
-      border: disabled ? '1px solid #E5E5E5' : '1px solid #c4c4c4',
+      border: disabled ? '1px solid #E5E5E5' : '1px solid #D8DFE2',
       boxShadow: error ? '0 0 0 1px #D44D5C' : 'none',
       cursor: disabled ? 'not-allowed' : 'pointer',
       "&:hover": {
@@ -38,9 +38,14 @@ const TimezoneSelect = ({children, control, disabled, error, id, label, name, is
       marginLeft: '0',
       fontSize: '14px',
       fontFamily: 'Montserrat',
-      fontWeight: '500',
+      fontWeight: '400',
       pointerEvents: 'none',
       color: disabled ? '#E5E5E5' : '#A8B7BE'
+    }),
+    menuList: (provided, state) => ({
+      ...provided,
+      fontFamily: 'Montserrat',
+      fontWeight: '400',
     }),
     input: (provided, state) => ({
       ...provided,
@@ -56,9 +61,9 @@ const TimezoneSelect = ({children, control, disabled, error, id, label, name, is
     dropdownIndicator: (provided, state) => ({
       ...provided,
       padding: '0 1rem 0 1.5rem',
-      color: disabled ? 'transparent' : '#c4c4c4',
+      color: disabled ? 'transparent' : '#D8DFE2',
       "&:hover": {
-        color: disabled ? 'transparent' : "#c4c4c4",
+        color: disabled ? 'transparent' : "#D8DFE2",
       },
     }),
     indicatorSeparator: (provided, state) => ({
@@ -104,7 +109,7 @@ const TimezoneSelect = ({children, control, disabled, error, id, label, name, is
 
   return (
     <div>
-      {error && <p className='ml-4 py-1 font-heading text-sm text-error-400'>{error?.message}</p>}
+      {(!hideError && error) && <p className='ml-4 py-1 font-heading text-sm text-error-400'>{error?.message}</p>}
       <div className='relative'>
         <Controller
           name={name}

@@ -72,7 +72,7 @@ export default function Step2(props) {
   }
 
   return (
-    <FormPageContainer step={2} steps={8}>
+    <FormPageContainer title="New Registration" step={2} steps={8}>
 
       <Form 
         className='flex flex-col gap-4 w-96'

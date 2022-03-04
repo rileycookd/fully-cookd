@@ -1,9 +1,9 @@
 import React from 'react'
 
-const InputField = ({children, register, readOnly, error, isDirty, disabled, id, label, ...props}) => {
+const InputField = ({children, register, readOnly, error, hideError, isDirty, disabled, id, label, ...props}) => {
 
   let inputStyles = `
-    w-full flex bg-white border rounded pl-4 pt-8 pb-5 placeholder:text-grey-500 focus:outline-2
+    w-full flex bg-white border rounded pl-4 ${label ? 'pt-8' : 'pt-5'} pb-5 placeholder:text-grey-500 focus:outline-2
     pr-${children ? '6' : '1'}  
     border-grey-400
     ${disabled ? 'text-grey-400' : readOnly ? 'text-grey-700' : 'hover:border-primary'}
@@ -38,7 +38,7 @@ const InputField = ({children, register, readOnly, error, isDirty, disabled, id,
 
   return (
     <div className='flex flex-col gap-1'>
-      {error?.message && (<p className='ml-4 py-1 font-heading text-sm text-error-400'>{error.message}</p>)}
+      {(!hideError && error?.message) && (<p className='ml-4 py-1 font-heading text-sm text-error-400'>{error.message}</p>)}
       <div className={`relative`}>
         <input
           {...props}

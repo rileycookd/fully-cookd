@@ -19,7 +19,7 @@ export default function RegistrationListItem(props) {
   const { classes, isLoading, isError } = useRemainingClasses(calendarId)
 
   useEffect(() => {
-    if(!isLoading && classes.length) setRemainingClasses(classes.length)
+    if(!isLoading && classes?.length) setRemainingClasses(classes.length)
   }, [classes])
 
   return (

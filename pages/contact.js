@@ -10,6 +10,7 @@ import { useForm, useFormState } from 'react-hook-form';
 import { useEffect } from "react";
 import { IoPerson as PersonIcon, IoMail as MailIcon, IoLogoInstagram as InstagramIcon, IoLogoYoutube as YoutubeIcon, IoCheckmarkCircle as SuccessIcon, IoWarning as ErrorIcon} from 'react-icons/io5'
 import { ImPhone as PhoneIcon, ImFacebook as FacebookIcon } from 'react-icons/im'
+import { BsQuestionCircleFill as SubjectIcon } from 'react-icons/bs'
 import { IoLogoWhatsapp as WhatsappIcon } from 'react-icons/io'
 
 import Link from 'next/link'
@@ -34,6 +35,7 @@ export default function Contact({ }) {
   const schema = yup.object().shape({
     name: yup.string().required("Please enter your full name"),
     email: yup.string().email("Please enter a valid email").required("Please enter your email"),
+    subject: yup.string().required("Please enter a subject"),
     message: yup.string().required("Please enter a message"),
   })
 
@@ -52,6 +54,7 @@ export default function Contact({ }) {
     defaultValues: {
       name: '',
       email: '',
+      subject: '',
       message: '',
     },
     resolver: yupResolver(schema),
@@ -61,14 +64,14 @@ export default function Contact({ }) {
     control
   });
 
-  const onSubmit = async ({ name, email, message }) => {
+  const onSubmit = async ({ name, email, message, subject }) => {
     setIsFormReadOnly(true)
 
     let contactForm
     try {
       const res = await fetch('/api/form/contact', {
         method: 'POST',
-        body: JSON.stringify({ name: name, email: email, message: message }),
+        body: JSON.stringify({ name: name, email: email, subject: subject, message: message }),
         type: 'application/json'
       })
       const resData = await res.json()
@@ -89,7 +92,7 @@ export default function Contact({ }) {
         <Head>
           <title>Contact us | Amelio Language Institute</title>
         </Head>
-        <div className='flex-1 flex bg-primary min-h-full'>
+        <div className='flex-1 flex bg-gradient-to-r from-primary-800 to-primary-600 min-h-full'>
           <div className='flex container mx-auto px-5 my-24'>
             <div className='flex-1 flex flex-col justify-between'>
               <div className='flex flex-col gap-8'>
@@ -185,6 +188,19 @@ export default function Contact({ }) {
                       isDirty={dirtyFields?.email || getValues('email ')}
                     >
                       <MailIcon />
+                    </InputField>
+                    <InputField
+                      label="Subject:"
+                      name="subject"
+                      placeholder="What's this about?" 
+                      id="subject"
+                      type="text"
+                      readOnly={isFormReadOnly}
+                      error={errors?.subject}
+                      register={register}
+                      isDirty={dirtyFields?.subject || getValues('subject')}
+                    >
+                      <SubjectIcon />
                     </InputField>
                     <Textarea
                       label="Message:"

@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router';
 import { signIn, useSession, getSession } from 'next-auth/react';
 import { Magic } from 'magic-sdk';
 import { useForm, useFormState } from 'react-hook-form';
-import { useEffect } from "react";
 import { IoMail as MailIcon } from 'react-icons/io5'
 import Link from 'next/link'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image'
+import { BsExclamationCircle as WarningIcon } from 'react-icons/bs'
+
 
 
 
@@ -27,6 +28,9 @@ const magic = typeof window !== 'undefined' && new Magic(process.env.NEXT_PUBLIC
 export default function Signin() {
   const router = useRouter();
   const { data: session, status } = useSession()
+
+  const [formAlert, setFormAlert] = useState(undefined)
+
 
   const schema = yup.object().shape({
     email: yup.string().email("Please enter a valid email").required("Please enter your email"),
@@ -57,29 +61,54 @@ export default function Signin() {
   const onSubmit = async ({ email }) => {
     if (!magic) throw new Error(`magic not defined`);
 
-    // login with Magic
-    const didToken = await magic.auth.loginWithMagicLink({ email });
-
-    // send user metadata to database
+    // Check if user already exists
     let user
     try {
-      const res = await fetch('/api/user/create', {
+      const res = await fetch('/api/user/get', {
         method: 'POST',
-        body: JSON.stringify({ email: email, didToken: didToken}),
+        body: JSON.stringify({ email: email }),
         type: 'application/json'
       })
       const resData = await res.json()
       user = resData.user
     } catch (err) {
       console.log("ERROR!", err)
+      setFormAlert({message: 'Something went wrong'})
+      return
     }  
 
-    // sign in with NextAuth
-    await signIn('magic-link', {
-      didToken,
-      id: user._id,
-      callbackUrl: router.query['callbackUrl']
-    });
+    if(!user) {
+      setFormAlert({message: 'We couldn\'t find a user with that email.'})
+      return
+    } else {
+
+      // Remove user exists warning if present
+      if(formAlert) setFormAlert(undefined)
+
+      // login with Magic
+      const didToken = await magic.auth.loginWithMagicLink({ email });
+
+      // send user metadata to database
+      let user
+      try {
+        const res = await fetch('/api/user/create', {
+          method: 'POST',
+          body: JSON.stringify({ email: email, didToken: didToken}),
+          type: 'application/json'
+        })
+        const resData = await res.json()
+        user = resData.user
+      } catch (err) {
+        console.log("ERROR!", err)
+      }  
+
+      // sign in with NextAuth
+      await signIn('magic-link', {
+        didToken,
+        id: user._id,
+        callbackUrl: router.query['callbackUrl']
+      });
+    }
   };
 
   useEffect(() => {
@@ -113,12 +142,6 @@ export default function Signin() {
 
   return (
     <div>
-      <div className='container mx-auto px-5 flex justify-between items-center py-8'>
-        <Link href={router.query?.source || '/'}>
-          <a className='flex-1 flex items-center text-grey-600 underline hover:text-grey-700 transition-all duration-100 w-6 h-6 mr-2 font-heading font-bold'><BackArrow className='fill-current w-6 h-6 mr-1'/> Back</a>
-        </Link>
-        <p className='flex-1 flex justify-end'><UserDropdown /></p>
-      </div>
       <div className='h-full flex items-center justify-center my-24'>
         <Form 
           className='flex flex-col gap-4 w-full max-w-sm'
@@ -128,6 +151,8 @@ export default function Signin() {
         >
           <h1 className='text-primary font-heading font-bold text-4xl'>Sign in</h1>
           <p className='mb-4 '>New user? <span><Link href="/register"><a className='underline text-blue-500 hover:text-blue-800'>Create an account</a></Link></span></p>
+          {formAlert?.message && <p className='flex items-center rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'><WarningIcon className='w-4 h-4 mr-2'/>{formAlert.message}</p>}
+
             <InputField
               label="Email:"
               name="email"

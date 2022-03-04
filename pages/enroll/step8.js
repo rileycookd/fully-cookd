@@ -22,7 +22,7 @@ import { getUserDataByEmail } from '../../lib/api'
 import { addMinutesToTimeString } from '../../lib/helpers';
 
 
-export default function Step7({ userData }) {
+export default function Step8({ userData }) {
   // const { data: session, status } = useSession()
   const router = useRouter();
 
@@ -92,7 +92,7 @@ export default function Step7({ userData }) {
       }
 
       // Create new registration document
-      const sanityRes = await fetch('/api/form/registration', {
+      const sanityRes = await fetch('/api/registration', {
         method: 'POST',
         body: JSON.stringify({ classType: data.classType, language: data.language, quantity: data.quantity, size: data.size, days: data.days, students: data.students, calendarId: calendarData.id }),
         type: 'application/json'
@@ -126,17 +126,23 @@ export default function Step7({ userData }) {
 
 
   return (
-    <FormPageContainer step={8} steps={8}>
+    <FormPageContainer title="New Registration" step={8} steps={8}>
       <Form 
         className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-7"
+        name="register-classes-step-8"
         register={register}
       >
         <input
           name={'students[0].name'}
           value={userData.name}
           {...register('students[0].name')}
+          className='hidden'
+        />
+        <input
+          name={'students[0].email'}
+          value={userData.email}
+          {...register('students[0].email')}
           className='hidden'
         />
         <input
@@ -238,10 +244,10 @@ export default function Step7({ userData }) {
               Submit
             </button>
         </div>
-       
+{/*        
         <pre>{JSON.stringify(watch(), null, 2)}</pre>
         <div>{JSON.stringify(errors)}</div>
-        <div>{isValid.toString()}</div>
+        <div>{isValid.toString()}</div> */}
       </Form>
     </FormPageContainer>
   )

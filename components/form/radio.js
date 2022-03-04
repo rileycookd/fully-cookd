@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Radio = ({children, name, register, id, isDirty, error, label, ...props}) => {
+const Radio = ({children, name, className, register, id, isDirty, error, label, ...props}) => {
 
   return (
     <div className=''>
@@ -13,7 +13,7 @@ const Radio = ({children, name, register, id, isDirty, error, label, ...props}) 
         style={children ? {paddingLeft: '3.5rem'} : {}}
       />
       <label 
-        className='relative cursor-pointer flex items-center bg-white border border-grey-400 peer-checked:bg-secondary-100 peer-checked:border-secondary rounded-md px-4 py-4 h-full font-heading font-bold text-primary transition-all ease-out duration-100' 
+        className={`relative cursor-pointer flex items-center bg-white border border-grey-400 peer-checked:bg-secondary-100 peer-checked:border-secondary rounded-md px-4 py-6 h-full font-heading font-bold text-primary transition-all ease-out duration-100 ${className}`} 
         htmlFor={id}
       >
         <div className='relative w-4 h-4 border-2 border-grey-600 rounded-full mr-4 '>

@@ -3,34 +3,28 @@ import { useRouter } from 'next/router';
 import { getAllLanguageData } from '../../lib/api';
 
 import { 
-  Select,
   Radio,
   Form,
-  FormProgress,
   FormPageContainer
 } from '../../components/form'
 
 import Flag from 'react-world-flags';
 
-import Link from 'next/link';
-
-import { IoMdArrowBack as BackArrow } from 'react-icons/io'
-
 import { useForm, useFormState } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup'
+import { useSession } from "next-auth/react";
+
 
 import { useDispatch, useSelector } from 'react-redux'
 import { changeLanguage } from '../../redux/features/registerClassesSlice'
-import UserDropdown from '../../components/user-dropdown';
-import Image from 'next/image'
 
 
 export default function Step1({ languageData }) {
   const router = useRouter();
   const dispatch = useDispatch()
 
-  console.log("Language data", languageData)
+  const { data: session } = useSession()
 
   const schema = yup.object().shape({
     language: yup.string().required("Please select a language"),
@@ -64,7 +58,8 @@ export default function Step1({ languageData }) {
    }
 
   return (
-    <FormPageContainer step={1} steps={8}>
+    
+    <FormPageContainer title="New Registration" step={1} steps={8}>
       <Form 
         className='flex-1 flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
@@ -90,6 +85,7 @@ export default function Step1({ languageData }) {
               error={errors?.language}
               isDirty={getValues('language')}
               register={register}
+              className='py-8'
             >
             </Radio>
           ))}
@@ -103,6 +99,8 @@ export default function Step1({ languageData }) {
     </FormPageContainer>
   )
 }
+
+Step1.auth = true
 
 export async function getStaticProps() {
   const languageData = await getAllLanguageData()

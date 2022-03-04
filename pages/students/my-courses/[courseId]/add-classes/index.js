@@ -132,3 +132,5 @@ export default function Step1(props) {
   )
 }
 
+Step1.auth = true
+

@@ -56,6 +56,7 @@ export default function RegisterUser() {
     defaultValues: {
       name: '',
       email: '',
+      timezone: '',
     },
     resolver: yupResolver(schema),
   })
@@ -94,7 +95,7 @@ export default function RegisterUser() {
     )
   }
 
-  const onSubmit = async ({ email }) => {
+  const onSubmit = async ({ email, name, timezone }) => {
     if (!magic) throw new Error(`magic not defined`);
 
     // Check if user already exists
@@ -128,7 +129,7 @@ export default function RegisterUser() {
       try {
         const res = await fetch('/api/user/create', {
           method: 'POST',
-          body: JSON.stringify({ email: email, didToken: didToken}),
+          body: JSON.stringify({ email, name, timezone, didToken}),
           type: 'application/json'
         })
         const resData = await res.json()
@@ -198,10 +199,10 @@ export default function RegisterUser() {
                 label="Timezone:" 
                 name="timezone"
                 id="timezone"
+                register={register}
                 control={control}
                 error={errors?.timezone}
-                // disabled={!editMode}
-                isDirty={dirtyFields.timezone}
+                isDirty={dirtyFields.timezone || getValues('timezone')}
               >
                 <TimezoneIcon />
               </TimezoneSelect> 

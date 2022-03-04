@@ -17,8 +17,6 @@ export default function Dashboard(props) {
   const { data: session } = useSession()
   const { user, isError, isLoading } = useUser(session?.user?.email)
 
-  if(!isLoading) console.log(user)
-
   if(session) {
     return (
       <>
@@ -72,10 +70,4 @@ export default function Dashboard(props) {
   )
 }
 
-export async function getServerSideProps(context) {
-  return {
-    props: {
-      session: await getSession(context),
-    },
-  }
-}
+Dashboard.auth = true

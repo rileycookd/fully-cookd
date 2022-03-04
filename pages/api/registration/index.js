@@ -1,6 +1,8 @@
 import sanityClient from '@sanity/client'
 import { v4 as uuidv4 } from 'uuid';
 import { calculateRegistrationPrice } from 'lib/helpers';
+import sendgrid from "@sendgrid/mail";
+
 
 const config = {
   dataset: process.env.SANITY_STUDIO_API_DATASET,
@@ -9,6 +11,8 @@ const config = {
   token: process.env.SANITY_API_TOKEN,
 }
 const client = sanityClient(config)
+sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
+
 
 export default async function Registration(req, res) {
 
@@ -66,6 +70,17 @@ export default async function Registration(req, res) {
           }
         ))
       })
+      
+      await sendgrid.send({
+        to: [...students.map(s => s.email)], // Your email where you'll receive emails
+        from: "noreply@ameliolanguageinstitute.com", // your website email address here
+        subject: `Registration received`,
+        html: `
+        <div>
+          <h1>Registration Received</h1>
+          <p>Thank you!</p>
+        </div>`,
+      });
     } catch (err) {
       console.error(err)
       serverResponse = `Couldn't complete registration`

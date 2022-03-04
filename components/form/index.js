@@ -10,6 +10,7 @@ import FormPageContainer from './form-page-container'
 import TimePicker from './time-picker'
 import InputRadio from './input-radio'
 import RadioOption from './radio-option'
+import PhoneInput from './phone-input'
 
 export {
   Select,
@@ -23,7 +24,8 @@ export {
   FormPageContainer,
   TimePicker,
   InputRadio,
-  RadioOption
+  RadioOption,
+  PhoneInput,
 }
 
 export const Form = ({className, children, register, name, ...props}) => {

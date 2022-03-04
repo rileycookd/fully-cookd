@@ -11,7 +11,7 @@ const client = sanityClient(config)
 const magic = new Magic(process.env.MAGIC_SECRET_KEY);
 
 export default async function createUser(req, res) {
-  const { email, didToken } = JSON.parse(req.body)
+  const { email, didToken, name, timezone} = JSON.parse(req.body)
 
   // validate magic DID token
   magic.token.validate(didToken);
@@ -31,8 +31,9 @@ export default async function createUser(req, res) {
     try {
       user = await client.create({
         _type: 'student',
-        name: 'Riley Cook',
+        name: name,
         email: email,
+        timezone: timezone,
         publicAddress: publicAddress,
       })
       message = `User created`

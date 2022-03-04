@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { changeDuration } from '../../redux/features/registerClassesSlice'
 
 
-export default function Step2(props) {
+export default function Step4(props) {
   const router = useRouter();
   const dispatch = useDispatch()
 
@@ -65,12 +65,12 @@ export default function Step2(props) {
 
 
   return (
-    <FormPageContainer step={4} steps={8}>
+    <FormPageContainer title="New Registration" step={4} steps={8}>
 
       <Form 
         className='flex flex-col gap-4 w-96'
         onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-2"
+        name="register-classes-step-4"
         register={register}
       >
         <fieldset className='flex flex-col gap-2 my-4'>

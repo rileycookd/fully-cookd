@@ -42,7 +42,7 @@ export default function SidebarNav(props) {
           </Link>
         </li>
         <li>
-          <Link href='/students/messages'>
+          <Link href='/students/my-messages'>
             <a className="group flex-1 border-l-4 border-transparent hover:border-secondary cursor-pointer py-4 pl-8 pr-14 flex items-center gap-4">
               <MessagesIcon className="h-6 w-6 fill-grey-700 stroke-grey-700 group-hover:fill-grey-500 group-hover:stroke-grey-500 transition-colors duration-75" />
               <p className="font-heading font-medium text-sm text-grey-700 group-hover:text-grey-500 transition-colors duration-75">Messages</p>

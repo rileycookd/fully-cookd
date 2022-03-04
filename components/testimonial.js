@@ -9,7 +9,7 @@ function Testimonial ({ student, quote }) {
     <div className='flex items-start'>
       <QuoteIcon className='mr-3 text-accent w-8 h-8'/>
       <div className='flex flex-col gap-y-4'>
-        <p className='font-heading text-primary text-md'>{quote}</p>
+        <p className='font-heading text-primary leading-relaxed text-md'>{quote}</p>
         <div className='flex items-center'>
           {student?.image && (
             <div className='rounded-full overflow-hidden w-20 h-20 mr-2'>

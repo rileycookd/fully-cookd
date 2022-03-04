@@ -12,7 +12,6 @@ import { IoLogoWhatsapp as WhatsappIcon } from 'react-icons/io'
 export default function Success() {
   const router = useRouter();
 
-
   return (
     <FormPageContainer>
       <div
