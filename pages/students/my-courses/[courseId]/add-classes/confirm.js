@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
+import Layout from 'components/layout';
+import Head from 'next/head';
 
 import { signOut, getSession } from 'next-auth/react';
 
@@ -120,118 +122,123 @@ export default function Step7({ userData }) {
 
 
   return (
-    <FormPageContainer title='Add classes'>
-      <Form 
-        className='flex flex-col gap-4 w-96'
-        onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-7"
-        register={register}
-      >
-        <input
-          name={'registration'}
-          value={registration._id}
-          {...register('registration')}
-          className='hidden'
-        />
+    <Layout hideNav={true}>
+      <Head>
+        <title>Confirm your course details</title>
+      </Head>
+      <FormPageContainer title='Add classes'>
+        <Form 
+          className='flex flex-col gap-4 w-96'
+          onSubmit={handleSubmit(onSubmit)}
+          name="register-classes-step-7"
+          register={register}
+        >
+          <input
+            name={'registration'}
+            value={registration._id}
+            {...register('registration')}
+            className='hidden'
+          />
 
-        <div className='flex flex-col gap-8'>
-          <div className='flex flex-col'>
-            <div className='flex-1 flex px-2 py-2 justify-start border-b border-grey-300'>
-              <h3 className='font-heading font-bold text-grey-600'>Course details</h3>
-            </div>
-            <ul className='flex flex-col'>
-              <li className='flex px-2 py-2'>
-                <div className='w-1/3 flex justify-start items-center'>
-                  <h4 className='font-heading text-primary'>Language:</h4>
-                </div>
-                <div className='flex-1 flex'>
-                  <p className='font-heading font-bold text-primary'>{registration.language.title}</p>
-                </div>
-              </li>
-              <li className='flex px-2 py-2 bg-grey-100'>
-                <div className='w-1/3 flex justify-start items-center'>
-                  <h4 className='font-heading text-primary'>Course:</h4>
-                </div>
-                <div className='flex-1 flex'>
-                  <p className='font-heading font-bold text-primary'>{registration.classType.title}</p>
-                </div>
-              </li>
-              <li className='flex px-2 py-2'>
-                <div className='w-1/3 flex justify-start items-center'>
-                  <h4 className='font-heading text-primary'>Students:</h4>
-                </div>
-                <div className='flex-1 flex'>
-                  <p className='font-heading font-bold text-primary'>{registration.students.length}</p>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div className='flex flex-col'>
-            <div className='flex-1 flex px-2 py-2 justify-start border-b border-grey-300'>
-              <h3 className='font-heading font-bold text-grey-600'>Schedule</h3>
-            </div>
-            <ul className='flex flex-col'>
-              {registration?.schedule.map((d, i) => (
-                <li className={`flex px-2 py-2 ${i % 2 === 0 ? '' : 'bg-grey-100'}`}>
+          <div className='flex flex-col gap-8'>
+            <div className='flex flex-col'>
+              <div className='flex-1 flex px-2 py-2 justify-start border-b border-grey-300'>
+                <h3 className='font-heading font-bold text-grey-600'>Course details</h3>
+              </div>
+              <ul className='flex flex-col'>
+                <li className='flex px-2 py-2'>
                   <div className='w-1/3 flex justify-start items-center'>
-                    <h4 className='font-heading text-primary'>{capitalize(d.day)}:</h4>
+                    <h4 className='font-heading text-primary'>Language:</h4>
                   </div>
                   <div className='flex-1 flex'>
-                    <p className='font-heading font-bold text-primary'>{d.time.start.slice(0,5)}-{d.time.end.slice(0,5)}</p>
+                    <p className='font-heading font-bold text-primary'>{registration.language.title}</p>
                   </div>
                 </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className='flex flex-col'>
-            <div className='flex-1 flex px-2 py-2 justify-start border-b border-grey-300'>
-              <h3 className='font-heading font-bold text-grey-600'>Price</h3>
+                <li className='flex px-2 py-2 bg-grey-100'>
+                  <div className='w-1/3 flex justify-start items-center'>
+                    <h4 className='font-heading text-primary'>Course:</h4>
+                  </div>
+                  <div className='flex-1 flex'>
+                    <p className='font-heading font-bold text-primary'>{registration.classType.title}</p>
+                  </div>
+                </li>
+                <li className='flex px-2 py-2'>
+                  <div className='w-1/3 flex justify-start items-center'>
+                    <h4 className='font-heading text-primary'>Students:</h4>
+                  </div>
+                  <div className='flex-1 flex'>
+                    <p className='font-heading font-bold text-primary'>{registration.students.length}</p>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <ul className='flex flex-col'>
-              <li className='flex px-2 py-2'>
-                <div className='w-1/3 flex justify-start items-center'>
-                  <h4 className='font-heading text-primary'>Package:</h4>
-                </div>
-                <div className='flex-1 flex'>
-                  <p className='font-heading font-bold text-primary'>{chosenPackage.quantity} class{chosenPackage.quantity > 1 ? 'es' : 's'}</p>
-                </div>
-              </li>
-              <li className='flex px-2 py-2 bg-grey-100'>
-                <div className='w-1/3 flex justify-start items-center'>
-                  <h4 className='font-heading text-primary'>Cost:</h4>
-                </div>
-                <div className='flex-1 flex'>
-                  <p className='font-heading font-bold text-primary'>${totalPrice}</p>
-                </div>
-              </li>
-            </ul>
+
+            <div className='flex flex-col'>
+              <div className='flex-1 flex px-2 py-2 justify-start border-b border-grey-300'>
+                <h3 className='font-heading font-bold text-grey-600'>Schedule</h3>
+              </div>
+              <ul className='flex flex-col'>
+                {registration?.schedule.map((d, i) => (
+                  <li className={`flex px-2 py-2 ${i % 2 === 0 ? '' : 'bg-grey-100'}`}>
+                    <div className='w-1/3 flex justify-start items-center'>
+                      <h4 className='font-heading text-primary'>{capitalize(d.day)}:</h4>
+                    </div>
+                    <div className='flex-1 flex'>
+                      <p className='font-heading font-bold text-primary'>{d.time.start.slice(0,5)}-{d.time.end.slice(0,5)}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className='flex flex-col'>
+              <div className='flex-1 flex px-2 py-2 justify-start border-b border-grey-300'>
+                <h3 className='font-heading font-bold text-grey-600'>Price</h3>
+              </div>
+              <ul className='flex flex-col'>
+                <li className='flex px-2 py-2'>
+                  <div className='w-1/3 flex justify-start items-center'>
+                    <h4 className='font-heading text-primary'>Package:</h4>
+                  </div>
+                  <div className='flex-1 flex'>
+                    <p className='font-heading font-bold text-primary'>{chosenPackage.quantity} class{chosenPackage.quantity > 1 ? 'es' : 's'}</p>
+                  </div>
+                </li>
+                <li className='flex px-2 py-2 bg-grey-100'>
+                  <div className='w-1/3 flex justify-start items-center'>
+                    <h4 className='font-heading text-primary'>Cost:</h4>
+                  </div>
+                  <div className='flex-1 flex'>
+                    <p className='font-heading font-bold text-primary'>${totalPrice}</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <div className='flex gap-4 mt-8'>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              router.push(router.asPath.slice(0, router.asPath.lastIndexOf('/'))) 
-            }}
-            className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
-          >
-            Back
-          </button>
-          <button 
-            type="submit" 
-            className='flex-1 bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+          <div className='flex gap-4 mt-8'>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                router.push(router.asPath.slice(0, router.asPath.lastIndexOf('/'))) 
+              }}
+              className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
             >
-              Submit
+              Back
             </button>
-        </div>
-       
-        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
-        <div>{JSON.stringify(errors)}</div>
-        <div>{isValid.toString()}</div> */}
-      </Form>
-    </FormPageContainer>
+            <button 
+              type="submit" 
+              className='flex-1 bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+              >
+                Submit
+              </button>
+          </div>
+        
+          {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
+          <div>{JSON.stringify(errors)}</div>
+          <div>{isValid.toString()}</div> */}
+        </Form>
+      </FormPageContainer>
+    </Layout>
   )
 }
 

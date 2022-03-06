@@ -19,7 +19,7 @@ export default function HeroPage({
       <div className='relative bg-primary pb-32'>
         <div className='relative px-64 py-32 z-20 '>
           <h1 className='text-white text-6xl pb-1 font-bold font-heading'>{title}</h1>
-          {subtitle && <p className='font-body text-xl text-grey-400'>{subtitle}</p>}
+          {subtitle && <p className='font-body text-xl text-grey-600'>{subtitle}</p>}
         </div>
         <div className='absolute bottom-0 top-0 right-0 w-1/2 ml-auto'>
           <img

@@ -40,7 +40,7 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
 
   return (
     <Layout footer={footerData}>
-      <div className='bg-white' >
+      <div className='bg-grey-100' >
         <header className='relative w-full bg-primary'>
           <div className='relative flex flex-col z-10 gap-y-4 container mx-auto px-5 py-32'>
             <ul className='flex gap-3'>
@@ -84,25 +84,25 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
         <div className='flex container mx-auto px-5 py-12 gap-x-8'>
           <div className='flex-1 flex flex-col gap-y-16'>
             {description && (
-              <div className='flex flex-col p-6 rounded-sm border border-grey-300'>
+              <div className='flex flex-col p-6 bg-white rounded-sm border border-grey-300'>
                 <h2 className='font-heading font-bold text-2xl text-primary'>About this course</h2>
                 <BlockContent blocks={description} projectId={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID} dataset={process.env.NEXT_PUBLIC_SANITY_DATASET} className={markdownStyles.markdown} />
               </div>
             )}
 
 
-            <div className='flex flex-col p-6 rounded-sm border border-grey-300'>
+            <div className='flex flex-col p-6 bg-white rounded-sm border border-grey-300'>
               <h2 className='font-heading font-bold text-2xl text-primary'>Pricing</h2>
               <Pricing {...classType} />
             </div>
   
 
             {testimonials && (
-              <div className='flex flex-col p-6 rounded-sm border border-grey-300'>
+              <div className='flex flex-col p-6 bg-white rounded-sm border border-grey-300'>
                 <h2 className='font-heading font-bold text-2xl text-primary'>What our students think</h2>
                 <div className='flex justify-start my-12'>
                     {testimonials.map((t) => (
-                      <div className='flex items-center'>
+                      <div className='flex items-center max-w-full'>
                         <h5 className='min-w-max font-heading font-bold px-8 text-grey-500'>{format(parseISO(t._createdAt), 'yyyy MMM')}</h5>
                           <Testimonial {...t} />
                       </div>
@@ -111,7 +111,7 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
               </div>
             )}
             {faq && (
-              <div className='flex flex-col p-6 rounded-sm border border-grey-300'>
+              <div className='flex flex-col p-6 bg-white rounded-sm border border-grey-300'>
                 <h2 className='font-heading font-bold text-2xl text-primary'>Frequent Questions</h2>
                 <FAQ {...faq} open={true} />
               </div>

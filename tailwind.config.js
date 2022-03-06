@@ -105,7 +105,7 @@
         'max-height': 'max-height'
       },
       animation: {
-        'slide-up': 'slide-up 1s 1 ease-in-out forwards',
+        'slide-up': 'slide-up .75s 1 ease-in-out forwards',
       },
       keyframes: {
         'slide-up': {

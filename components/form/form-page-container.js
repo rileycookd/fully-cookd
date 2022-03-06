@@ -19,14 +19,14 @@ export default function FormPageContainer(props) {
           height="40" 
         />
       </div>
-      <div className='flex-1 w-max flex flex-col items-center gap-4 my-8'>
+      <div className='flex-1 w-full flex flex-col items-center gap-4 my-8'>
         <h1 className='text-primary font-heading font-bold text-4xl'>{title}</h1>
         {(steps && step) && (
           <div className='flex w-full flex-col items-center gap-2 max-w-sm mt-4'>
             <FormProgress title="Language selection" step={step} steps={steps} />
           </div>
         )}
-        <div className='flex-1 w-max h-full flex flex-col border rounded-lg border-grey-400 py-8 px-12'>
+        <div className='flex flex-col items-center w-max border rounded-lg border-grey-400 py-8 px-8'>
 
           {children}
 

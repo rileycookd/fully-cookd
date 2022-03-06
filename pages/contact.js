@@ -111,14 +111,14 @@ export default function Contact({ }) {
                 </div>
               </div>
 
-              <div className='ml-4 flex gap-6 text-grey-800'>
-                <a target="_blank" href="https://www.instagram.com/spanishlessonsbyluz/" className='hover:text-grey-600 transition-colors duration-100' rel="noopener noreferrer">
+              <div className='ml-4 flex text-grey-800'>
+                <a target="_blank" href="https://www.instagram.com/spanishlessonsbyluz/" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
                   <InstagramIcon className='w-8 h-8'/>
                 </a>
-                <a target="_blank" href="https://www.facebook.com/ameliolanguageinstitute" className='hover:text-grey-600 transition-colors duration-100' rel="noopener noreferrer">
+                <a target="_blank" href="https://www.facebook.com/ameliolanguageinstitute" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
                   <FacebookIcon className='w-8 h-8' />
                 </a>
-                <a target="_blank" href="https://www.youtube.com/channel/UCOMOGxsNHZOq8DJETweqbuA" className='hover:text-grey-600 transition-colors duration-100' rel="noopener noreferrer">
+                <a target="_blank" href="https://www.youtube.com/channel/UCOMOGxsNHZOq8DJETweqbuA" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
                   <YoutubeIcon className='w-8 h-8' />
                 </a>
 

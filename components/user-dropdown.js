@@ -46,21 +46,21 @@ function UserDropdown(props) {
             <>
               <li className='flex-1 '>
                 <Link href='/students'>
-                  <a className='flex items-center w-full content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-200 block whitespace-no-wrap'>
+                  <a className='flex items-center min-w-full w-max content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-200 block whitespace-no-wrap'>
                     <span className='p-1 bg-grey-300 rounded-md mr-4'><MdDashboard className='fill-primary h-4 w-4'/></span> Dashboard
                   </a>
                 </Link>
               </li>
               <li className='flex-1 '>
-                <Link href='/students/account-settings'>
-                  <a className='flex items-center w-full content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-200 block whitespace-no-wrap'>
+                <Link href='/students/my-account'>
+                  <a className='flex items-center min-w-full w-max content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-200 block whitespace-no-wrap'>
                     <span className='p-1 bg-grey-300 rounded-md mr-4'><IoPerson className='fill-primary h-4 w-4'/></span> Account
                   </a>
                 </Link>
               </li>
               <li className='flex-1' >
                 <button
-                  className='flex items-center w-full content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-200 block whitespace-no-wrap'
+                  className='flex items-center min-w-full w-max content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-200 block whitespace-no-wrap'
                   onClick={() => signOut({ callbackUrl: 'http://localhost:3000/' })}
                 >
                   <span className='p-1 bg-grey-300 rounded-md mr-4'><MdLogout className='fill-primary h-4 w-4'/></span> Logout
@@ -71,15 +71,15 @@ function UserDropdown(props) {
             <>
               <li className='flex-1 '>
                 <Link href='/register'>
-                  <a className='flex items-center content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-100 block whitespace-no-wrap'>
-                    <span className='p-1 bg-grey-300 rounded-md mr-4'><AiOutlineUserAdd className='fill-primary h-4 w-4'/></span> Register
+                  <a className='flex items-center content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-100 block whitespace-no-wrap w-max min-w-full'>
+                    <span className='p-1 bg-grey-300 rounded-md mr-4'><AiOutlineUserAdd className='fill-primary h-4 w-4'/></span> Sign up
                   </a>
                 </Link>
               </li>
               <li className='flex-1 '>
                 <Link href='/auth/signin'>
-                  <a className='flex items-center content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-100 block whitespace-no-wrap'>
-                    <span className='p-1 bg-grey-300 rounded-md mr-4'><MdLogin className='fill-primary h-4 w-4'/></span> Sign in
+                  <a className='flex items-center content-center bg-white pl-4 pr-6 py-3 hover:bg-grey-100 block whitespace-no-wrap w-max min-w-full'>
+                    <span className='p-1 bg-grey-300 rounded-md mr-4'><MdLogin className='fill-primary h-4 w-4'/></span> Log in
                   </a>
                 </Link>
               </li>

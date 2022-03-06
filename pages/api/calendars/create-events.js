@@ -1,5 +1,7 @@
 import { google } from 'googleapis'
-import privatekey from "google-calendar.json"
+const privatekey = JSON.parse(
+  Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_JSON, "base64").toString()
+);
 import sanityClient from '@sanity/client'
 
 const config = {

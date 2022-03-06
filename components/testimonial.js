@@ -6,13 +6,15 @@ import { imageBuilder } from '../lib/sanity'
 function Testimonial ({ student, quote }) {
 
   return (
-    <div className='flex items-start'>
-      <QuoteIcon className='mr-3 text-accent w-8 h-8'/>
-      <div className='flex flex-col gap-y-4'>
-        <p className='font-heading text-primary leading-relaxed text-md'>{quote}</p>
-        <div className='flex items-center'>
+    <div className='max-w-full w-full flex items-start justify-center'>
+      <div className='w-max'>
+        <QuoteIcon className='mr-3 text-accent w-4 h-4'/>
+      </div>
+      <div>
+        <p className='font-heading text-primary leading-relaxed text-md flex flex-wrap'>{quote}</p>
+        <div className='mt-2 flex items-center'>
           {student?.image && (
-            <div className='rounded-full overflow-hidden w-20 h-20 mr-2'>
+            <div className='rounded-full overflow-hidden w-16 h-16 mr-2'>
               <img
                 width={250}
                 height={250}
@@ -35,6 +37,10 @@ function Testimonial ({ student, quote }) {
           </div>
         </div>
       </div>
+      {/* <div className='w-max self-end'>
+        <QuoteIcon className='ml-3 rotate-180 text-accent w-4 h-4'/>
+      </div> */}
+
     </div>
   )
 }

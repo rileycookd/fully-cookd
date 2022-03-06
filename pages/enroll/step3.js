@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router';
 import { getAllLanguageData } from '../../lib/api';
+import Layout from 'components/layout'
+import Head from 'next/head'
 
 import { 
   Select,
@@ -72,56 +74,61 @@ export default function Step3(props) {
   }
 
   return (
-    <FormPageContainer title="New Registration" step={3} steps={8}>
-      <Form 
-        className='flex flex-col gap-4 w-96'
-        onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-3"
-        register={register}
-      >
-        <h3 className='font-heading text-base'>How many students?</h3>
-
-        <Select
-          label="Group size"
-          id="classSize"
-          name="classSize"
-          control={control}
-          placeholder="Select size"
-          options={
-            chosenClassType 
-            ? range(chosenClassType.min, chosenClassType.max, 1).map(o => (
-              {value: `${o}`, label: `${o} student${o > 1 ? 's' : ''}`}
-            ))
-            : ""
-          }
-          isDirty={dirtyFields?.classSize || getValues("classSize")}
-          error={errors?.classSize}
+    <Layout hideNav={true}>
+      <Head>
+        <title>Enrollment | Select your course details</title>
+      </Head>
+      <FormPageContainer title="Course Enrollment" step={3} steps={8}>
+        <Form 
+          className='flex flex-col gap-4 w-96'
+          onSubmit={handleSubmit(onSubmit)}
+          name="register-classes-step-3"
           register={register}
         >
-          <SizeIcon />
-        </Select>
-        <div className='flex gap-4'>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              dispatch(changeSize(getValues("classSize")))
-              router.push('/enroll/step2')
-            }}
-            className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
+          <h3 className='font-heading text-base'>How many students?</h3>
+
+          <Select
+            label="Group size"
+            id="classSize"
+            name="classSize"
+            control={control}
+            placeholder="Select size"
+            options={
+              chosenClassType 
+              ? range(chosenClassType.min, chosenClassType.max, 1).map(o => (
+                {value: `${o}`, label: `${o} student${o > 1 ? 's' : ''}`}
+              ))
+              : ""
+            }
+            isDirty={dirtyFields?.classSize || getValues("classSize")}
+            error={errors?.classSize}
+            register={register}
           >
-            Back
-          </button>
-          <button 
-            type="submit" 
-            className='flex-1 bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+            <SizeIcon />
+          </Select>
+          <div className='flex gap-4'>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                dispatch(changeSize(getValues("classSize")))
+                router.push('/enroll/step2')
+              }}
+              className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
             >
-              Next
+              Back
             </button>
-        </div>
-        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
-        <div>{JSON.stringify(errors)}</div>
-        <div>{isValid.toString()}</div> */}
-      </Form>
-    </FormPageContainer>
+            <button 
+              type="submit" 
+              className='flex-1 bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+              >
+                Next
+              </button>
+          </div>
+          {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
+          <div>{JSON.stringify(errors)}</div>
+          <div>{isValid.toString()}</div> */}
+        </Form>
+      </FormPageContainer>
+    </Layout>
   )
 }

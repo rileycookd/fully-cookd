@@ -22,7 +22,7 @@ export default function RegistrationList(props) {
             <ul className='flex flex-col gap-2'>
 
               {registrations?.map(r => (
-                  <RegistrationListItem {...r} />
+                  <RegistrationListItem key={r._id} {...r} />
                 )
               )}
 

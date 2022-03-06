@@ -17,7 +17,7 @@ export default function UpcomingClassesList(props) {
   const { classes, isLoading, isError } = useRemainingClasses(registrations[0].calendarId)
 
   useEffect(() => {
-    if(!isLoading) setAllUpcomingClasses(classes.slice(0, 5))
+    if(!isLoading && classes?.length) setAllUpcomingClasses(classes.slice(0, 5))
   }, [classes])
 
   console.log("CLASSES: ", classes)

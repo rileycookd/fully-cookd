@@ -9,6 +9,8 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
 import Image from 'next/image'
 import { BsExclamationCircle as WarningIcon } from 'react-icons/bs'
+import Layout from 'components/layout'
+import Head from 'next/head'
 
 
 
@@ -18,10 +20,9 @@ import { IoMdArrowBack as BackArrow } from 'react-icons/io'
 import {
   InputField,
   Select,
-  Form
+  Form,
+  FormPageContainer
 } from '../../components/form'
-
-import UserDropdown from '../../components/user-dropdown'
 
 const magic = typeof window !== 'undefined' && new Magic(process.env.NEXT_PUBLIC_MAGIC_PUB_KEY || 'a');
 
@@ -110,9 +111,9 @@ export default function Signin() {
       });
     }
   };
-
+ 
   useEffect(() => {
-    if(session?.user) router.push('/students')
+    if(session?.user) router.push(router.query.callbackUrl || '/students')
   }, [session])
 
   if(status === 'loading') {
@@ -141,16 +142,19 @@ export default function Signin() {
   }
 
   return (
-    <div>
-      <div className='h-full flex items-center justify-center my-24'>
+    <>
+    <Layout hideNav={true}>
+      <Head>
+        <title>Register for Amelio Language Institute</title>
+      </Head>
+      <FormPageContainer title='Log in'>
         <Form 
-          className='flex flex-col gap-4 w-full max-w-sm'
+          className='flex flex-col gap-4 w-[22rem]'
           onSubmit={handleSubmit(onSubmit)}
           name="register-classes-step-1"
           register={register}
         >
-          <h1 className='text-primary font-heading font-bold text-4xl'>Sign in</h1>
-          <p className='mb-4 '>New user? <span><Link href="/register"><a className='underline text-blue-500 hover:text-blue-800'>Create an account</a></Link></span></p>
+          <p className='mb-4 text-center'>New user? <span><Link href="/register"><a className='underline text-blue-500 hover:text-blue-800'>Create an account</a></Link></span></p>
           {formAlert?.message && <p className='flex items-center rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'><WarningIcon className='w-4 h-4 mr-2'/>{formAlert.message}</p>}
 
             <InputField
@@ -165,13 +169,14 @@ export default function Signin() {
             >
               <MailIcon />
             </InputField>
-            <button type="submit" className='bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'>Sign in</button>
+            <button type="submit" className='bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'>Log in</button>
           {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
           <div>{JSON.stringify(errors)}</div>
           <div>{isValid.toString()}</div> */}
         </Form>
-      </div>
-    </div>
+      </FormPageContainer>
+    </Layout>
+    </>
   );
 }
 

@@ -1,6 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div {
+  height: 100%;
+}
+
 article a {
     color: rgb(49, 49, 182);
     text-decoration: underline;
@@ -51,20 +60,20 @@ input[type="checkbox"]:checked ~ label > div.relative {
       background-color: 'red'
     }
     .animation-delay-100 {
-        animation-delay: 0.1s;
+        animation-delay: 100ms;
       }
 
     .animation-delay-200 {
-        animation-delay: 0.2s;
+        animation-delay: 200ms;
       }
       .animation-delay-300 {
-        animation-delay: 0.3s;
+        animation-delay: 300ms;
       }
       .animation-delay-400 {
-        animation-delay: 0.4s;
+        animation-delay: 400ms;
       }
       .animation-delay-500 {
-        animation-delay: 0.5s;
+        animation-delay: 500ms;
       }
 
     .animation-delay-600 {

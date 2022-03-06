@@ -1,5 +1,7 @@
 let { google } = require('googleapis');
-let privatekey = require("google-calendar.json");
+const privatekey = JSON.parse(
+  Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_JSON, "base64").toString()
+);
 
 export default async function calendarEvents(req, res) {
 

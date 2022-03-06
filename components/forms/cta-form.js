@@ -15,7 +15,10 @@ import { IoLanguage as LanguageIcon, IoSchool as ClassTypeIcon, } from 'react-ic
 import { IoIosPeople as ClassSizeIcon } from 'react-icons/io'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { changeLanguage, changeQuantity, changeClassType, changeSize } from '../../redux/features/registerClassesSlice'
+import { useSession } from 'next-auth/react'
+import { changeLanguage, changeQuantity, changeClassType, changeSize } from 'redux/features/registerClassesSlice'
+import { showModal, clearModal } from 'redux/features/modalSlice'
+
 
 
 function CTAForm(props) {
@@ -32,6 +35,9 @@ function CTAForm(props) {
 
   const router = useRouter()
   const dispatch = useDispatch()
+  const { data: session } = useSession()
+
+  console.log("ROUTER: ", router)
 
   const schema = yup.object().shape({
     language: yup.string().required("Please select a language"),
@@ -68,14 +74,18 @@ function CTAForm(props) {
     dispatch(changeLanguage(chosenLanguageData))
     dispatch(changeClassType(chosenLanguageData.classTypes.find( ({ _id }) => _id === data.classType)))
     dispatch(changeSize(data.classSize))
-    router.push({
-      pathname: '/enroll/step1',
-      query: {
-        source: router.asPath || router.pathname,
-      },
-    },
-    '/enroll/step1', // "as" argument
-  )}
+    if(!session) {
+      dispatch(showModal('SIGNUP'))
+      router.push({
+        pathname: router.asPath,
+        query: { callbackUrl: `${router.basePath}/enroll/step1` }
+      }, 
+      router.asPath, { shallow: true }
+      )
+    } else {
+      router.push('/enroll/step1')
+    }
+  }
   
   useEffect(() => {
     const subscription = watch((data) => {
@@ -171,7 +181,12 @@ function CTAForm(props) {
           >
             <ClassSizeIcon />
           </Select>
-          <button type="submit" className='bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'>Enroll</button>
+          <button 
+            type="submit" 
+            className='bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+          >
+            Enroll
+          </button>
         </Form>
       )}
 {/*       

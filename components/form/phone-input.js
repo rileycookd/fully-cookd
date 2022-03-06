@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react'
 import ReactPhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
+// import 'react-phone-input-2/lib/style.css'
+import 'react-phone-input-2/lib/bootstrap.css'
 // import './styles.override.css'
 import { Controller } from 'react-hook-form'
 
@@ -63,12 +64,13 @@ const PhoneInput = ({children, register, hideError, isDirty, readOnly, disabled,
               inputClass={''}
               buttonClass={''}
               dropdownClass={''}
-              containerClass={''}
+              containerClass={'flex'}
               searchClass={''}
+              // inputStyle={''}
             />
           )}
         />
-        {label && <label className={`absolute font-heading font-bold text-sm top-0 left-0 py-3 px-4 pointer-events-none ${(!disabled && !readOnly) ? 'text-primary' : 'text-grey-400'} ${children ? 'ml-10' : ''}`} htmlFor={id}>{label}</label>}
+        {/* {label && <label className={`absolute font-heading font-bold text-sm top-0 left-0 py-3 px-4 pointer-events-none ${(!disabled && !readOnly) ? 'text-primary' : 'text-grey-400'} ${children ? 'ml-10' : ''}`} htmlFor={id}>{label}</label>} */}
         {childrenWithProps}
     </div>
   )

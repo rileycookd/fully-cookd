@@ -7,7 +7,22 @@ export default {
 	title: 'Registration package',
   icon: BsGiftFill,
 	type: 'object',
+  initialValue: () => ({
+    submittedDate: new Date().toISOString()
+  }),
 	fields: [
+    {
+      title: 'Submitted date',
+      name: 'submittedDate',
+      type: 'datetime',
+      readOnly: true,
+      options: {
+        dateFormat: 'DD MMM YYYY',
+        timeFormat: 'HH:mm',
+        timeStep: 15,
+        calendarTodayLabel: 'Today'
+      },
+    },
     {
       name: 'quantity',
       title: 'Number of classes',

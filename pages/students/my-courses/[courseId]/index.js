@@ -58,7 +58,11 @@ export default function ClassPage({ registration }) {
   console.log(registrationData)
 
   useEffect(() => {
-    if(!isLoading && classes?.length) setRemainingClasses(classes?.length)
+    if(!isLoading) {
+      classes?.length
+      ? setRemainingClasses(classes?.length)
+      : setRemainingClasses(0)
+    }
   }, [classes])
   
 
@@ -124,7 +128,7 @@ export default function ClassPage({ registration }) {
                               <h4 className='font-heading text-primary'>Classes left:</h4>
                             </div>
                             <div className='flex-1 flex justify-between items-center'>
-                              <p className={`font-heading font-bold ${remainingClasses <= 3 ? 'text-error' : 'text-primary'}`}>{remainingClasses} class{remainingClasses > 1 ? 'es' : ''} left</p>
+                              <p className={`font-heading font-bold ${remainingClasses <= 3 ? 'text-error' : 'text-primary'}`}>{remainingClasses} class{remainingClasses !== 1 ? 'es' : ''} left</p>
                               <Link href={`${router.asPath}/add-classes`}>
                                 <a className="flex bg-secondary hover:bg-secondary-300 transition-colors duration-75 py-2 px-3 rounded text-xs items-center font-medium font-heading text-white">
                                   Add <AddIcon className="ml-1 w-4 h-4 fill-white" />
@@ -169,7 +173,47 @@ export default function ClassPage({ registration }) {
                         </div>
                       </div>
 
+                    </div>
+
+                    <div className='rounded-lg border border-grey-400 p-8 bg-white'>
+
+                      <div className='flex flex-col gap-12'>
+
+                        <div className='flex flex-col'>
+                          <div className='flex-1 flex pb-4 justify-start border-b border-grey-300'>
+                            <h3 className='font-heading font-bold text-grey-600'>Purchase history</h3>
+                          </div>
+                          {registrationData.packages ? (
+
+                            <ul className='flex flex-col'>
+                              {registrationData.packages.map((p, i) => (
+                                <li key={p._key} className={`flex px-4 py-6 ${i % 2 === 0 ? '' : 'bg-grey-100'}`}>
+                                  <div className='w-1/4 flex justify-start items-center'>
+                                    <h4 className='font-heading text-primary'>{format(parseISO(p.start || p.submittedDate), 'dd MMM yyyy')}:</h4>
+                                  </div>
+                                  <div className='flex-1 flex'>
+                                    <p className='flex-1 flex items-center justify-between font-heading font-bold text-primary'>
+                                      <span>
+                                        {p.quantity} class{p.quantity === 1 ? '' : 'es'}
+                                      </span>
+                                      <span className='text-secondary'>
+                                        {p.price ? `$${p.price}` : ''}
+                                      </span>
+                                      <span className={`font-heading font-medium text-sm py-1 px-2 ${!p.active ? 'text-warning-400 bg-warning-100' : 'text-secondary bg-secondary-100'} rounded-md`}>
+                                        {p.active ? 'Paid' : 'Pending'}
+                                      </span>
+                                    </p>
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <div className='py-4'>No class history</div>
+                          )}   
+                        </div>
                       </div>
+
+                    </div>
 
                 </div>
 

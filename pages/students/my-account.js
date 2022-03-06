@@ -139,9 +139,9 @@ export default function AccountSettings(props) {
                               e.preventDefault()
                               setEditMode(!editMode)
                             }}
-                            className='flex items-center underline hover:text-grey-900 transition-colors duration-75 text-grey-700'
+                            className='flex items-center p-3 rounded font-heading font-bold text-sm text-grey-800 bg-grey-400 hover:bg-grey-500 hover:text-grey-900 transition-colors duration-75'
                           >
-                            Edit <EditIcon className='ml-1 w-4 h-4 fill-current'/>
+                            {!editMode ? (<>Edit <EditIcon className='ml-1 w-4 h-4 fill-grey-700'/></>) : 'Cancel'}
                           </button>
                         </div>
                       </div>

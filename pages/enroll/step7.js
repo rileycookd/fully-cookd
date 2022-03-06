@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router';
+import Layout from 'components/layout'
+import Head from 'next/head'
 
 import { 
   Select,
@@ -109,95 +111,100 @@ export default function Step7(props) {
 
 
   return (
-    <FormPageContainer title="New Registration" step={7} steps={8}>
+    <Layout hideNav={true}>
+      <Head>
+        <title>Enrollment | Select your course details</title>
+      </Head>
+      <FormPageContainer title="Course Enrollment" step={7} steps={8}>
 
-      <Form 
-        className='flex flex-col gap-4 w-96'
-        onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-7"
-        register={register}
-      >
-        <p className='w-full text-center'>Timezone: <span>America/Denver</span></p>
-        {initialState.map((c, i) => (
-          <div className='flex flex-col gap-4 my-4'>
-            <h3 className='font-heading font-bold text-base text-center'>{c.day}</h3>
-            {/* <fieldset className='flex flex-col gap-2 mb-2'>
-              <legend className='font-heading font-bold text-sm mb-2'>Duration:</legend>
-              {chosenClassType.pricing.map(p => (
-                <InputRadio 
-                  label={`${p.duration} minute${p.duration > 1 ? 's' : ''}`}
-                  id={`${c.day}-${p._key}`}
-                  name={`classes[${i}].duration`}
+        <Form 
+          className='flex flex-col gap-4 w-96'
+          onSubmit={handleSubmit(onSubmit)}
+          name="register-classes-step-7"
+          register={register}
+        >
+          <p className='w-full text-center'>Timezone: <span>America/Denver</span></p>
+          {initialState.map((c, i) => (
+            <div className='flex flex-col gap-4 my-4'>
+              <h3 className='font-heading font-bold text-base text-center'>{c.day}</h3>
+              {/* <fieldset className='flex flex-col gap-2 mb-2'>
+                <legend className='font-heading font-bold text-sm mb-2'>Duration:</legend>
+                {chosenClassType.pricing.map(p => (
+                  <InputRadio 
+                    label={`${p.duration} minute${p.duration > 1 ? 's' : ''}`}
+                    id={`${c.day}-${p._key}`}
+                    name={`classes[${i}].duration`}
+                    register={register}
+                  />
+                ))}
+
+              </fieldset> */}
+              <fieldset className='flex flex-col gap-2 mb-2'>
+                <legend className='font-heading font-bold text-primary text-sm mb-2'>Available times:</legend>
+              {getTimeOptions(c.day)?.map(t => (
+                <RadioOption 
+                  id={`${t.value}-classes[${i}].time`}
+                  name={`classes[${i}].time`}
+                  value={t.value}
                   register={register}
+                  label={t.label}
                 />
               ))}
+              </fieldset>
 
-            </fieldset> */}
-            <fieldset className='flex flex-col gap-2 mb-2'>
-              <legend className='font-heading font-bold text-primary text-sm mb-2'>Available times:</legend>
-            {getTimeOptions(c.day)?.map(t => (
-              <RadioOption 
-                id={`${t.value}-classes[${i}].time`}
-                name={`classes[${i}].time`}
-                value={t.value}
+              {/* <Select
+                label={`${c.day}'s duration:`}
+                id={`classes[${i}].duration`}
+                name={`classes[${i}].duration`}
+                options={createPricingOptions()}
+                control={control}
+                placeholder="Choose class length"
+                error={errors?.classes?.[i]?.duration}
+                isDirty={dirtyFields?.classes?.[i]?.duration || getValues(`classes[${i}].duration`)}
                 register={register}
-                label={t.label}
-              />
-            ))}
-            </fieldset>
+              >
+              </Select> */}
+              {/* <Select
+                label={`Available times:`}
+                id={`classes[${i}].time`}
+                name={`classes[${i}].time`}
+                options={TIME_OPTIONS}
+                control={control}
+                placeholder="Choose a time slot"
+                disabled={getValues(`classes[${i}].duration`) == ""}
+                error={errors?.classes?.[i]?.time}
+                isDirty={dirtyFields?.classes?.[i]?.time || getValues(`classes[${i}].time`)}
+                register={register}
+              >
+              </Select> */}
+            {errors?.classes?.[i] && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.classes[i]?.time?.message}</p>}
 
-            {/* <Select
-              label={`${c.day}'s duration:`}
-              id={`classes[${i}].duration`}
-              name={`classes[${i}].duration`}
-              options={createPricingOptions()}
-              control={control}
-              placeholder="Choose class length"
-              error={errors?.classes?.[i]?.duration}
-              isDirty={dirtyFields?.classes?.[i]?.duration || getValues(`classes[${i}].duration`)}
-              register={register}
-            >
-            </Select> */}
-            {/* <Select
-              label={`Available times:`}
-              id={`classes[${i}].time`}
-              name={`classes[${i}].time`}
-              options={TIME_OPTIONS}
-              control={control}
-              placeholder="Choose a time slot"
-              disabled={getValues(`classes[${i}].duration`) == ""}
-              error={errors?.classes?.[i]?.time}
-              isDirty={dirtyFields?.classes?.[i]?.time || getValues(`classes[${i}].time`)}
-              register={register}
-            >
-            </Select> */}
-          {errors?.classes?.[i] && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.classes[i]?.time?.message}</p>}
+            </div>
+          ))}
 
-          </div>
-        ))}
-
-        <div className='flex gap-4'>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              dispatch(changeTimes([...getValues('classes')])) 
-              router.push('/enroll/step6')
-            }}
-            className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
-          >
-            Back
-          </button>
-          <button 
-            type="submit" 
-            className='flex-1 bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+          <div className='flex gap-4'>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                dispatch(changeTimes([...getValues('classes')])) 
+                router.push('/enroll/step6')
+              }}
+              className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
             >
-              Next
+              Back
             </button>
-        </div>
-        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
-        <div>{JSON.stringify(errors)}</div>
-        <div>{isValid.toString()}</div> */}
-      </Form>
-    </FormPageContainer>
+            <button 
+              type="submit" 
+              className='flex-1 bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+              >
+                Next
+              </button>
+          </div>
+          {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
+          <div>{JSON.stringify(errors)}</div>
+          <div>{isValid.toString()}</div> */}
+        </Form>
+      </FormPageContainer>
+    </Layout>
   )
 }

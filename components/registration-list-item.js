@@ -14,16 +14,20 @@ export default function RegistrationListItem(props) {
     calendarId,
   } = props
 
-  const [remainingClasses, setRemainingClasses] = useState(0)
+  const [remainingClasses, setRemainingClasses] = useState(null)
 
   const { classes, isLoading, isError } = useRemainingClasses(calendarId)
 
   useEffect(() => {
-    if(!isLoading && classes?.length) setRemainingClasses(classes.length)
+    if(!isLoading) {
+        classes?.length
+        ? setRemainingClasses(classes.length)
+        : setRemainingClasses(0)
+      }
   }, [classes])
 
   return (
-    <li key={_id}>
+    <li>
       <Link href={`/students/my-courses/${_id}`}>
         <a className='flex items-center justify-between border border-grey-400 bg-grey-100 hover:bg-secondary-100 hover:border-secondary cursor-pointer transition-colors duration-75 rounded-md px-6 py-6'>
           <div className='flex items-center gap-6'>
@@ -33,7 +37,7 @@ export default function RegistrationListItem(props) {
             <h3 className='font-heading font-bold text-sm'>{classType.title}</h3>
           </div>
           <div className='flex items-center gap-6'>
-            <p className={`font-body text-xs ${remainingClasses <= 3 ? 'text-error' : 'text-grey-800'}`}>{remainingClasses ? `${remainingClasses} class${remainingClasses !== 1 ? 'es' : ''} left` : ''}</p>
+            <p className={`font-body text-xs ${remainingClasses <= 3 ? 'text-error' : 'text-grey-800'}`}>{remainingClasses !==  null ? remainingClasses === 0 ? '0 classes' : `${remainingClasses} class${remainingClasses !== 1 ? 'es' : ''} left` : ''}</p>
             <p className={`font-heading font-medium text-sm py-1 px-2 ${state === 'pending' ? 'text-warning-400 bg-warning-100' : 'text-secondary bg-secondary-100'} rounded-md`}>
               {capitalize(state)}
             </p>

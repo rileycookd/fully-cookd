@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router';
+import Layout from 'components/layout'
+import Head from 'next/head'
 
 import { 
   FormPageContainer

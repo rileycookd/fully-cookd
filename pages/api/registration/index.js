@@ -52,6 +52,7 @@ export default async function Registration(req, res) {
           {
             _type: "registrationPackage",
             _key: uuidv4(),
+            submittedDate: new Date().toISOString(),
             quantity: parseInt(quantity, 10),
             active: false,
             price: 675,
@@ -105,6 +106,7 @@ export default async function Registration(req, res) {
       quantity: parseInt(quantity, 10),
       active: false,
       price: 420,
+      submittedDate: new Date().toISOString(),
     }
 
     let updatedRegistration

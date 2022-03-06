@@ -8,7 +8,7 @@ import { IoMail as MailIcon, IoPerson as PersonIcon, } from 'react-icons/io5'
 import Link from 'next/link'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup';
-import Layout from '../components/layout';
+import Layout from 'components/layout';
 import Image from 'next/image'
 import { BsExclamationCircle as WarningIcon } from 'react-icons/bs'
 import { RiMapPinTimeLine as TimezoneIcon } from 'react-icons/ri'
@@ -20,10 +20,9 @@ import {
   InputField,
   Select,
   TimezoneSelect,
-  Form
-} from '../components/form'
-
-import UserDropdown from '../components/user-dropdown'
+  Form,
+  FormPageContainer
+} from 'components/form'
 
 const magic = typeof window !== 'undefined' && new Magic(process.env.NEXT_PUBLIC_MAGIC_PUB_KEY || 'a');
 
@@ -153,21 +152,13 @@ export default function RegisterUser() {
         <Head>
           <title>Register for Amelio Language Institute</title>
         </Head>
-        <div className='container mx-auto px-5 flex justify-between items-center py-8'>
-          <Link href={router.query?.source || '/'}>
-            <a className='flex-1 flex items-center text-grey-600 underline hover:text-grey-700 transition-all duration-100 w-6 h-6 mr-2 font-heading font-bold'><BackArrow className='fill-current w-6 h-6 mr-1'/> Back</a>
-          </Link>
-          <p className='flex-1 flex justify-end'><UserDropdown /></p>
-        </div>
-        <div className='h-full flex items-center justify-center my-24'>
+        <FormPageContainer title="Sign up">
           <Form 
-            className='flex flex-col gap-4 w-full max-w-sm'
+            className='flex flex-col gap-4 w-[22rem] max-w-sm'
             onSubmit={handleSubmit(onSubmit)}
             name="register-classes-step-1"
             register={register}
           >
-            <h1 className='text-primary font-heading font-bold text-4xl'>New account</h1>
-            <p className='mb-4 '>Already have an account? <span><Link href="/auth/signin"><a className='underline text-blue-500 hover:text-blue-800'>Sign in</a></Link></span></p>
             {formAlert?.message && <p className='flex items-center rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'><WarningIcon className='w-4 h-4 mr-2'/>{formAlert.message}</p>}
 
               <InputField
@@ -210,13 +201,15 @@ export default function RegisterUser() {
                 type="submit" 
                 className='bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
               >
-                Register
+                Create account
               </button>
             {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
             <div>{JSON.stringify(errors)}</div>
             <div>{isValid.toString()}</div> */}
+            <p className='mb-4 text-center'>Already have an account? <span><Link href="/auth/signin"><a className='underline text-blue-500 hover:text-blue-800'>Log in</a></Link></span></p>
+
           </Form>
-        </div>
+        </FormPageContainer>
       </Layout>
     </>
   );

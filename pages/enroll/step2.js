@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router';
 import { getAllLanguageData } from '../../lib/api';
+import Layout from 'components/layout'
+import Head from 'next/head'
 
 import { 
   Select,
@@ -72,54 +74,59 @@ export default function Step2(props) {
   }
 
   return (
-    <FormPageContainer title="New Registration" step={2} steps={8}>
+    <Layout hideNav={true}>
+      <Head>
+        <title>Enrollment | Select your course details</title>
+      </Head>
+      <FormPageContainer title="Course Enrollment" step={2} steps={8}>
 
-      <Form 
-        className='flex flex-col gap-4 w-96'
-        onSubmit={handleSubmit(onSubmit)}
-        name="register-classes-step-2"
-        register={register}
-      >
-        <fieldset className='flex flex-col gap-2 my-4'>
-          <legend className='font-heading text-base mb-4'>Choose a course:</legend>
-          {classTypes && classTypes.map(ct => (
-            <Radio 
-              key={ct._id}
-              id={ct.title} 
-              label={ct.title}
-              name="classType" 
-              value={ct._id}
-              error={errors?.classType}
-              isDirty={isDirty?.classType}
-              register={register}
-            />
-          ))}
-          {errors?.classType && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.classType.message}</p>}
-        </fieldset>
-        <div className='flex gap-4'>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              let chosenClassType = getValues("classType")
-              if(chosenClassType) dispatch(changeClassType(classTypes.find( ({ _id }) => _id === chosenClassType)))
-              router.push('/enroll/step1')
-            }}
-            className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
-          >
-            Back
-          </button>
-          <button 
-            type="submit" 
-            className='flex-1 bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+        <Form 
+          className='flex flex-col gap-4 w-96'
+          onSubmit={handleSubmit(onSubmit)}
+          name="register-classes-step-2"
+          register={register}
+        >
+          <fieldset className='flex flex-col gap-2 my-4'>
+            <legend className='font-heading text-base mb-4'>Choose a course:</legend>
+            {classTypes && classTypes.map(ct => (
+              <Radio 
+                key={ct._id}
+                id={ct.title} 
+                label={ct.title}
+                name="classType" 
+                value={ct._id}
+                error={errors?.classType}
+                isDirty={isDirty?.classType}
+                register={register}
+              />
+            ))}
+            {errors?.classType && <p className='rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'>{errors.classType.message}</p>}
+          </fieldset>
+          <div className='flex gap-4'>
+            <button
+              onClick={(e) => {
+                e.preventDefault()
+                let chosenClassType = getValues("classType")
+                if(chosenClassType) dispatch(changeClassType(classTypes.find( ({ _id }) => _id === chosenClassType)))
+                router.push('/enroll/step1')
+              }}
+              className='flex-1 bg-grey-400 hover:bg-grey-500 text-primary font-bold font-heading py-5 px-5 rounded'
             >
-              Next
+              Back
             </button>
-        </div>
-        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
-        <div>{JSON.stringify(errors)}</div>
-        <div>{isValid.toString()}</div> */}
-      </Form>
-    </FormPageContainer>
+            <button 
+              type="submit" 
+              className='flex-1 bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+              >
+                Next
+              </button>
+          </div>
+          {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
+          <div>{JSON.stringify(errors)}</div>
+          <div>{isValid.toString()}</div> */}
+        </Form>
+      </FormPageContainer>
+    </Layout>
   )
 }
 
