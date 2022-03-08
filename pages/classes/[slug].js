@@ -102,7 +102,7 @@ export default function ClassType({ classType = {}, languageData = {}, footerDat
                 <h2 className='font-heading font-bold text-2xl text-primary'>What our students think</h2>
                 <div className='flex justify-start my-12'>
                     {testimonials.map((t) => (
-                      <div className='flex items-center max-w-full'>
+                      <div className='flex items-center'>
                         <h5 className='min-w-max font-heading font-bold px-8 text-grey-500'>{format(parseISO(t._createdAt), 'yyyy MMM')}</h5>
                           <Testimonial {...t} />
                       </div>

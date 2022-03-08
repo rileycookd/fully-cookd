@@ -92,7 +92,7 @@ export default function Contact({ }) {
         <Head>
           <title>Contact us | Amelio Language Institute</title>
         </Head>
-        <div className='flex-1 flex bg-gradient-to-r from-primary-800 to-primary-600 min-h-full'>
+        <div className='flex-1 flex bg-primary-800 min-h-full'>
           <div className='flex container mx-auto px-5 my-24'>
             <div className='flex-1 flex flex-col justify-between'>
               <div className='flex flex-col gap-8'>

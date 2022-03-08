@@ -22,6 +22,7 @@ export default [
       { type: 'testimonialGroup' },
       { type: 'infoBlock' },
       { type: 'classTypesList' },
+      { type: 'featuredLinksBlock' },
       // { type: 'form' },
     ],
   },

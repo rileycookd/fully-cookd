@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ImPhone as PhoneIcon, ImFacebook as FacebookIcon, ImLinkedin2 as LinkedinIcon } from 'react-icons/im'
 import { IoMdMail as MailIcon, IoLogoWhatsapp as WhatsappIcon } from 'react-icons/io'
 import { IoLogoInstagram as InstagramIcon, IoLogoYoutube as YoutubeIcon, } from 'react-icons/io5'
+import { getLinkRoute } from 'lib/helpers'
 
 function Footer (props) {
   const {
@@ -13,7 +14,7 @@ function Footer (props) {
 
   const renderSiteMapItem = (item) => {
     return (
-      <li>
+      <li key={item._key}>
         <h5 className='font-heading text-grey-400 text-md font-bold mb-1'>{item.title}</h5>
         <ul className='flex flex-col'>
           {item.links && item.links.map((l => (
@@ -27,8 +28,8 @@ function Footer (props) {
   const renderLink = (l) => {
     
     return (
-      <li className='flex'>
-        <Link href="/"><a className='hover:text-grey-700 text-grey-600 py-1 font-body text-base'>{l.title || l?.document?.title}</a></Link>
+      <li key={l._key} className='flex'>
+        <Link href={getLinkRoute(l)}><a className='hover:text-grey-700 text-grey-600 py-1 font-body text-base'>{l.title || l?.document?.title}</a></Link>
       </li>
     )
   }

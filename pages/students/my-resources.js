@@ -38,7 +38,7 @@ export default function MyResources(props) {
               ) : isError ? (
                 <div>Couldn't load user data</div>
               ) : (
-                <div>Coming soon!</div>
+                <div>Resources page coming soon!</div>
               )}
             </div>
           

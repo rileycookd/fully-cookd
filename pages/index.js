@@ -13,6 +13,7 @@ import PostPreviewGrid from '../components/post-preview-grid'
 import TestimonialBlock from '../components/testimonial-block'
 import LanguageRadioGroup from '../components/language-radio-group'
 import ClassTypesBlock from '../components/class-types-block'
+import FeaturedLinksBlock from 'components/featured-links-block'
 
 
 
@@ -25,6 +26,9 @@ export default function Index({ footer, pageBlocks, languageData }) {
       switch (c._type) {
         case "infoBlock":
           el = <InfoBlock key={c._key} {...c} />;
+          break;
+        case "featuredLinksBlock":
+          el = <FeaturedLinksBlock key={c._key} {...c} />;
           break;
         case "classTypesList":
           el = (

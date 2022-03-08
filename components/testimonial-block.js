@@ -17,6 +17,7 @@ function TestimonialBlock ({testimonials, title}) {
         <ul className='flex gap-2 items-center h-16'>
           {testimonials?.map((t, i) => (
             <li 
+              key={t._id}
               onClick={() => setCurrentIndex(i)}
               className={`relative transition-all duration-100 rounded-full cursor-pointer overflow-hidden ${currentIndex === i ? 'border-2 h-16 w-16 border-secondary' : 'border-4 h-14 w-14 border-grey-500'} `}
             >

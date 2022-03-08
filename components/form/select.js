@@ -15,7 +15,7 @@ const Select = (props) => {
     label,
     placeholder,
     isSearchable,
-
+    hideError,
     children, 
     control, 
     id, 
@@ -119,8 +119,8 @@ const Select = (props) => {
   }
 
   return (
-    <div>
-      {error && <p className='ml-4 py-1 font-heading text-sm text-error-400'>{error?.message}</p>}
+    <div className='min-w-max w-full'>
+      {(!hideError && error?.message) && (<p className='ml-4 py-1 font-heading text-sm text-error-400'>{error.message}</p>)}
       <div className='relative'>
         <Controller
           name={name}
@@ -132,7 +132,6 @@ const Select = (props) => {
               isDisabled={disabled} 
               className={className}
               options={options} 
-              isSearchable={false}
               name={name}
               styles={customStyles}
               value={options?.find(c => c.value === value) || value}

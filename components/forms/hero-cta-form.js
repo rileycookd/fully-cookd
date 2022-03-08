@@ -18,10 +18,13 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useSession } from 'next-auth/react'
 import { changeLanguage, changeQuantity, changeClassType, changeSize } from 'redux/features/registerClassesSlice'
 import { showModal, clearModal } from 'redux/features/modalSlice'
+import { useLanguages } from 'lib/swr'
+
+
+
 
 function CTAForm(props) {
   const { 
-    languageData,
     initialValues,
     className
   } = props
@@ -34,6 +37,8 @@ function CTAForm(props) {
   const router = useRouter()
   const dispatch = useDispatch()
   const { data: session } = useSession()
+  const { languages, isError, isLoading } = useLanguages()
+
 
   console.log("ROUTER: ", router)
 
@@ -68,7 +73,7 @@ function CTAForm(props) {
   });
 
   const onSubmit = (data) => {
-    let chosenLanguageData = languageData.find( ({ _id }) => _id === data.language)
+    let chosenLanguageData = languages.find( ({ _id }) => _id === data.language)
     dispatch(changeLanguage(chosenLanguageData))
     dispatch(changeClassType(chosenLanguageData.classTypes.find( ({ _id }) => _id === data.classType)))
     dispatch(changeSize(data.classSize))
@@ -107,7 +112,7 @@ function CTAForm(props) {
         classType: '',
         classSize: ''
       })
-      let currentLanguageData = languageData.find(l => l._id === currentLanguage)
+      let currentLanguageData = languages.find(l => l._id === currentLanguage)
       setClassTypeOptions(currentLanguageData?.classTypes?.map(ct => (
         {value: ct._id, label: ct.title}
       )))
@@ -120,7 +125,7 @@ function CTAForm(props) {
         ...getValues(),
         classSize: ''
       })
-      let {min, max} = languageData.find(l => l._id === currentLanguage).classTypes.find(ct => ct._id === currentClassType)
+      let {min, max} = languages.find(l => l._id === currentLanguage).classTypes.find(ct => ct._id === currentClassType)
       setClassSizeOptions(range(min, max, 1).map(o => (
         {value: `${o}`, label: `${o} student${o > 1 ? 's' : ''}`}
       )))
@@ -128,11 +133,10 @@ function CTAForm(props) {
   }, [currentClassType])
 
   return (
-    <div className={`flex flex-col gap-8 px-4 py-8 rounded-md border border-grey-400 w-full z-20 relative bg-white ${className}`}>
-      <h3 className='text-center font-heading text-xl font-bold'>Enroll today</h3>
-      {languageData?.length && (
+    <div className={`flex gap-8 px-3 py-3 rounded-md border border-grey-400 w-full z-20 relative bg-white ${className}`}>
+      {languages?.length && (
         <Form
-          className='flex flex-col gap-4'
+          className='flex-1 flex gap-4'
           onSubmit={handleSubmit(onSubmit)}
           name="add-registration-form-step-1"
           register={register}
@@ -142,13 +146,14 @@ function CTAForm(props) {
             name='language'
             placeholder='Select a language'
             options={
-              languageData?.map(language => (
+              languages?.map(language => (
                 {value: language._id, label: language.title}
               ))
             }
             register={register}
             control={control}
             error={errors?.language}
+            hideError={true}
             isDirty={dirtyFields?.language || getValues("language")}
           >
             <LanguageIcon />
@@ -162,6 +167,7 @@ function CTAForm(props) {
             control={control}
             disabled={!getValues("language")}
             error={errors?.classType}
+            hideError={true}
             isDirty={dirtyFields?.classType || getValues("classType")}
           >
             <ClassTypeIcon />
@@ -175,13 +181,14 @@ function CTAForm(props) {
             control={control}
             disabled={!getValues("classType")}
             error={errors?.classSize}
+            hideError={true}
             isDirty={dirtyFields?.classSize || getValues("classSize")}
           >
             <ClassSizeIcon />
           </Select>
           <button 
             type="submit" 
-            className='bg-accent hover:bg-accent-400 text-primary font-bold font-heading py-5 px-5 rounded'
+            className='bg-accent hover:bg-accent-400 text-primary font-bold w-max font-heading py-5 px-8 rounded'
           >
             Enroll
           </button>

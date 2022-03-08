@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useRef, useState, useLayoutEffect } from 'react'
 import { imageBuilder } from '../lib/sanity'
 import NavFeaturedLinks from '../components/nav-featured-links'
+import HeroCTAForm from './forms/hero-cta-form'
 
 
 export default function HeroPage({
@@ -16,10 +17,13 @@ export default function HeroPage({
 
   return (
     <section>
-      <div className='relative bg-primary pb-32'>
-        <div className='relative px-64 py-32 z-20 '>
+      <div className={`relative bg-primary ${navigation?.length ? 'pb-32' : ''}`}>
+        <div className='relative container mx-auto px-5 py-32 z-20 '>
           <h1 className='text-white text-6xl pb-1 font-bold font-heading'>{title}</h1>
           {subtitle && <p className='font-body text-xl text-grey-600'>{subtitle}</p>}
+          <div className='mt-12 max-w-5xl'>
+            <HeroCTAForm />
+          </div>
         </div>
         <div className='absolute bottom-0 top-0 right-0 w-1/2 ml-auto'>
           <img
@@ -32,9 +36,12 @@ export default function HeroPage({
         </div>
         <div className='absolute w-1/2 h-full top-0 right-0 bottom-0 bg-gradient-to-r from-primary'></div>
       </div>
-      <div className='relative bg-grey-200 h-52 w-full'>
-      {navigation?.length && <NavFeaturedLinks links={navigation} />}
-      </div>
+      {navigation && (
+        <div className='relative bg-grey-200 h-52 w-full'>
+          {navigation?.length && <NavFeaturedLinks links={navigation} />}
+        </div>
+      )}
+
     </section>
   )
 }

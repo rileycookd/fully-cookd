@@ -5,7 +5,7 @@ import { imageBuilder } from '../lib/sanity'
 function InfoBlock ({images, description, subtitle, title, reverse}) {
 
   const imageList = images.map((image) => (
-    <li className='flex-1'>
+    <li key={image._key} className='flex-1'>
       <img
         width={400}
         height={400}

@@ -22,7 +22,7 @@ const LanguageRadioGroup = (props) => {
         if(i === 0) borderRadius = 'rounded-l-lg'
         if(i === languages.length-1) borderRadius ='rounded-r-lg'
         return (
-          <div>
+          <div key={l._id}>
             <input
               type="radio"
               id={`radio-${l._id}`}

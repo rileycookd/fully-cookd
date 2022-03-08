@@ -38,7 +38,7 @@ export default function MyMessages(props) {
               ) : isError ? (
                 <div>Couldn't load user data</div>
               ) : (
-                <div>Coming soon!</div>
+                <div>Messages inbox coming soon!</div>
               )}
             </div>
           

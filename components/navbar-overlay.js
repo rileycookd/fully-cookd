@@ -51,7 +51,7 @@ function NavbarOverlay(props) {
               {languages[currentCategory]?.classTypes?.map((ct,i) => (
                 <li key={ct._id} className='w-full h-max'>
                   <Link href={`/classes/${ct.slug.current}`}>
-                    <a className='flex flex-col p-2 bg-white cursor-pointer hover:bg-secondary-100 hover:border-secondary transition-colors duration-75 rounded-md border border-grey-300'>
+                    <a className='flex flex-col p-2 cursor-pointer hover:bg-secondary-100 border border-transparent hover:border-secondary transition-colors duration-75 rounded-md'>
                       <div className='group relative w-full overflow-hidden rounded-t '>
                         {ct.image && (
                           <img
