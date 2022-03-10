@@ -47,6 +47,11 @@ input[type="checkbox"]:checked ~ label > div.relative {
   border-color: #00BFB2;
 }
 
+@layer components {
+  .p-page {
+    @apply xl:container mx-auto px-5 md:px-10;
+  }
+}
 
 @layer utilities {
     .inset-center {

@@ -15,7 +15,7 @@ function Footer (props) {
   const renderSiteMapItem = (item) => {
     return (
       <li key={item._key}>
-        <h5 className='font-heading text-grey-400 text-md font-bold mb-1'>{item.title}</h5>
+        <h5 className='font-heading text-center sm:text-left text-grey-400 text-md font-bold mb-1'>{item.title}</h5>
         <ul className='flex flex-col'>
           {item.links && item.links.map((l => (
             renderLink(l)
@@ -29,7 +29,7 @@ function Footer (props) {
     
     return (
       <li key={l._key} className='flex'>
-        <Link href={getLinkRoute(l)}><a className='hover:text-grey-700 text-grey-600 py-1 font-body text-base'>{l.title || l?.document?.title}</a></Link>
+        <Link href={getLinkRoute(l)}><a className='hover:text-grey-700 text-grey-600 py-1 text-center sm:text-left font-body text-base'>{l.title || l?.document?.title}</a></Link>
       </li>
     )
   }
@@ -37,8 +37,8 @@ function Footer (props) {
 
   return (
     <footer className='bg-primary w-full text-grey-500'>
-      <div className='container mx-auto px-5 py-24 display flex flex-col gap-24'>
-        <div className='flex justify-between'>
+      <div className='p-page py-24 display flex flex-col gap-24'>
+        <div className='flex flex-col lg:flex-row items-center gap-12 lg:items-start justify-between'>
 
           <div className='flex flex-col gap-4'>
             <div className='flex items-center'>
@@ -52,7 +52,7 @@ function Footer (props) {
           </div>
 
           {items && (
-            <ul className='flex gap-8'>
+            <ul className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
               {items.map(item => (renderSiteMapItem(item)))}
             </ul>
           )}
@@ -60,7 +60,7 @@ function Footer (props) {
           
         </div>
 
-        <div className='flex justify-between'>
+        <div className='flex flex-col-reverse gap-8 lg:flex-row items-center justify-between'>
           <p className='font-body text-grey-700'>
             © Luz D'Amelio {new Date().getFullYear()}
           </p>

@@ -3,8 +3,7 @@ import React from 'react'
 const InputField = ({children, register, readOnly, error, hideError, isDirty, disabled, id, label, ...props}) => {
 
   let inputStyles = `
-    w-full flex bg-white border rounded pl-4 ${label ? 'pt-8' : 'pt-5'} pb-5 placeholder:text-grey-500 focus:outline-2
-    pr-${children ? '6' : '1'}  
+    w-full flex bg-white border rounded px-4 ${label ? 'pt-8' : 'pt-5'} pb-5 placeholder:text-grey-500 focus:outline-2
     border-grey-400
     ${disabled ? 'text-grey-400' : readOnly ? 'text-grey-700' : 'hover:border-primary'}
     ${error ? 'outline outline-error' : 'focus:outline-secondary-400'}

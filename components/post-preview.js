@@ -38,7 +38,7 @@ function PostPreview (props) {
             <StudentsIcon className='mr-2 text-secondary w-5 h-5'/>
             <p className='font-heading text-grey-600'>{getClassSizeString(min, max)}</p>
           </div>
-          <p className='align-middle font-heading text-grey-600'>starting at: <span className='ml-1 font-medium font-heading text-secondary'>${pricing?.[0].price}+</span></p>
+          <p className='align-middle font-heading text-grey-600'><span className='hidden md:inline-block'>starting at:</span> <span className='ml-1 font-medium font-heading text-secondary'>${pricing?.[0].price}+</span></p>
         </>
       )
     }

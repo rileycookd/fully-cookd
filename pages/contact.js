@@ -93,14 +93,14 @@ export default function Contact({ }) {
           <title>Contact us | Amelio Language Institute</title>
         </Head>
         <div className='flex-1 flex bg-primary-800 min-h-full'>
-          <div className='flex container mx-auto px-5 my-24'>
+          <div className='flex flex-col items-center gap-12 lg:items-stretch lg:flex-row flex-1 p-page my-24'>
             <div className='flex-1 flex flex-col justify-between'>
               <div className='flex flex-col gap-8'>
                 <h1 className='font-heading text-5xl text-white font-bold'>Contact us</h1>
                 <p className='font-body text-base text-grey-700 max-w-md '>Send us a message and we'd be happy to give you more information or schedule a meeting.</p>
               </div>
 
-              <div className='flex flex-col w-max'>
+              <div className='hidden lg:flex flex-col w-max'>
                 <div className='flex w-full items-center p-4 cursor-pointer rounded-md border-2 border-transparent hover:border-grey-800'>
                   <WhatsappIcon className='text-secondary w-5 h-5 mr-4'/>
                   <p className='font-body text-base text-grey-700'>+56 9 5555 5555</p>
@@ -111,7 +111,7 @@ export default function Contact({ }) {
                 </div>
               </div>
 
-              <div className='ml-4 flex text-grey-800'>
+              <div className='hidden lg:flex ml-4 text-grey-800'>
                 <a target="_blank" href="https://www.instagram.com/spanishlessonsbyluz/" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
                   <InstagramIcon className='w-8 h-8'/>
                 </a>
@@ -227,6 +227,32 @@ export default function Contact({ }) {
                 </Form>
               )}
             </div>
+
+            <div className='lg:hidden flex flex-col w-max'>
+              <div className='flex w-full items-center p-4 cursor-pointer rounded-md border-2 border-transparent hover:border-grey-800'>
+                <WhatsappIcon className='text-secondary w-5 h-5 mr-4'/>
+                <p className='font-body text-base text-grey-700'>+56 9 5555 5555</p>
+              </div>
+              <div className='flex w-full items-center p-4 cursor-pointer rounded-md border-2 border-transparent hover:border-grey-800'>
+                <MailIcon className='text-secondary w-5 h-5 mr-4'/>
+                <p className='font-body text-base text-grey-700'>hola@luzdamelio.com</p>
+              </div>
+            </div>
+
+            
+            <div className='lg:hidden flex ml-4 text-grey-800'>
+              <a target="_blank" href="https://www.instagram.com/spanishlessonsbyluz/" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
+                <InstagramIcon className='w-8 h-8'/>
+              </a>
+              <a target="_blank" href="https://www.facebook.com/ameliolanguageinstitute" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
+                <FacebookIcon className='w-8 h-8' />
+              </a>
+              <a target="_blank" href="https://www.youtube.com/channel/UCOMOGxsNHZOq8DJETweqbuA" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
+                <YoutubeIcon className='w-8 h-8' />
+              </a>
+
+            </div> 
+
           </div>
         </div>
       </Layout>

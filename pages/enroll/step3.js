@@ -80,7 +80,7 @@ export default function Step3(props) {
       </Head>
       <FormPageContainer title="Course Enrollment" step={3} steps={8}>
         <Form 
-          className='flex flex-col gap-4 w-96'
+          className='flex flex-col gap-4 w-full'
           onSubmit={handleSubmit(onSubmit)}
           name="register-classes-step-3"
           register={register}

@@ -42,7 +42,7 @@ function ClassTypesBlock(props) {
       <div className='flex flex-col gap-12 bg-primary py-24'>
         <div className='container mx-auto px-12 flex flex-col gap-y-16 items-center'>
           <div className='flex flex-col items-center'>
-            <h2 className='w-full text-white text-center text-6xl pb-2 font-bold font-heading'>{content?.title || 'Our Courses'}</h2>
+            <h2 className='w-full text-white text-center text-5xl md:text-6xl pb-2 font-bold font-heading'>{content?.title || 'Our Courses'}</h2>
             <p className='w-full font-body text-center text-lg text-grey-600'>{content?.subtitle || 'All our classes are personalized and tailored to your needs'}</p>
             <div className='w-32 h-1 bg-secondary mt-4'></div>
 
@@ -59,11 +59,11 @@ function ClassTypesBlock(props) {
       </div>
 
 
-      <div className='container mx-auto px-5 flex flex-col gap-8'>
+      <div className='p-page flex flex-col gap-8'>
 
         <div className=' flex gap-x-8'>
           <div className='flex-1 flex flex-col gap-y-4'>
-            <ul className='grid grid-cols-4 gap-4'>
+            <ul className='grid sm:grid-cols-2 lg:grid-cols-4 gap-4'>
               <li key={currentLanguage._id} className='flex animate-slide-up opacity-0 flex-col justify-between p-4 bg-grey-200 rounded-lg overflow-hidden'>
                 <div className='flex items-center flex-col gap-2'>
                   <div className='flex rounded-sm overflow-hidden h-9 w-14 my-4'>

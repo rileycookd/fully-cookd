@@ -1,14 +1,27 @@
 let { google } = require('googleapis');
-const privatekey = JSON.parse(
-  Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_JSON, "base64").toString()
-);
+import service from "services/service-account.enc";
+import crypto from 'crypto';
+// const privatekey = JSON.parse(
+//   Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_JSON, "base64").toString()
+// );
 
 export default async function createCalendar(req, res) {
   const { students } = JSON.parse(req.body)
  
- if (req.method !== "POST") {
+  if (req.method !== "POST") {
     return res.status(405).end();
   }
+
+  
+  const algorithm = 'aes-128-cbc';
+  const decipher = crypto.createDecipheriv(
+    algorithm,
+    process.env.SERVICE_ENCRYPTION_KEY,
+    process.env.SERVICE_ENCRYPTION_IV
+  );
+  let decrypted = decipher.update(service.encrypted, 'base64', 'utf8');
+  decrypted += decipher.final('utf8');
+  const privatekey = JSON.parse(decrypted)
 
   let newCalendar
 

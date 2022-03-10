@@ -149,12 +149,12 @@ export default function Signin() {
       </Head>
       <FormPageContainer title='Log in'>
         <Form 
-          className='flex flex-col gap-4 w-[22rem]'
+          className='flex flex-col gap-4 w-full'
           onSubmit={handleSubmit(onSubmit)}
           name="register-classes-step-1"
           register={register}
         >
-          <p className='mb-4 text-center'>New user? <span><Link href="/register"><a className='underline text-blue-500 hover:text-blue-800'>Create an account</a></Link></span></p>
+          <p className='mb-2 text-center'>New user? <span><Link href="/register"><a className='underline text-blue-500 hover:text-blue-800'>Create an account</a></Link></span></p>
           {formAlert?.message && <p className='flex items-center rounded-md bg-error-100 py-2 px-4 font-heading text-sm text-error-400'><WarningIcon className='w-4 h-4 mr-2'/>{formAlert.message}</p>}
 
             <InputField

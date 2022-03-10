@@ -17,14 +17,14 @@ function InfoBlock ({images, description, subtitle, title, reverse}) {
   ))
 
   const imageContainer = (
-    <ul className='flex flex-1 gap-4'>
+    <ul className='max-h-max grid grid-cols-2 gap-4'>
       {imageList}
     </ul>
   )
 
 
   const infoBox = (
-    <div className='flex flex-1 justify-center flex-col py-12 pr-24'>
+    <div className='flex flex-1 justify-center flex-col px-8 md:px-0 md:py-12 md:pr-12 lg:pr-24'>
       {title && (
         <h4 className='font-heading font-bold mb-4'>{title}</h4>
       )}
@@ -38,7 +38,7 @@ function InfoBlock ({images, description, subtitle, title, reverse}) {
   )
 
   return (
-    <div className='flex w-full gap-24 my-32'>
+    <div className='grid md:grid-cols-2 gap-8  md:gap-12 items-center xl:gap-24 my-32'>
       {reverse ? imageContainer : infoBox}
       {reverse ? infoBox : imageContainer}
     </div>

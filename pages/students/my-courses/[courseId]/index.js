@@ -72,7 +72,7 @@ export default function ClassPage({ registration }) {
         <title>{registrationData.classType ? `${registrationData.classType.title} - ${registrationData.students.length} student${registrationData.students.length > 1 ? 's' : ''}` : 'Registration details'}</title>
       </Head>
       <LayoutSidebar>
-        <div className="container mx-auto px-12 py-16 flex flex-col gap-y-48 bg-grey-100">
+        <div className="p-page py-16 flex flex-col gap-y-48 bg-grey-100">
 
           {isLoading ? (
             <div>Loading...</div>
@@ -80,13 +80,13 @@ export default function ClassPage({ registration }) {
             <div>Something went wrong...</div>
           ) : (
 
-            <div className='flex gap-8'>
+            <div className='flex flex-col lg:flex-row gap-8'>
 
               {registrationData?.language?.title && (
 
 
                 <div className='flex-1 flex flex-col gap-y-8'>
-                  <div className='rounded-lg border border-grey-400 p-8 bg-white'>
+                  <div className='rounded-lg border border-grey-400 px-4 py-4 md:px-8 md:py-8 bg-white'>
 
                     <div className='flex flex-col gap-12'>
                       <div className='flex items-center gap-4'>
@@ -106,7 +106,7 @@ export default function ClassPage({ registration }) {
                   </div>
 
 
-                  <div className='rounded-lg border border-grey-400 p-8 bg-white'>
+                  <div className='rounded-lg border border-grey-400 px-4 py-4 md:px-8 md:py-8 bg-white'>
 
                     <div className='flex flex-col gap-12'>
 
@@ -114,43 +114,41 @@ export default function ClassPage({ registration }) {
                         <div className='flex-1 flex pb-4 justify-start border-b border-grey-300'>
                           <h3 className='font-heading font-bold text-grey-600'>Course details</h3>
                         </div>
-                        <ul className='flex flex-col'>
-                          <li className='flex px-4 py-6'>
-                            <div className='w-1/4 flex justify-start items-center'>
-                              <h4 className='font-heading text-primary'>Language:</h4>
-                            </div>
-                            <div className='flex-1 flex'>
-                              <p className='font-heading font-bold text-primary'>{registrationData.language?.title}</p>
-                            </div>
-                          </li>
-                          <li className='flex px-4 py-6 bg-grey-100'>
-                            <div className='w-1/4 flex justify-start items-center'>
-                              <h4 className='font-heading text-primary'>Classes left:</h4>
-                            </div>
-                            <div className='flex-1 flex justify-between items-center'>
-                              <p className={`font-heading font-bold ${remainingClasses <= 3 ? 'text-error' : 'text-primary'}`}>{remainingClasses} class{remainingClasses !== 1 ? 'es' : ''} left</p>
-                              <Link href={`${router.asPath}/add-classes`}>
-                                <a className="flex bg-secondary hover:bg-secondary-300 transition-colors duration-75 py-2 px-3 rounded text-xs items-center font-medium font-heading text-white">
-                                  Add <AddIcon className="ml-1 w-4 h-4 fill-white" />
-                                </a>
-                              </Link>
-                            </div>
-                          </li>
-                          <li className='flex px-4 py-6'>
-                            <div className='w-1/4 flex justify-start items-center'>
-                              <h4 className='font-heading text-primary'>Students:</h4>
-                            </div>
-                            <div className='flex-1 flex'>
-                              <p className='font-heading font-bold text-primary'>{registrationData.students.length} student{registrationData.students.length > 1 ? 's' : ''}</p>
-                            </div>
-                          </li>
-                        </ul>
+                        <table className='table-auto w-full'>
+                          <tbody className='rounded-lg overflow-hidden divide-y divide-grey-300'>
+                            <tr className='bg-white'>
+                              <th className='px-2 md:px-4 py-6 text-left font-heading font-normal text-sm md:text-base' data-column="1">Language:</th>
+                              <td className='px-2 md:px-4 py-6 text-left font-heading font-bold text-sm md:text-base w-full' data-column="2">
+                                {registrationData.language?.title}
+                              </td>
+                            </tr>
+                            <tr className='bg-white'>
+                              <th className='px-2 md:px-4 py-6 text-left font-heading font-normal text-sm md:text-base' data-column="1">Classes left:</th>
+                              <td className='px-2 md:px-4 py-6 text-left font-heading font-bold text-sm md:text-base w-full' data-column="2">
+                                <span className={`${remainingClasses <= 3 ? 'text-error' : 'text-primary'}`}>{remainingClasses} class{remainingClasses !== 1 ? 'es' : ''} left</span>
+                              </td>
+                            </tr>
+                            <tr className='bg-white'>
+                              <th className='px-2 md:px-4 py-6 text-left font-heading font-normal text-sm md:text-base' data-column="1">Students:</th>
+                              <td className='px-2 md:px-4 py-6 text-left font-heading font-bold text-sm md:text-base w-full' data-column="2">
+                                {registrationData.students.length} student{registrationData.students.length > 1 ? 's' : ''}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div className='sm:hidden flex justify-end'>
+                          <Link href={`${router.asPath}/add-classes`}>
+                            <a className="flex bg-secondary hover:bg-secondary-300 transition-colors duration-75 py-2 px-3 rounded text-xs items-center font-medium font-heading text-white">
+                              Add classes<AddIcon className="ml-1 w-4 h-4 fill-white" />
+                            </a>
+                          </Link>
+                        </div>
                       </div>
                     </div>
 
                     </div>
 
-                    <div className='rounded-lg border border-grey-400 p-8 bg-white'>
+                    <div className='rounded-lg border border-grey-400 px-4 py-4 md:px-8 md:py-8 bg-white'>
 
                       <div className='flex flex-col gap-12'>
 
@@ -158,24 +156,25 @@ export default function ClassPage({ registration }) {
                           <div className='flex-1 flex pb-4 justify-start border-b border-grey-300'>
                             <h3 className='font-heading font-bold text-grey-600'>Schedule</h3>
                           </div>
-                          <ul className='flex flex-col'>
-                            {registrationData?.schedule.map((d, i) => (
-                              <li key={d._key} className={`flex px-4 py-6 ${i % 2 === 0 ? '' : 'bg-grey-100'}`}>
-                                <div className='w-1/4 flex justify-start items-center'>
-                                  <h4 className='font-heading text-primary'>{capitalize(d.day)}:</h4>
-                                </div>
-                                <div className='flex-1 flex'>
-                                  <p className='font-heading font-bold text-primary'>{d.time.start.slice(0,5)}-{d.time.end.slice(0,5)}</p>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
+                          <table className='table-auto w-full'>
+                            <tbody className='rounded-lg overflow-hidden divide-y divide-grey-300'>
+                              {registrationData?.schedule.map((d, i) => (
+                                <tr className='bg-white'>
+                                  <th className='px-2 md:px-4 py-6 text-left font-heading font-normal text-sm md:text-base' data-column="1">{capitalize(d.day)}:</th>
+                                  <td className='px-2 md:px-4 py-6 text-left font-heading font-bold text-sm md:text-base w-full' data-column="2">
+                                    {d.time.start.slice(0,5)}-{d.time.end.slice(0,5)}
+                                  </td>
+                                </tr>
+                              ))}
+             
+                            </tbody>
+                          </table>
                         </div>
                       </div>
 
                     </div>
 
-                    <div className='rounded-lg border border-grey-400 p-8 bg-white'>
+                    <div className='rounded-lg border border-grey-400 px-4 py-4 md:px-8 md:py-8 bg-white'>
 
                       <div className='flex flex-col gap-12'>
 
@@ -184,29 +183,28 @@ export default function ClassPage({ registration }) {
                             <h3 className='font-heading font-bold text-grey-600'>Purchase history</h3>
                           </div>
                           {registrationData.packages ? (
+                            <table className='table-auto w-full'>
+                              <tbody className='rounded-lg overflow-hidden divide-y divide-grey-300'>
+                                {registrationData.packages.map((p, i) => (
 
-                            <ul className='flex flex-col'>
-                              {registrationData.packages.map((p, i) => (
-                                <li key={p._key} className={`flex px-4 py-6 ${i % 2 === 0 ? '' : 'bg-grey-100'}`}>
-                                  <div className='w-1/4 flex justify-start items-center'>
-                                    <h4 className='font-heading text-primary'>{format(parseISO(p.start || p.submittedDate), 'dd MMM yyyy')}:</h4>
-                                  </div>
-                                  <div className='flex-1 flex'>
-                                    <p className='flex-1 flex items-center justify-between font-heading font-bold text-primary'>
-                                      <span>
-                                        {p.quantity} class{p.quantity === 1 ? '' : 'es'}
-                                      </span>
-                                      <span className='text-secondary'>
-                                        {p.price ? `$${p.price}` : ''}
-                                      </span>
-                                      <span className={`font-heading font-medium text-sm py-1 px-2 ${!p.active ? 'text-warning-400 bg-warning-100' : 'text-secondary bg-secondary-100'} rounded-md`}>
-                                        {p.active ? 'Paid' : 'Pending'}
-                                      </span>
-                                    </p>
-                                  </div>
-                                </li>
-                              ))}
-                            </ul>
+                                  <tr className='bg-white flex items-center'>
+                                    <th className='px-2 md:px-4 py-6 text-left font-heading font-normal text-sm md:text-base w-max' data-column="1">{format(parseISO(p.start || p.submittedDate), 'dd MMM')}:</th>
+                                    <td className='px-2 md:px-4 py-6 text-center font-heading font-bold text-xs sm:text-sm md:text-base w-full' data-column="2">
+                                      {p.quantity} class{p.quantity === 1 ? '' : 'es'}
+                                    </td>
+                                    <td className='px-2 md:px-4 py-6 text-center font-heading text-secondary font-bold text-xs sm:text-sm md:text-base w-full' data-column="3">
+                                      {p.price ? `$${p.price}` : ''}
+
+                                    </td>
+                                    <td className='px-2 md:px-4 py-6 text-center font-heading font-bold text-xs sm:text-sm md:text-base w-full' data-column="4">
+                                      <span className={`font-heading font-medium text-sm py-1 px-2 ${!p.active ? 'text-warning-400 bg-warning-100' : 'text-secondary bg-secondary-100'} rounded-md`}>{p.active ? 'Paid' : 'Pending'}</span>
+                                    </td>
+                                  </tr>
+                                ))}
+              
+                              </tbody>
+                            </table>
+
                           ) : (
                             <div className='py-4'>No class history</div>
                           )}   
@@ -219,7 +217,7 @@ export default function ClassPage({ registration }) {
 
               )}
 
-              <div className='w-1/3 max-w-xs'>
+              <div className='w-full lg:w-1/3 lg:max-w-xs'>
                 <div className='flex flex-col gap-12'>
 
                   <div>

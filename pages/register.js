@@ -154,7 +154,7 @@ export default function RegisterUser() {
         </Head>
         <FormPageContainer title="Sign up">
           <Form 
-            className='flex flex-col gap-4 w-[22rem] max-w-sm'
+            className='flex flex-col gap-4 w-full'
             onSubmit={handleSubmit(onSubmit)}
             name="register-classes-step-1"
             register={register}
@@ -206,7 +206,7 @@ export default function RegisterUser() {
             {/* <pre>{JSON.stringify(watch(), null, 2)}</pre>
             <div>{JSON.stringify(errors)}</div>
             <div>{isValid.toString()}</div> */}
-            <p className='mb-4 text-center'>Already have an account? <span><Link href="/auth/signin"><a className='underline text-blue-500 hover:text-blue-800'>Log in</a></Link></span></p>
+            <p className='mt-2 text-center'>Already have an account? <span><Link href="/auth/signin"><a className='underline text-blue-500 hover:text-blue-800'>Log in</a></Link></span></p>
 
           </Form>
         </FormPageContainer>

@@ -134,7 +134,7 @@ export default function Step8({ userData }) {
       </Head>
       <FormPageContainer title="Confirm details" step={8} steps={8}>
         <Form 
-          className='flex flex-col gap-4 w-96'
+          className='flex flex-col gap-4 w-full'
           onSubmit={handleSubmit(onSubmit)}
           name="register-classes-step-8"
           register={register}

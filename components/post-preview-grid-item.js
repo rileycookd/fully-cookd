@@ -36,7 +36,7 @@ function PostPreviewGridItem (props) {
             <StudentsIcon className='mr-2 text-secondary w-5 h-5'/>
             <p className='font-heading text-grey-600'>{getClassSizeString(min, max)}</p>
           </div>
-          <p className='align-middle font-heading text-grey-600'>starting at: <span className='ml-1 font-medium font-heading text-secondary'>${pricing?.[0].price}+</span></p>
+          <p className='align-middle font-heading text-grey-600'><span className='hidden lg:inline-block text-xs'>starting at:</span> <span className='ml-1 font-medium font-heading text-secondary'>${pricing?.[0].price}+</span></p>
         </>
       )
     }
@@ -53,7 +53,7 @@ function PostPreviewGridItem (props) {
     
   return (
     <Link href={fullPath}>
-      <a className={`group flex flex-col animate-slide-up ${animationDelay} p-2 opacity-0 rounded-lg bg-white transition-all duration-100 border border-grey-400 hover:bg-secondary-100 hover:border-secondary hover:shadow-md overflow-hidden`}>
+      <a className={`h-full group flex flex-col animate-slide-up ${animationDelay} p-2 opacity-0 rounded-lg bg-white transition-all duration-100 border border-grey-400 hover:bg-secondary-100 hover:border-secondary hover:shadow-md overflow-hidden`}>
         <div className='relative rounded-t overflow-hidden'>
           {image && (
             <img
@@ -68,7 +68,7 @@ function PostPreviewGridItem (props) {
         </div>
         <div className='flex flex-col justify-between gap-4 flex-1 px-2 py-4'>
           <div className=''>
-            <h4 className='text-primary text-base pb-2 font-bold font-heading'>{title}</h4>
+            <h4 className='text-primary text-sm pb-2 font-bold font-heading'>{title}</h4>
             <p className='font-body text-sm text-primary mb-4'>{excerpt || description}</p>
           </div>
           <div className='flex justify-between mt-4'>

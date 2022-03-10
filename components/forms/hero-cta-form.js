@@ -133,10 +133,10 @@ function CTAForm(props) {
   }, [currentClassType])
 
   return (
-    <div className={`flex gap-8 px-3 py-3 rounded-md border border-grey-400 w-full z-20 relative bg-white ${className}`}>
+    <div className={`flex justify-center md:justify-start`}>
       {languages?.length && (
         <Form
-          className='flex-1 flex gap-4'
+          className={`hidden md:flex flex-1 gap-2 lg:gap-4 px-3 py-3 rounded-md border border-grey-400 w-full z-20 relative bg-white ${className}`}
           onSubmit={handleSubmit(onSubmit)}
           name="add-registration-form-step-1"
           register={register}
@@ -156,7 +156,7 @@ function CTAForm(props) {
             hideError={true}
             isDirty={dirtyFields?.language || getValues("language")}
           >
-            <LanguageIcon />
+            {/* <LanguageIcon /> */}
           </Select>
           <Select 
             label='Course'
@@ -170,7 +170,7 @@ function CTAForm(props) {
             hideError={true}
             isDirty={dirtyFields?.classType || getValues("classType")}
           >
-            <ClassTypeIcon />
+            {/* <ClassTypeIcon /> */}
           </Select>
           <Select 
             label='Students'
@@ -184,16 +184,34 @@ function CTAForm(props) {
             hideError={true}
             isDirty={dirtyFields?.classSize || getValues("classSize")}
           >
-            <ClassSizeIcon />
+            {/* <ClassSizeIcon /> */}
           </Select>
           <button 
             type="submit" 
-            className='bg-accent hover:bg-accent-400 text-primary font-bold w-max font-heading py-5 px-8 rounded'
+            className='bg-accent hover:bg-accent-400 text-primary text-sm lg:text-base font-bold w-max font-heading px-5 lg:py-5 lg:px-8 rounded'
           >
             Enroll
           </button>
         </Form>
       )}
+      <button 
+        onClick={() => {
+          if(!session) {
+            dispatch(showModal('SIGNUP'))
+            router.push({
+              pathname: router.asPath,
+              query: { callbackUrl: `${router.basePath}/enroll/step1` }
+            }, 
+            router.asPath, { shallow: true }
+            )
+          } else {
+            router.push('/enroll/step1')
+          }
+        }}
+        className='flex md:hidden bg-accent hover:bg-accent-400 text-primary text-sm lg:text-base font-bold w-max font-heading px-12 py-5 lg:py-5 lg:px-8 rounded'
+      >
+        Enroll now
+      </button>
 {/*       
         <pre>{JSON.stringify(watch(), null, 2)}</pre>
         <div>{JSON.stringify(errors)}</div>

@@ -29,7 +29,8 @@ function Pricing ({ title, pricing, packages, min, max }) {
   }
 
   return (
-    <div className='flex flex-col gap-8 w-full'>
+
+    <div className='relative flex flex-col gap-8 w-full overflow-x-scroll'>
 
       <div className='flex justify-start gap-8'>
       
@@ -56,9 +57,9 @@ function Pricing ({ title, pricing, packages, min, max }) {
         </label>
       )} */}
       </div>
-      <table className='table-auto w-full'>
-        <thead>
-          <tr>
+      <table className='table-auto w-full max-w-full'>
+        <thead className='w-full'>
+          <tr className='w-full'>
             <th className='px-4 pb-2 text-left'>Class</th>
             <th className='px-1 pb-2 text-left'>
               <DropdownMenu 
@@ -90,7 +91,7 @@ function Pricing ({ title, pricing, packages, min, max }) {
         </thead>  
         <tbody className='rounded-lg overflow-hidden'>
           {pricing?.map(p => (
-            <tr className='bg-white border-grey-300 border'>
+            <tr className='bg-white w-full border-grey-300 border'>
               <td className='px-4 py-6 text-left font-heading text-base' data-column="Class">{title}</td>
               <td className='px-4 py-6 text-left font-heading text-base' data-column="Group Size">{`${classSize} student${classSize > 1 ? 's' : ''}`}</td>
               <td className='px-4 py-6 text-left font-heading text-base' data-column="Time">{`${p.duration / 60} hour${p.duration / 60 > 1 ? 's' : ''}`}</td>

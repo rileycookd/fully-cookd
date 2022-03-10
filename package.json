@@ -25,6 +25,7 @@
     "axios": "^0.25.0",
     "classnames": "^2.2.6",
     "cookies": "^0.8.0",
+    "crypto": "^1.0.1",
     "date-fns": "^2.15.0",
     "googleapis": "^95.0.0",
     "immer": "^9.0.12",

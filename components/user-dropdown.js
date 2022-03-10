@@ -15,7 +15,7 @@ function UserDropdown(props) {
   return (
     <div className='relative group w-max border border-grey-300 rounded-full hover:border-grey-400 transition-colors duration-100'>
       {user ? (
-        <div className='cursor-pointer flex items-center gap-2 px-2 py-2 rounded-md'>
+        <div className='cursor-pointer flex items-center gap-2 p-1 sm:p-2 rounded-md'>
           <div className='rounded-full overflow-hidden h-12 w-12'>
             {user.image ? (
               <img
@@ -29,12 +29,12 @@ function UserDropdown(props) {
               <IoPersonCircle className='fill-grey-500 w-12 h-12 cursor-pointer'/>
             )}
           </div>
-          <div className='flex flex-col justify-center'>
+          <div className='hidden sm:flex flex-col justify-center'>
             <h4 className='leading-snug font-heading font-bold text-sm text-primary'>{user.name}</h4>
             <p className='font-heading text-xs font-normal text-grey-600'>Student</p>
           </div>
         
-          <IoChevronDown className='mx-3 stroke-grey-500 group-hover:stroke-grey-700 transition-colors duration-100'/>
+          <IoChevronDown className='hidden sm:block mx-3 stroke-grey-500 group-hover:stroke-grey-700 transition-colors duration-100'/>
         </div>
       ) : (
         <IoPersonCircle className='fill-grey-500 w-12 h-12 cursor-pointer'/>

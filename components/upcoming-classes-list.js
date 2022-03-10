@@ -38,7 +38,7 @@ export default function UpcomingClassesList(props) {
 
 
             return (
-              <UpcomingClassesListItem {...cl} />
+              <UpcomingClassesListItem key={cl.id} {...cl} />
             )
           })}
         </ul>

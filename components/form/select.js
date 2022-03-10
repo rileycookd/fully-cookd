@@ -28,11 +28,12 @@ const Select = (props) => {
       ...provided,
       border: 'none',
       outline: 'none',
-      padding: `2.25rem 1rem 1rem ${children ? '3.5rem' : '1rem'}`,
+      padding: `2.25rem 0 1rem ${children ? '3.5rem' : '1rem'}`,
     }),
     container: (provided, state) => ({
       ...provided,
       width: '100%',
+      maxWidth: '100%',
     }),
     control: (provided, state) => ({
       ...provided,
@@ -56,7 +57,10 @@ const Select = (props) => {
       fontFamily: 'Montserrat',
       fontWeight: '500',
       pointerEvents: 'none',
-      color: disabled ? '#E5E5E5' : '#A8B7BE'
+      color: disabled ? '#E5E5E5' : '#A8B7BE',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
     }),
     input: (provided, state) => ({
       ...provided,
@@ -71,7 +75,7 @@ const Select = (props) => {
     }),
     dropdownIndicator: (provided, state) => ({
       ...provided,
-      padding: '0 1rem 0 1.5rem',
+      padding: '0 .5rem 0 1rem',
       color: disabled ? 'transparent' : '#c4c4c4',
       "&:hover": {
         color: disabled ? 'transparent' : "#c4c4c4",
@@ -119,7 +123,7 @@ const Select = (props) => {
   }
 
   return (
-    <div className='min-w-max w-full'>
+    <div className='w-full'>
       {(!hideError && error?.message) && (<p className='ml-4 py-1 font-heading text-sm text-error-400'>{error.message}</p>)}
       <div className='relative'>
         <Controller
@@ -143,7 +147,7 @@ const Select = (props) => {
         />
         {label && (
           <label 
-            className={`absolute font-heading font-bold text-sm top-0 left-0 py-3 px-4 pointer-events-none ${!disabled ? 'text-primary' : 'text-grey-400'} ${children ? 'ml-10' : ''}`}
+            className={`absolute font-heading font-bold text-xs lg:text-sm top-0 left-0 py-3 px-4 pointer-events-none ${!disabled ? 'text-primary' : 'text-grey-400'} ${children ? 'ml-10' : ''}`}
             htmlFor={name}
           >
             {label}

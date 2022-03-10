@@ -26,9 +26,9 @@ export default function Dashboard(props) {
           </Head>
           <LayoutSidebar>
 
-            <div className="container mx-auto px-12 py-16 flex flex-col gap-y-48 bg-grey-100 min-h-screen">
+            <div className="p-page py-16 flex flex-col gap-y-48 bg-grey-100 min-h-screen">
     
-              <div className='flex gap-8'>
+              <div className='flex flex-col lg:flex-row gap-8'>
                 <div className='flex-1 flex flex-col gap-y-24 justify-start h-max'>
                   {user?.registrations && (
                     <>
@@ -39,7 +39,7 @@ export default function Dashboard(props) {
 
                 </div>
 
-                <div className='w-1/3 max-w-xs'>
+                <div className='w-full lg:w-1/3 lg:max-w-xs'>
                   {user?.registrations && (
                     <>
                       <UpcomingClassesList registrations={user?.registrations} />

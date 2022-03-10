@@ -109,7 +109,7 @@ export default function AccountSettings(props) {
           </Head>
           <LayoutSidebar>
 
-            <div className="container mx-auto pb-48 px-12 py-16 flex flex-col gap-y-48 bg-grey-100 min-h-screen">
+            <div className="p-page pb-48 py-16 flex flex-col gap-y-48 bg-grey-100 min-h-screen">
               {isLoading ? (
                 <div>Loading...</div>
               ) : isError ? (

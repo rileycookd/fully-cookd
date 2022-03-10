@@ -66,7 +66,7 @@ export default function Step1({ languageData }) {
       </Head>
       <FormPageContainer title="Course Enrollment" step={1} steps={8}>
         <Form 
-          className='flex-1 max-h-max flex flex-col gap-4 w-96'
+          className='flex-1 max-h-max flex flex-col gap-4 w-full'
           onSubmit={handleSubmit(onSubmit)}
           name="register-classes-step-1"
           register={register}
