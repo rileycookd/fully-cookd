@@ -9,11 +9,9 @@ import Footer from 'components/footer'
 import TestimonialBlock from 'components/testimonial-block'
 import CTABlock from 'components/cta-block'
 
-export default function Index({ projects, homepage }) {
-  console.log(projects)
-  console.log(homepage)
+export default function Index({ projects, pageData }) {
 
-  const content = (homepage?.content || [])
+  const content = (pageData?.content || [])
     .map((c, i) => {
       let el = null;
       switch (c._type) {
@@ -44,8 +42,9 @@ export default function Index({ projects, homepage }) {
     <>
       <Layout>
         <Head>
-          <title>Fully Cookd | Fullstack Web Design &#38; Development </title>
+          <title>Past Projects | Fully Cookd </title>
         </Head>
+        <ProjectList projects={projects} />
         {content}
         <Footer />
       </Layout>
@@ -55,9 +54,9 @@ export default function Index({ projects, homepage }) {
 
 export async function getStaticProps() {
   const projects = await getAllProjects()
-  const homepage = await getPageById('homepage')
+  const pageData = await getPageById('projects')
   return {
-    props: { projects, homepage },
+    props: { projects, pageData },
     revalidate: 1
   }
 }

@@ -1,15 +1,11 @@
 import { BsLayoutTextWindow } from 'react-icons/bs'
-import pageFields from '../parts/page'
+// import pageFields from '../parts/page'
 
 export default {
   name: 'page',
   title: 'Page',
   icon: BsLayoutTextWindow,
   type: 'document',
-  
-  liveEdit: false,
-  // Uncomment the next line to remove the pages document type from the create-menus.
-  // __experimental_actions: ['update', 'publish', /* 'create', 'delete' */],
   fieldsets: [
     { 
       name: 'openGraph', 
@@ -21,6 +17,31 @@ export default {
     }
   ],
   fields: [
-    ...pageFields
+    {
+      name: 'title',
+      title: 'Page title',
+      type: 'string'
+    },
+    {
+      name: 'content',
+      type: 'array',
+      title: 'Page sections',
+      description: 'Add, edit, and reorder sections',
+      of: [
+        { type: 'hero' },
+        { type: 'infoBlock' },
+        { type: 'projectListBlock' },
+        { type: 'testimonialsBlock' },
+        { type: 'ctaBlock' },
+        { type: 'featuredPostsBlock' },
+      ],
+    },
+    // {
+    //   title: 'Open graph',
+    //   name: 'openGraph',
+    //   fieldset: 'openGraph',
+    //   description: 'Set page meta info for SEO',
+    //   type: 'openGraph'
+    // },
   ]
 }

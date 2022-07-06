@@ -1,35 +1,22 @@
 import { BsCardHeading } from 'react-icons/bs'
 
+
 export default {
   name: 'hero',
   title: 'Hero',
-  icon: BsCardHeading,
   type: 'object',
-  fieldsets: [
-    { 
-      name: 'cta', 
-      title: 'CTA',
-      description: '(Optional)',
-      options: {
-        collapsible: true,
-        collapsed: true,
-      }
-    },
-    { 
-      name: 'navigation', 
-      title: 'Navigation',
-      description: '(Optional)',
-      options: {
-        collapsible: true,
-        collapsed: true,
-      }
-    }
-  ],
+  icon: BsCardHeading,
   fields: [
+    {
+      name: 'kicker',
+      title: 'Kicker',
+      type: 'string',
+      description: '(Optional) Text that precedes the title'
+    },
     {
       name: 'title',
       title: 'Title',
-      type: 'string',
+      type:'string'
     },
     {
       name: 'subtitle',
@@ -39,33 +26,45 @@ export default {
     },
     {
       name: 'cta',
-      type: 'cta',
-      title: 'Call-to-action',
-      fieldset: 'cta',
+      title: 'Primary Call-to-action',
+      type: 'link',
     },
     {
-      name: 'navigation',
-      title: 'Featured links',
+      name: 'cta2',
+      title: 'Secondary Call-to-action',
+      type: 'link',
+      description: '(Optional)',
+      collapsible: true,
+      collapsed: true,
+    },
+    // {
+    //   name: 'content',
+    //   title: 'Content',
+    //   type: 'array',
+    //   of: [
+    //     { type: 'text', rows: 4 }
+    //   ]
+    // },
+    {
+      name: 'images',
+      title: 'Images',
       type: 'array',
       of: [
-        { type: 'ctaLabel' },
-      ], 
-      fieldset: 'navigation'
-    },
-    {
-      name: 'image',
-      title: 'Image',
-      type: 'mainImage',
-      description: 'Add a featured image',
+        { type: 'mainImage' },
+      ],
+      options: {
+        layout: 'grid',
+      },
     },
   ],
   preview: {
     select: {
-      title: 'title',
+      subtitle: 'title'
     },
-    prepare ({title}) {
+    prepare ({ subtitle }) {
       return {
-        title: title
+        title: 'Hero',
+        subtitle
       }
     }
   }

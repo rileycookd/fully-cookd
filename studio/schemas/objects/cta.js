@@ -20,7 +20,7 @@ export default {
       type: 'string',
       options: {
         layout: 'radio',
-        list: ['button', 'link', 'icon']
+        list: ['primary', 'secondary', 'tertiary']
       }
     },
     {

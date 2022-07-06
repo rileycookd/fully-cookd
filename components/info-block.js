@@ -1,48 +1,33 @@
 import React from 'react'
-// import { buildImageObj, cn } from "../lib/helpers";
-import { imageBuilder } from '../lib/sanity'
 
-function InfoBlock ({images, description, subtitle, title, reverse}) {
+export default function InfoBlock(props) {
+  const {
+    title,
+    content,
+    highlight,
+    reverse,
+  } = props
 
-  const imageList = images.map((image) => (
-    <li key={image._key} className='flex-1'>
-      <img
-        width={400}
-        height={400}
-        alt={`${image.alt}`}
-        className='object-cover'
-        src={imageBuilder(image).width(400).height(400).url()}
-      />
-    </li>
-  ))
-
-  const imageContainer = (
-    <ul className='max-h-max grid grid-cols-2 gap-4'>
-      {imageList}
-    </ul>
-  )
-
-
-  const infoBox = (
-    <div className='flex flex-1 justify-center flex-col px-8 md:px-0 md:py-12 md:pr-12 lg:pr-24'>
-      {title && (
-        <h4 className='font-heading font-bold mb-4'>{title}</h4>
-      )}
-      {subtitle && (
-        <p>{subtitle}</p>
-      )}
-      {description && (
-        <p className='font-body text-base'>{description}</p>
-      )}
-    </div>
-  )
+  let highlightedTitle = title
+  if(highlight) {
+    highlightedTitle = title.split(" ").map(word => (
+      highlight.includes(word) 
+      ? (<span className='text-accent'>{word} </span>)
+      : (<span>{word} </span>)
+    ))    
+  }
 
   return (
-    <div className='grid md:grid-cols-2 gap-8  md:gap-12 items-center xl:gap-24 my-32'>
-      {reverse ? imageContainer : infoBox}
-      {reverse ? infoBox : imageContainer}
+    <div className={`p-page flex ${reverse ? 'flex-row-reverse' : ''} w-full gap-16 py-32`}>
+      <h3 className={`flex-1 -mt-2 font-heading ${reverse ? 'text-left' : 'text-right'} text-3xl font-bold`}>
+        {highlightedTitle}
+      </h3>
+      <div className='flex flex-1 flex-col gap-4'>
+        {content?.map(p => (
+          <p className='flex-1 font-body text-md'>{p}</p>
+        ))}
+      </div>
+
     </div>
   )
 }
-
-export default InfoBlock

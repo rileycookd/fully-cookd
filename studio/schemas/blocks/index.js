@@ -1,7 +1,7 @@
-  
-export { default as hero } from './hero'
 export { default as infoBlock } from './infoBlock'
-export { default as testimonialGroup } from './testimonialGroup'
-export { default as classTypesList } from './classTypesList'
-export { default as featuredLinksBlock } from './featuredLinks'
-// export { default as form } from './form'
+export { default as heroBlock } from './hero'
+export { default as ProjectListBlock } from './projectList'
+export { default as testimonialsBlock } from './testimonialBlock'
+export { default as ctaBlock } from './ctaBlock'
+export { default as captionsListBlock } from './captionsList'
+export { default as featuredPostsBlock } from './featuredPosts'

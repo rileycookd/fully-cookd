@@ -1,13 +1,14 @@
 import React from 'react'
+import TextareaAutosize from 'react-textarea-autosize';
 
-const Textarea = ({children, register, readOnly, error, isDirty, disabled, id, label, ...props}) => {
+const Textarea = ({children, hideError, register, readOnly, error, isDirty, disabled, id, label, ...props}) => {
 
   let textareaStyles = `
-    w-full flex bg-white border rounded px-4 pt-10 pb-5 placeholder:text-grey-500 focus:outline-2 resize-none
+    w-full peer flex bg-transparent border-b mb-[1px] border-primary-900/20 py-1 placeholder:text-grey-500/50 focus:outline-none resize-none
     pr-${children ? '6' : '1'}  
-    border-grey-400 
-    ${disabled ? 'text-grey-400' : readOnly ? 'text-grey-700' : 'hover:border-primary'}
-    ${error ? 'outline outline-error' : 'focus:outline-secondary-400'}
+    ${disabled ? 'text-grey-400' : readOnly ? 'text-grey-700' : ''}
+    ${error ? 'border-b-2 border-error' : ''}
+
   `
 
 
@@ -37,10 +38,10 @@ const Textarea = ({children, register, readOnly, error, isDirty, disabled, id, l
   }
 
   return (
-    <div className='flex flex-col gap-1'>
-      {error?.message && (<p className='ml-4 py-1 font-heading text-sm text-error-400'>{error.message}</p>)}
+    <div className='flex flex-col'>
+      {label && <label className={` w-full font-heading font-bold text-sm pointer-events-none ${(!disabled && !readOnly) ? 'text-primary' : 'text-grey-400'}`} htmlFor={id}>{label}</label>}
       <div className={`relative`}>
-        <textarea
+        <TextareaAutosize
           {...props}
           disabled={disabled}
           readOnly={readOnly}
@@ -48,9 +49,11 @@ const Textarea = ({children, register, readOnly, error, isDirty, disabled, id, l
           className={textareaStyles}
           style={children ? {paddingLeft: '3.5rem'} : {}}
         />
-        {label && <div className='absolute w-full top-0 left-0 right-0 flex mt-[2px] ml-[2px] pointer-events-none'><label className={` bg-gradient-to-b from-white to-transparent via-white rounded mr-6 w-full font-heading font-bold text-sm pt-3 pb-2 px-4 pointer-events-none ${(!disabled && !readOnly) ? 'text-primary' : 'text-grey-400'} ${children ? 'ml-10' : ''}`} htmlFor={id}>{label}</label></div>}
+        <div className='absolute peer-focus:w-full bottom-0 left-0 right-0 h-[3px] w-0 transition-all duration-300 bg-accent'></div>
+
         {childrenWithProps}
       </div>
+      {!hideError && (<p className='py-1 font-heading text-sm text-error-400'>{error?.message || " "}</p>)}
     </div>
   )
 };

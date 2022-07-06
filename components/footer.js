@@ -1,85 +1,78 @@
-import React from 'react'
+import React from 'react';
 import Link from 'next/link'
-import { ImPhone as PhoneIcon, ImFacebook as FacebookIcon, ImLinkedin2 as LinkedinIcon } from 'react-icons/im'
-import { IoMdMail as MailIcon, IoLogoWhatsapp as WhatsappIcon } from 'react-icons/io'
-import { IoLogoInstagram as InstagramIcon, IoLogoYoutube as YoutubeIcon, } from 'react-icons/io5'
-import { getLinkRoute } from 'lib/helpers'
+import { BsCaretRightFill } from 'react-icons/bs'
+import Image from 'next/image'
+import { FaFacebookF as FacebookIcon, FaInstagram as InstagramIcon, FaDribbble as DribbbleIcon, FaBehance as BehanceIcon, FaFacebook } from 'react-icons/fa'
 
-function Footer (props) {
-  const {
-    items
-  } = props
-
-  console.log("FOOTER: ", props)
-
-  const renderSiteMapItem = (item) => {
-    return (
-      <li key={item._key}>
-        <h5 className='font-heading text-center sm:text-left text-grey-400 text-md font-bold mb-1'>{item.title}</h5>
-        <ul className='flex flex-col'>
-          {item.links && item.links.map((l => (
-            renderLink(l)
-          )))}
-        </ul>
-      </li>
-    )
-  }
-
-  const renderLink = (l) => {
-    
-    return (
-      <li key={l._key} className='flex'>
-        <Link href={getLinkRoute(l)}><a className='hover:text-grey-700 text-grey-600 py-1 text-center sm:text-left font-body text-base'>{l.title || l?.document?.title}</a></Link>
-      </li>
-    )
-  }
-
+export default function Footer(props) {
 
   return (
-    <footer className='bg-primary w-full text-grey-500'>
-      <div className='p-page py-24 display flex flex-col gap-24'>
-        <div className='flex flex-col lg:flex-row items-center gap-12 lg:items-start justify-between'>
-
-          <div className='flex flex-col gap-4'>
-            <div className='flex items-center'>
-              <WhatsappIcon className='text-secondary w-5 h-5 mr-4'/>
-              <p className='font-body text-grey-700'>+56 9 5555 5555</p>
-            </div>
-            <div className='flex items-center'>
-              <MailIcon className='text-secondary w-5 h-5 mr-4'/>
-              <p className='font-body text-grey-700'>hola@luzdamelio.com</p>
-            </div>
-          </div>
-
-          {items && (
-            <ul className='grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8'>
-              {items.map(item => (renderSiteMapItem(item)))}
-            </ul>
-          )}
-
-          
+    <footer className='flex flex-col bg-primary'>
+      <Link href="/contact">
+        <a className='py-8 font-heading text-7xl text-stroke-3 text-white font-bold flex hover:bg-primary-700 hover:text-stroke-none transition-colors duration-100'>
+          <span className='flex justify-between items-center p-page'>contact the chef <BsCaretRightFill className='w-8 h-8 fill-white'/></span>
+        </a>
+      </Link>
+      <div className='p-page py-6 flex justify-between'>
+        <div className='flex gap-4 items-center'>
+          <Link href="/">
+            <a className='flex w-max h-max px-2'>
+              <Image 
+                src="/images/company_logo.svg" 
+                width="48" 
+                height="48"
+                objectFit="contain"
+              />
+            </a>
+          </Link>
+          <p className='font-body text-grey-700'>Fully Cookd {new Date().getFullYear()}</p>
         </div>
-
-        <div className='flex flex-col-reverse gap-8 lg:flex-row items-center justify-between'>
-          <p className='font-body text-grey-700'>
-            © Luz D'Amelio {new Date().getFullYear()}
-          </p>
-          <div className='ml-4 flex text-grey-800'>
-            <a target="_blank" href="https://www.instagram.com/spanishlessonsbyluz/" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
-              <InstagramIcon className='w-8 h-8'/>
+        <ul className='hidden lg:flex text-white'>
+          <li className='flex-1 px-2 hover:bg-primary-700 rounded transition-all duration-75 h-full flex items-center font-heading cursor-pointer'>
+            <Link href="/projects">
+              <a className='flex items-center py-2 px-2 h-full w-max'>
+                past recipes
+              </a>
+            </Link>
+          </li>
+          <li className='flex-1 px-2 hover:bg-primary-700 rounded transition-all duration-75 h-full flex items-center font-heading cursor-pointer'>
+            <Link href="/blog">
+              <a className='flex items-center py-2 px-2 h-full w-max'>
+                kitchen updates
+              </a>
+            </Link>
+          </li>
+          <li className='flex-1 px-2 hover:bg-primary-700 rounded transition-all duration-75 h-full flex items-center font-heading cursor-pointer'>
+            <Link href="/contact">
+              <a className='flex items-center py-2 px-2 h-full w-max'>
+                contact us
+              </a>
+            </Link>
+          </li>
+        </ul>
+        <ul className='flex gap-2'>
+          <li>
+            <a className='group flex items-center cursor-pointer hover:bg-accent transition-colors duration-100 justify-center bg-white p-2 rounded-full'>
+              <FacebookIcon className='fill-primary w-6 h-6 group-hover:fill-white transition-colors duration-100' />
             </a>
-            <a target="_blank" href="https://www.facebook.com/ameliolanguageinstitute" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
-              <FacebookIcon className='w-8 h-8' />
+          </li>
+          <li>
+            <a className='group flex items-center cursor-pointer hover:bg-accent transition-colors duration-100 justify-center bg-white p-2 rounded-full'>
+              <InstagramIcon className='fill-primary w-6 h-6 group-hover:fill-white transition-colors duration-100' />
             </a>
-            <a target="_blank" href="https://www.youtube.com/channel/UCOMOGxsNHZOq8DJETweqbuA" className='hover:text-grey-600 transition-colors p-3 duration-100' rel="noopener noreferrer">
-              <YoutubeIcon className='w-8 h-8' />
+          </li>
+          <li>
+            <a className='group flex items-center cursor-pointer hover:bg-accent transition-colors duration-100 justify-center bg-white p-2 rounded-full'>
+              <DribbbleIcon className='fill-primary w-6 h-6 group-hover:fill-white transition-colors duration-100' />
             </a>
-
-          </div> 
-        </div>
+          </li>
+          <li>
+            <a className='group flex items-center cursor-pointer hover:bg-accent transition-colors duration-100 justify-center bg-white p-2 rounded-full'>
+              <BehanceIcon className='fill-primary w-6 h-6 group-hover:fill-white transition-colors duration-100' />
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   )
 }
-
-export default Footer

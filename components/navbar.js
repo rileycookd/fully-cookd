@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image'
-import { useUser } from '../lib/swr';
-import { imageBuilder } from '../lib/sanity'
-import { IoPerson } from 'react-icons/io5'
-import { MdLogout } from 'react-icons/md'
-import UserDropdown from './user-dropdown';
-import NavbarOverlay from './navbar-overlay';
+// import NavbarOverlay from './navbar-overlay';
 import { IoMenuSharp as MenuIcon, IoClose as CloseIcon , IoChevronForward, IoChevronDown} from 'react-icons/io5'
 
 
@@ -25,50 +19,46 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="relative border-b border-grey-300">
-      <div className="flex justify-between gap-4 p-page">
+    <nav className="relative bg-primary text-white">
+      <div className="flex justify-between gap-4 py-4 p-page">
         <div className='flex items-center min-w-max gap-4'>
           <Link href="/">
-            <a className='my-2'>
+            <a className='flex w-max h-max px-2'>
               <Image 
                 src="/images/company_logo.svg" 
-                width="150" 
-                height="40" 
+                width="48" 
+                height="48"
+                objectFit="contain"
               />
             </a>
           </Link>
 
         </div>
         <ul className='hidden lg:flex'>
-          <li className='group flex-1 self-stretch hover:bg-grey-200 h-full flex items-center font-heading py-2 px-2 cursor-pointer'>
-            Classes <IoChevronDown className='ml-1 w-3 h-3'/>
-            <NavbarOverlay className='group-hover:flex group-hover:opacity-100' />
+          <li className='flex-1 px-2 hover:bg-primary-700 rounded transition-all duration-75 h-full flex items-center font-heading cursor-pointer'>
+            <Link href="/projects">
+              <a className='flex items-center py-2 px-2 h-full w-max'>
+                past recipes
+              </a>
+            </Link>
           </li>
-          <li className='flex-1 self-stretch hover:bg-grey-200 h-full flex items-center font-heading cursor-pointer'>
+          <li className='flex-1 px-2 hover:bg-primary-700 rounded transition-all duration-75 h-full flex items-center font-heading cursor-pointer'>
+            <Link href="/blog">
+              <a className='flex items-center py-2 px-2 h-full w-max'>
+                kitchen updates
+              </a>
+            </Link>
+          </li>
+          <li className='flex-1 px-2 hover:bg-primary-700 rounded transition-all duration-75 h-full flex items-center font-heading cursor-pointer'>
             <Link href="/contact">
-              <a className='flex items-center py-2 px-2 h-full w-full'>
-                Contact
+              <a className='flex items-center py-2 px-2 h-full w-max'>
+                contact us
               </a>
             </Link>
           </li>
         </ul>
-        <ul className="flex gap-2">
-          <li className='my-2'>
-            <UserDropdown />
-          </li>
-          <li className='flex items-center w-full justify-start lg:hidden'>
-            <button 
-              onClick={() => {
-                setIsSidebarOpen(true)
-              }}
-              className=''
-            >
-              <MenuIcon className='fill-primary w-10 h-10'/>
-            </button>
-          </li>
-        </ul>
       </div>
-      <div className={`${isSidebarOpen ? '' : 'hidden'} md:hidden flex flex-col absolute bg-white top-0 left-0 z-50 w-screen min-h-screen`}>
+      {/* <div className={`${isSidebarOpen ? '' : 'hidden'} md:hidden flex flex-col absolute bg-white top-0 left-0 z-50 w-screen min-h-screen`}>
         <div className='flex items-center justify-between'>
           
           <div className='ml-5 flex items-center min-w-max gap-4'>
@@ -138,13 +128,13 @@ export default function Navbar() {
           {/* <div key={q._key} className='my-1 flex items-start justify-start transition-all duration-200'>
 
           </div> */}
-          <Link href="/contact">
+          {/* <Link href="/contact">
             <a className='flex items-center py-4 px-5 h-full w-full'>
               Contact
             </a>
           </Link>
-        </ul>
-      </div>
+        </ul> */}
+      {/* </div> */}
     </nav>
   )
 }

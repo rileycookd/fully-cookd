@@ -1,57 +1,25 @@
 import createSchema from 'part:@sanity/base/schema-creator'
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 
-// We import object and document schemas
-import blockContent from './blockContent'
-import category from './category'
-import post from './post'
-import author from './author'
-import comment from './comment'
-
 // Document types
-import registration from './documents/registration'
-import teacher from './documents/teacher'
-import student from './documents/student'
-import classType from './documents/classType'
-import faq from './documents/faq'
-import level from './documents/level'
-import language from './documents/language'
-import company from './documents/company'
-import page from './documents/page'
-import route from './documents/route'
-import resource from './documents/resource'
-import navigationMenu from './documents/navigationMenu'
+import project from './documents/project'
+import client from './documents/client'
+import category from './documents/category'
 import siteSettings from './documents/siteSettings'
-import footer from './documents/footer'
-import homepage from './documents/homepage'
+import page from './documents/page'
+import contact from './documents/contact'
 import testimonial from './documents/testimonial'
-import contactForm from './documents/contactForm'
-
+import companyInfo from './documents/companyInfo'
+import blog from './documents/blog'
 
 // Block types
 import * as blocks from './blocks'
 
 // Object types
 import mainImage from './objects/mainImage'
-import classPricing from './objects/classPricing'
-import classPackage from './documents/classPackage'
-import classSizeDiscount from './objects/classSizeDiscount'
-import frequentlyAskedQuestion from './objects/frequentlyAskedQuestion'
-import classDayTime from './objects/classDayTime'
-import registrationPackage from './objects/registrationPackage'
-import classSchema from './objects/class'
-import availability from './objects/availability'
-import timeRange from './objects/timeRange'
-import languageLevelGroup from './objects/languageLevelGroup'
-import cta from './objects/cta'
-import ctaLabel from './objects/ctaLabel'
-import openGraph from './objects/openGraph'
-import ctaGroup from './objects/ctaGroup'
 import blockText from './objects/blockText'
 import link from './objects/link'
-import dropdown from './objects/dropdown'
-import homework from './objects/homework'
-
+import cta from './objects/cta'
 
 
 
@@ -68,50 +36,22 @@ export default createSchema({
   types: schemaTypes.concat([
     // The following are document types which will appear
     // in the studio.
-    post,
-    author,
+    project,
+    client,
     category,
-    registration,
-    teacher,
-    classType,
-    student,
-    testimonial,
-    faq,
-    level,
-    language,
-    company,
-    page,
-    route,
-    resource,
-    navigationMenu,
     siteSettings,
-    footer,
-    homepage,
-    contactForm,
+    page,
+    contact,
+    testimonial,
+    companyInfo,
+    blog,
 
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
-    blockContent,
     blockText,
-    comment,
     mainImage,
-    classPricing,
-    classSizeDiscount,
-    frequentlyAskedQuestion,
-    classDayTime,
-    registrationPackage,
-    classSchema,
-    classPackage,
-    availability,
-    timeRange,
-    languageLevelGroup,
-    ctaLabel,
-    cta,
-    openGraph,
-    ctaGroup,
     link,
-    dropdown,
-    homework,
+    cta,
   ])
   .concat(allBlocks),
 })

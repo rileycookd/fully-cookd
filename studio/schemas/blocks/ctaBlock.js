@@ -1,10 +1,11 @@
-import { BsFileRichtext } from 'react-icons/bs'
+import { MdLink } from 'react-icons/md'
+
 
 export default {
-  name: 'infoBlock',
-  title: 'Info block',
+  name: 'ctaBlock',
+  title: 'Call-to-action block',
   type: 'object',
-  icon: BsFileRichtext,
+  icon: MdLink,
   fields: [
     {
       name: 'title',
@@ -37,36 +38,17 @@ export default {
         return true
       })
     },
-    // {
-    //   name: 'subtitle',
-    //   title: 'Subtitle',
-    //   type: 'string',
-    //   description: '(Optional)',
-    // },
     {
-      name: 'content',
-      title: 'Content',
-      type: 'array',
-      of: [
-        { type: 'text', rows: 4 }
-      ]
+      name: 'subtitle',
+      title: 'Subtitle',
+      type: 'string',
+      description: '(Optional)',
     },
-    // {
-    //   name: 'images',
-    //   title: 'Images',
-    //   type: 'array',
-    //   of: [
-    //     { type: 'mainImage' },
-    //   ],
-    //   options: {
-    //     layout: 'grid',
-    //   },
-    // },
     {
-      name: 'reverse',
-      title: 'Reverse order',
-      type: 'boolean'
-    }
+      name: 'cta',
+      title: 'Call-to-action',
+      type: 'link',
+    },
   ],
   preview: {
     select: {
@@ -74,7 +56,7 @@ export default {
     },
     prepare ({ subtitle }) {
       return {
-        title: 'Info block',
+        title: 'Call-to-action block',
         subtitle
       }
     }

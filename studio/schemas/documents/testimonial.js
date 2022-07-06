@@ -7,11 +7,19 @@ export default {
   icon: BsChatSquareQuote,
   fields: [  
     {
-      name: 'student',
-      title: 'Student',
+      name: 'contact',
+      title: 'Contact',
       type: 'reference',
       to: [
-        { type: 'student' }
+        { type: 'contact' }
+      ]
+    },
+    {
+      name: 'client',
+      title: 'Client',
+      type: 'reference',
+      to: [
+        { type: 'client' }
       ],
       validation: Rule => Rule.required()
     },
@@ -23,12 +31,12 @@ export default {
   ],
   preview: {
     select: {
-      name: 'student.name',
+      name: 'contact.name',
       quote: 'quote',
-      photo: 'student.image'
+      photo: 'contact.image'
     },
     prepare({ name, quote, photo }) {
-      const excerpt = quote.length >= 35 ? `"${quote.substring(0, 35)}..."` : `"${quote}"`
+      const excerpt = !quote ? '' : quote.length >= 35 ? `"${quote.substring(0, 35)}..."` : `"${quote}"`
       const title = name ? name : 'Anonymous'
       return {
         title: title,

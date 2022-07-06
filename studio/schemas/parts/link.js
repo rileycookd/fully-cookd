@@ -14,21 +14,20 @@ export default [
     },
     // validation: Rule => Rule.required()
   },
-  {
-    title: 'Page',
-    name: 'page',
-    type: 'reference',
-    to: [{type: 'route'}],
-    hidden: ({parent}) => parent?.type !== 'page',
-    // validation: Rule => Rule.required()
-  },
+  // {
+  //   title: 'Page',
+  //   name: 'page',
+  //   type: 'reference',
+  //   to: [{type: 'route'}],
+  //   hidden: ({parent}) => parent?.type !== 'page',
+  //   // validation: Rule => Rule.required()
+  // },
   {
     title: 'Document',
     name: 'document',
     type: 'reference',
     to: [
-      {type: 'resource'},
-      {type: 'classType'}
+      {type: 'project'},
     ],
     hidden: ({parent}) => parent?.type !== 'document',
     // validation: Rule => Rule.required()
